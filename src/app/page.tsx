@@ -25,13 +25,27 @@ export default function HomePage() {
       {/* ===== HERO ===== */}
       <Hero
         tagline="Turning Moments into Legacy"
-        title="Where Vision Meets Extraordinary Execution"
-        subtitle="MBH Events delivers world-class corporate events, luxury weddings, and immersive brand experiences — end-to-end, with precision and creative brilliance."
         ctaText="Plan Your Event"
         ctaHref="/contact"
         secondaryCtaText="Explore Services"
         secondaryCtaHref="/services"
-        bgImage="/images/hero-main.jpg"
+        imageContent={[
+          {
+            src: '/images/wedding-hero.png',
+            heading: 'Where Vision Meets Extraordinary Execution',
+            description: 'MBH Events delivers world-class luxury weddings with precision and creative brilliance.'
+          },
+          {
+            src: '/images/corporate-hero.png',
+            heading: 'Flawless Corporate Experiences',
+            description: 'From high-stakes conferences to immersive brand activations, we engineer corporate events that leave a lasting impact.'
+          },
+          {
+            src: '/images/premium-hero.png',
+            heading: 'Unforgettable Luxury Events',
+            description: 'Bespoke design, premium decor, and meticulous planning for your most exclusive private events.'
+          }
+        ]}
         size="full"
       />
 

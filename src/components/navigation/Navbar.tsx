@@ -46,6 +46,17 @@ export default function Navbar() {
   const [isMobileOpen, setIsMobileOpen] = useState(false);
   const [isServicesOpen, setIsServicesOpen] = useState(false);
   const [mobileServicesOpen, setMobileServicesOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    // Initial preloader simulation
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+      window.dispatchEvent(new Event('appLoaded'));
+    }, 2500);
+
+    return () => clearTimeout(timer);
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -68,8 +79,39 @@ export default function Navbar() {
 
   return (
     <>
-      <nav
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+      <AnimatePresence>
+        {isLoading && (
+          <motion.div
+            key="preloader"
+            className="fixed inset-0 z-[100] flex items-center justify-center bg-mbh-black"
+            initial={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+          >
+            <motion.div
+              layoutId="site-logo"
+              className="relative w-64 h-32 sm:w-80 sm:h-40"
+              initial={{ scale: 0.9, opacity: 0, filter: 'blur(10px)' }}
+              animate={{ scale: 1, opacity: 1, filter: 'blur(0px)' }}
+              transition={{ duration: 0.8, ease: 'easeOut' }}
+            >
+              <Image
+                src="/images/logo.png"
+                alt="MBH Events"
+                fill
+                className="object-contain"
+                priority
+              />
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      <motion.nav
+        initial={{ y: -100 }}
+        animate={{ y: isLoading ? -100 : 0 }}
+        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+        className={`fixed top-0 left-0 right-0 z-50 transition-colors duration-500 ${
           isScrolled
             ? 'glass border-b border-white/5 py-3'
             : 'bg-transparent py-5'
@@ -79,13 +121,25 @@ export default function Navbar() {
           {/* Logo */}
           <Link href="/" className="flex items-center group">
             <div className="relative w-48 h-20 sm:w-56 sm:h-24">
-              <Image
-                src="/images/logo.png"
-                alt="MBH Events"
-                fill
-                className="object-contain object-left"
-                priority
-              />
+              {!isLoading && (
+                <motion.div
+                  layoutId="site-logo"
+                  className="absolute inset-0"
+                  transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+                >
+                  <Image
+                    src="/images/logo.png"
+                    alt="MBH Events"
+                    fill
+                    className="object-contain object-left"
+                    priority
+                  />
+                </motion.div>
+              )}
+              {/* Invisible placeholder */}
+              <div className="opacity-0 w-full h-full">
+                <Image src="/images/logo.png" alt="" fill className="object-contain object-left" />
+              </div>
             </div>
           </Link>
 
@@ -200,7 +254,7 @@ export default function Navbar() {
             </button>
           </div>
         </div>
-      </nav>
+      </motion.nav>
 
       {/* Mobile Menu */}
       <AnimatePresence>
