@@ -1,67 +1,149 @@
 'use client';
 
-import { useRef, useState, useEffect } from 'react';
-import { motion, useReducedMotion, useScroll, useTransform } from 'framer-motion';
+import { useEffect, useRef, useState } from 'react';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
-import Image from 'next/image';
 
-export interface HeroImageContent {
-  src: string;
-  heading: string;
-  description: string;
+if (typeof window !== 'undefined') {
+  gsap.registerPlugin(ScrollTrigger);
 }
 
-interface HeroProps {
-  title?: string;
-  subtitle?: string;
+export interface HeroProps {
   tagline?: string;
+  title?: React.ReactNode;
+  subtitle?: string;
   ctaText?: string;
   ctaHref?: string;
   secondaryCtaText?: string;
   secondaryCtaHref?: string;
   bgImage?: string;
-  images?: string[]; // Kept for backwards compatibility if needed
-  imageContent?: HeroImageContent[];
-  overlayVariant?: 'dark' | 'purple';
   size?: 'full' | 'large' | 'medium';
   align?: 'center' | 'left';
 }
 
+const frameCount = 51;
+const currentFrame = (index: number) =>
+  `/hero-sequence/ezgif-frame-${(index + 1).toString().padStart(3, '0')}.jpg`;
+
 export default function Hero({
-  title,
-  subtitle,
-  tagline,
-  ctaText,
-  ctaHref = '/contact',
-  secondaryCtaText,
-  secondaryCtaHref = '/services',
+  tagline = "Turning Moments into Legacy",
+  title = <>Where Vision Meets <span className="text-gradient-purple">Extraordinary Execution</span></>,
+  subtitle = "MBH Events delivers world-class luxury weddings, corporate experiences, and exclusive events with precision and creative brilliance.",
+  ctaText = "Plan Your Event",
+  ctaHref = "/contact",
+  secondaryCtaText = "Explore Services",
+  secondaryCtaHref = "/services",
   bgImage,
-  images,
-  imageContent,
-  overlayVariant = 'purple',
   size = 'full',
   align = 'center',
 }: HeroProps) {
-  const prefersReducedMotion = useReducedMotion();
   const containerRef = useRef<HTMLElement>(null);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const textRef = useRef<HTMLDivElement>(null);
   const [isLoaded, setIsLoaded] = useState(false);
   
   useEffect(() => {
-    const handleLoad = () => setIsLoaded(true);
-    window.addEventListener('appLoaded', handleLoad);
-    // Fallback just in case
-    const timer = setTimeout(() => setIsLoaded(true), 3500);
-    return () => {
-      window.removeEventListener('appLoaded', handleLoad);
-      clearTimeout(timer);
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const context = canvas.getContext('2d');
+    if (!context) return;
+    
+    // Preload images
+    const images: HTMLImageElement[] = [];
+    let loadedCount = 0;
+    
+    for (let i = 0; i < frameCount; i++) {
+      const img = new Image();
+      img.src = currentFrame(i);
+      img.onload = () => {
+        loadedCount++;
+        if (loadedCount === frameCount) {
+          setIsLoaded(true);
+        }
+      };
+      images.push(img);
+    }
+    
+    const seq = { frame: 0 };
+    
+    // Setup drawing function to handle "background-size: cover" behavior on canvas
+    const render = () => {
+      const img = images[Math.round(seq.frame)];
+      if (img && img.complete) {
+        const canvasRatio = canvas.width / canvas.height;
+        const imgRatio = img.width / img.height;
+        
+        let drawWidth = canvas.width;
+        let drawHeight = canvas.height;
+        let offsetX = 0;
+        let offsetY = 0;
+        
+        if (canvasRatio > imgRatio) {
+           drawHeight = canvas.width / imgRatio;
+           offsetY = (canvas.height - drawHeight) / 2;
+        } else {
+           drawWidth = canvas.height * imgRatio;
+           offsetX = (canvas.width - drawWidth) / 2;
+        }
+        
+        context.clearRect(0, 0, canvas.width, canvas.height);
+        context.drawImage(img, offsetX, offsetY, drawWidth, drawHeight);
+      }
     };
-  }, []);
-  
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ['start start', 'end end'],
-  });
+    
+    // Handle resizing
+    const handleResize = () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      render();
+    };
+    
+    // Initial draw once first image is loaded
+    const initImage = new Image();
+    initImage.src = currentFrame(0);
+    initImage.onload = () => {
+      handleResize();
+      if(loadedCount === 0) setIsLoaded(true); // Fallback to show first frame quickly
+    };
+
+    window.addEventListener('resize', handleResize);
+
+    const ctx = gsap.context(() => {
+      // Sequence scroll animation
+      gsap.to(seq, {
+        frame: frameCount - 1,
+        snap: 'frame',
+        ease: 'none',
+        scrollTrigger: {
+          trigger: containerRef.current,
+          start: 'top top',
+          end: 'bottom bottom',
+          scrub: 0.5, // 0.5s smooth scrubbing
+        },
+        onUpdate: render,
+      });
+
+      // Text fade out on scroll
+      gsap.to(textRef.current, {
+        opacity: 0,
+        y: -50,
+        ease: 'none',
+        scrollTrigger: {
+          trigger: containerRef.current,
+          start: 'top top',
+          end: '+=1000', // Fade out over the first 1000px of scroll
+          scrub: true,
+        }
+      });
+    }, containerRef);
+    
+    return () => {
+      window.removeEventListener('resize', handleResize);
+      ctx.revert();
+    };
+  }, [bgImage]);
 
   const sizeClasses = {
     full: 'min-h-screen',
@@ -74,252 +156,138 @@ export default function Hero({
     left: 'text-left items-start',
   };
 
-  const containerVariants = {
-    hidden: {},
-    visible: {
-      transition: {
-        staggerChildren: prefersReducedMotion ? 0 : 0.15,
-      },
-    },
-  };
-
-  const itemVariants = {
-    hidden: prefersReducedMotion ? {} : { opacity: 0, y: 30 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.8,
-        ease: [0.16, 1, 0.3, 1] as any,
-      },
-    },
-  };
-
-  // Scroll animations for multiple images
-  // Image 1: 40% (0-0.40)
-  // Image 2: 30% (0.40-0.70)
-  // Image 3: 30% (0.70-1.0)
-  const opacity1 = useTransform(scrollYProgress, [0, 0.35, 0.40, 1], [1, 1, 0, 0]);
-  const opacity2 = useTransform(scrollYProgress, [0, 0.35, 0.40, 0.65, 0.70, 1], [0, 0, 1, 1, 0, 0]);
-  const opacity3 = useTransform(scrollYProgress, [0, 0.65, 0.70, 1], [0, 0, 1, 1]);
-  const scale = useTransform(scrollYProgress, [0, 1], [1.05, 1.2]);
-  
-  // Subtle parallax effect on text positions
-  // Keep text stationary while visible, translate slightly while fading
-  const textY1 = useTransform(scrollYProgress, [0, 0.35, 0.40, 1], [0, 0, 30, 30]);
-  const textY2 = useTransform(scrollYProgress, [0, 0.35, 0.40, 0.65, 0.70, 1], [-30, -30, 0, 0, 30, 30]);
-  const textY3 = useTransform(scrollYProgress, [0, 0.65, 0.70, 1], [-30, -30, 0, 0]);
-
-  // Pointer events control so that invisible text sections don't block clicks
-  const pointer1 = useTransform(scrollYProgress, (v) => v < 0.40 ? 'auto' : 'none');
-  const pointer2 = useTransform(scrollYProgress, (v) => v > 0.35 && v < 0.70 ? 'auto' : 'none');
-  const pointer3 = useTransform(scrollYProgress, (v) => v > 0.65 ? 'auto' : 'none');
-
-  const opacities = [opacity1, opacity2, opacity3];
-  const textYs = [textY1, textY2, textY3];
-  const pointers = [pointer1, pointer2, pointer3];
-
-  const hasMultipleImages = (imageContent && imageContent.length > 0) || (images && images.length > 0);
-  const useRichContent = imageContent && imageContent.length > 0;
-
-  return (
-    <section 
-      ref={containerRef}
-      className={`relative flex flex-col ${hasMultipleImages ? 'h-[500vh]' : sizeClasses[size]}`}
-    >
-      <div className={`sticky top-0 w-full flex items-center overflow-hidden ${sizeClasses[size]}`}>
-        
-        {/* Single Background Image */}
-        {!hasMultipleImages && bgImage && (
+  // If bgImage is provided, render static backwards-compatible version
+  if (bgImage) {
+    return (
+      <section className={`relative flex flex-col ${sizeClasses[size]}`}>
+        <div className={`sticky top-0 w-full flex items-center overflow-hidden ${sizeClasses[size]}`}>
           <div
-            className="absolute inset-0 bg-cover bg-center scale-105"
+            className="absolute inset-0 bg-cover bg-center scale-105 z-0"
             style={{ backgroundImage: `url(${bgImage})` }}
           />
-        )}
-
-        {/* Multiple Images with Scroll Animation (Rich Content) */}
-        {useRichContent && (
-          <>
-            {imageContent.map((content, idx) => (
-              <motion.div key={idx} style={{ opacity: opacities[idx], scale }} className="absolute inset-0 z-0">
-                <Image src={content.src} alt={`Hero ${idx + 1}`} fill className="object-cover" priority={idx === 0} />
-              </motion.div>
-            ))}
-          </>
-        )}
-
-        {/* Backwards compatibility for string[] images */}
-        {!useRichContent && images && (
-          <>
-            {images.map((img, idx) => (
-              <motion.div key={idx} style={{ opacity: opacities[idx], scale }} className="absolute inset-0 z-0">
-                <Image src={img} alt={`Hero ${idx + 1}`} fill className="object-cover" priority={idx === 0} />
-              </motion.div>
-            ))}
-          </>
-        )}
-
-        {/* Fallback gradient background if no images */}
-        {!bgImage && !hasMultipleImages && (
-          <div className="absolute inset-0 bg-gradient-to-br from-mbh-black via-mbh-purple-950 to-mbh-black z-0" />
-        )}
-
-        {/* Overlay */}
-        <div
-          className={`absolute inset-0 z-0 ${
-            overlayVariant === 'purple' ? 'gradient-overlay-purple' : 'gradient-overlay'
-          }`}
-        />
-
-        {/* Decorative elements */}
-        <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
-          <div className="absolute -top-1/4 -right-1/4 w-[600px] h-[600px] rounded-full bg-mbh-purple/5 blur-[120px]" />
-          <div className="absolute -bottom-1/4 -left-1/4 w-[500px] h-[500px] rounded-full bg-mbh-purple/8 blur-[100px]" />
-        </div>
-
-        {/* Content */}
-        <div className="relative z-10 container-mbh w-full h-full py-32 lg:py-40 flex items-center justify-center">
+          <div className="absolute inset-0 bg-gradient-to-br from-mbh-black via-mbh-purple-950/60 to-mbh-black z-0" />
+          <div className="absolute inset-0 z-0 gradient-overlay-purple" />
           
-          {useRichContent ? (
-            // Dynamic text based on scroll progress
-            imageContent.map((content, idx) => (
-              <motion.div
-                key={idx}
-                style={{ opacity: opacities[idx], y: textYs[idx], pointerEvents: pointers[idx] }}
-                className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col ${alignClasses[align]} max-w-4xl px-4 w-full`}
-                initial="hidden"
-                animate={isLoaded ? "visible" : "hidden"}
-                variants={containerVariants}
-              >
-                {/* Tagline */}
-                {tagline && (
-                  <motion.div variants={itemVariants}>
-                    <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-mbh-purple/30 bg-mbh-purple/10 text-mbh-purple-300 text-xs sm:text-sm font-medium tracking-wider uppercase mb-6 shadow-[0_0_15px_rgba(168,85,247,0.2)] backdrop-blur-sm">
-                      <span className="w-1.5 h-1.5 rounded-full bg-mbh-purple animate-[glow-pulse_3s_ease-in-out_infinite]" />
-                      {tagline}
-                    </span>
-                  </motion.div>
-                )}
-
-                {/* Title */}
-                <motion.h1
-                  variants={itemVariants}
-                  className="font-heading text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-[1.1] tracking-tight text-mbh-white mb-6 drop-shadow-lg"
-                >
-                  {content.heading}
-                </motion.h1>
-
-                {/* Subtitle */}
-                {content.description && (
-                  <motion.p
-                    variants={itemVariants}
-                    className="text-base sm:text-lg md:text-xl text-mbh-white-muted leading-relaxed max-w-2xl mb-10 drop-shadow-md"
-                  >
-                    {content.description}
-                  </motion.p>
-                )}
-
-                {/* CTAs */}
-                {(ctaText || secondaryCtaText) && (
-                  <motion.div
-                    variants={itemVariants}
-                    className={`flex flex-wrap gap-4 ${align === 'center' ? 'justify-center' : 'justify-start'}`}
-                  >
-                    {ctaText && (
-                      <Link
-                        href={ctaHref}
-                        className="btn-glow px-8 py-4 rounded-xl text-base font-semibold text-white inline-flex items-center gap-2 group animate-[glow-pulse_3s_ease-in-out_infinite] shadow-[0_0_20px_rgba(168,85,247,0.4)]"
-                      >
-                        {ctaText}
-                        <ArrowRight
-                          size={18}
-                          className="transition-transform duration-300 group-hover:translate-x-1"
-                        />
-                      </Link>
-                    )}
-                    {secondaryCtaText && (
-                      <Link
-                        href={secondaryCtaHref}
-                        className="px-8 py-4 rounded-xl text-base font-semibold text-mbh-white border border-white/30 bg-black/20 backdrop-blur-sm hover:border-mbh-purple/50 hover:bg-mbh-purple/20 transition-all duration-300 inline-flex items-center gap-2"
-                      >
-                        {secondaryCtaText}
-                      </Link>
-                    )}
-                  </motion.div>
-                )}
-              </motion.div>
-            ))
-          ) : (
-            // Static text content
-            <motion.div
-              className={`flex flex-col ${alignClasses[align]} max-w-4xl ${align === 'center' ? 'mx-auto' : ''}`}
-              initial="hidden"
-              animate={isLoaded ? "visible" : "hidden"}
-              variants={containerVariants}
-            >
-              {/* Tagline */}
+          <div className="relative z-10 container-mbh w-full h-full py-32 lg:py-40 flex items-center justify-center">
+            <div className={`flex flex-col ${alignClasses[align]} max-w-4xl px-4 w-full ${align === 'center' ? 'mx-auto' : ''}`}>
               {tagline && (
-                <motion.div variants={itemVariants}>
-                  <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-mbh-purple/30 bg-mbh-purple/10 text-mbh-purple-300 text-xs sm:text-sm font-medium tracking-wider uppercase mb-6">
-                    <span className="w-1.5 h-1.5 rounded-full bg-mbh-purple animate-[glow-pulse_3s_ease-in-out_infinite]" />
-                    {tagline}
-                  </span>
-                </motion.div>
+                <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-mbh-purple/30 bg-mbh-purple/10 text-mbh-purple-300 text-xs sm:text-sm font-medium tracking-wider uppercase mb-6 shadow-[0_0_15px_rgba(168,85,247,0.2)] backdrop-blur-sm">
+                  <span className="w-1.5 h-1.5 rounded-full bg-mbh-purple animate-[glow-pulse_3s_ease-in-out_infinite]" />
+                  {tagline}
+                </span>
               )}
-
-              {/* Title */}
-              <motion.h1
-                variants={itemVariants}
-                className="font-heading text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-[1.1] tracking-tight text-mbh-white mb-6"
-              >
+              
+              <h1 className="font-heading text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-[1.1] tracking-tight text-mbh-white mb-6 drop-shadow-lg">
                 {title}
-              </motion.h1>
-
-              {/* Subtitle */}
+              </h1>
+              
               {subtitle && (
-                <motion.p
-                  variants={itemVariants}
-                  className="text-base sm:text-lg md:text-xl text-mbh-white-muted leading-relaxed max-w-2xl mb-10"
-                >
+                <p className="text-base sm:text-lg md:text-xl text-mbh-white-muted leading-relaxed max-w-2xl mb-10 drop-shadow-md">
                   {subtitle}
-                </motion.p>
+                </p>
               )}
+              
+              <div className={`flex flex-wrap gap-4 ${align === 'center' ? 'justify-center' : 'justify-start'}`}>
+                {ctaText && (
+                  <Link
+                    href={ctaHref!}
+                    className="btn-glow px-8 py-4 rounded-xl text-base font-semibold text-white inline-flex items-center gap-2 group animate-[glow-pulse_3s_ease-in-out_infinite] shadow-[0_0_20px_rgba(168,85,247,0.4)]"
+                  >
+                    {ctaText}
+                    <ArrowRight
+                      size={18}
+                      className="transition-transform duration-300 group-hover:translate-x-1"
+                    />
+                  </Link>
+                )}
+                {secondaryCtaText && (
+                  <Link
+                    href={secondaryCtaHref!}
+                    className="px-8 py-4 rounded-xl text-base font-semibold text-mbh-white border border-white/30 bg-black/20 backdrop-blur-sm hover:border-mbh-purple/50 hover:bg-mbh-purple/20 transition-all duration-300 inline-flex items-center gap-2"
+                  >
+                    {secondaryCtaText}
+                  </Link>
+                )}
+              </div>
+            </div>
+          </div>
+          <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-mbh-black via-mbh-black/80 to-transparent z-10 pointer-events-none" />
+        </div>
+      </section>
+    );
+  }
 
-              {/* CTAs */}
-              {(ctaText || secondaryCtaText) && (
-                <motion.div
-                  variants={itemVariants}
-                  className={`flex flex-wrap gap-4 ${align === 'center' ? 'justify-center' : 'justify-start'}`}
-                >
-                  {ctaText && (
-                    <Link
-                      href={ctaHref}
-                      className="btn-glow px-8 py-4 rounded-xl text-base font-semibold text-white inline-flex items-center gap-2 group animate-[glow-pulse_3s_ease-in-out_infinite]"
-                    >
-                      {ctaText}
-                      <ArrowRight
-                        size={18}
-                        className="transition-transform duration-300 group-hover:translate-x-1"
-                      />
-                    </Link>
-                  )}
-                  {secondaryCtaText && (
-                    <Link
-                      href={secondaryCtaHref}
-                      className="px-8 py-4 rounded-xl text-base font-semibold text-mbh-white border border-white/20 hover:border-mbh-purple/50 hover:bg-mbh-purple/10 transition-all duration-300 inline-flex items-center gap-2"
-                    >
-                      {secondaryCtaText}
-                    </Link>
-                  )}
-                </motion.div>
-              )}
-            </motion.div>
-          )}
-
+  // Scroll sequence version
+  return (
+    <section ref={containerRef} className="relative h-[400vh] bg-mbh-black">
+      <div className="sticky top-0 h-screen w-full overflow-hidden bg-mbh-black">
+        
+        {/* Loading Spinner overlay */}
+        {!isLoaded && (
+           <div className="absolute inset-0 flex items-center justify-center z-20 bg-mbh-black">
+             <span className="w-10 h-10 rounded-full border-4 border-mbh-purple border-t-transparent animate-spin"></span>
+           </div>
+        )}
+        
+        <canvas 
+          ref={canvasRef} 
+          className="absolute inset-0 w-full h-full z-0"
+        />
+        
+        {/* Overlay gradient to ensure text readability */}
+        <div className="absolute inset-0 bg-gradient-to-b from-mbh-black/60 via-mbh-black/30 to-mbh-black/80 z-10" />
+        
+        {/* Decorative elements */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none z-10">
+          <div className="absolute -top-1/4 -right-1/4 w-[600px] h-[600px] rounded-full bg-mbh-purple/10 blur-[120px]" />
+          <div className="absolute -bottom-1/4 -left-1/4 w-[500px] h-[500px] rounded-full bg-mbh-purple/10 blur-[100px]" />
         </div>
 
-        {/* Bottom gradient fade */}
-        <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-mbh-black via-mbh-black/80 to-transparent z-10 pointer-events-none" />
+        {/* Text Overlay */}
+        <div 
+          ref={textRef}
+          className="relative z-20 container-mbh w-full h-full flex flex-col items-center justify-center text-center px-4"
+        >
+          {tagline && (
+            <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-mbh-purple/30 bg-mbh-purple/10 text-mbh-purple-300 text-xs sm:text-sm font-medium tracking-wider uppercase mb-6 shadow-[0_0_15px_rgba(168,85,247,0.2)] backdrop-blur-sm">
+              <span className="w-1.5 h-1.5 rounded-full bg-mbh-purple animate-[glow-pulse_3s_ease-in-out_infinite]" />
+              {tagline}
+            </span>
+          )}
+          
+          <h1 className="font-heading text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-[1.1] tracking-tight text-mbh-white mb-6 drop-shadow-lg max-w-5xl">
+            {title}
+          </h1>
+          
+          {subtitle && (
+            <p className="text-base sm:text-lg md:text-xl text-mbh-white-muted leading-relaxed max-w-2xl mb-10 drop-shadow-md">
+              {subtitle}
+            </p>
+          )}
+          
+          <div className="flex flex-wrap gap-4 justify-center">
+            {ctaText && (
+              <Link
+                href={ctaHref!}
+                className="btn-glow px-8 py-4 rounded-xl text-base font-semibold text-white inline-flex items-center gap-2 group animate-[glow-pulse_3s_ease-in-out_infinite] shadow-[0_0_20px_rgba(168,85,247,0.4)]"
+              >
+                {ctaText}
+                <ArrowRight
+                  size={18}
+                  className="transition-transform duration-300 group-hover:translate-x-1"
+                />
+              </Link>
+            )}
+            {secondaryCtaText && (
+              <Link
+                href={secondaryCtaHref!}
+                className="px-8 py-4 rounded-xl text-base font-semibold text-mbh-white border border-white/30 bg-black/20 backdrop-blur-sm hover:border-mbh-purple/50 hover:bg-mbh-purple/20 transition-all duration-300 inline-flex items-center gap-2"
+              >
+                {secondaryCtaText}
+              </Link>
+            )}
+          </div>
+        </div>
       </div>
     </section>
   );

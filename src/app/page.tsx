@@ -2,7 +2,6 @@ import Hero from '@/components/ui/Hero';
 import SectionHeading from '@/components/ui/SectionHeading';
 import ServiceCard from '@/components/ui/ServiceCard';
 import TestimonialCarousel from '@/components/ui/TestimonialCarousel';
-import ClientLogos from '@/components/ui/ClientLogos';
 import CTABand from '@/components/ui/CTABand';
 import AnimatedCounter from '@/components/animations/AnimatedCounter';
 import ScrollReveal from '@/components/animations/ScrollReveal';
@@ -23,31 +22,7 @@ export default function HomePage() {
   return (
     <>
       {/* ===== HERO ===== */}
-      <Hero
-        tagline="Turning Moments into Legacy"
-        ctaText="Plan Your Event"
-        ctaHref="/contact"
-        secondaryCtaText="Explore Services"
-        secondaryCtaHref="/services"
-        imageContent={[
-          {
-            src: '/images/wedding-hero.png',
-            heading: 'Where Vision Meets Extraordinary Execution',
-            description: 'MBH Events delivers world-class luxury weddings with precision and creative brilliance.'
-          },
-          {
-            src: '/images/corporate-hero.png',
-            heading: 'Flawless Corporate Experiences',
-            description: 'From high-stakes conferences to immersive brand activations, we engineer corporate events that leave a lasting impact.'
-          },
-          {
-            src: '/images/premium-hero.png',
-            heading: 'Unforgettable Luxury Events',
-            description: 'Bespoke design, premium decor, and meticulous planning for your most exclusive private events.'
-          }
-        ]}
-        size="full"
-      />
+      <Hero />
 
       {/* ===== INTRO ===== */}
       <section className="py-20 lg:py-28 relative">
@@ -208,17 +183,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ===== CLIENT LOGOS ===== */}
-      <section className="py-16 border-y border-white/5">
-        <div className="container-mbh">
-          <ScrollReveal variant="fadeUp">
-            <p className="text-center text-sm text-mbh-white-dim uppercase tracking-widest font-medium mb-8">
-              Trusted by Leading Brands
-            </p>
-          </ScrollReveal>
-          <ClientLogos />
-        </div>
-      </section>
+
 
       {/* ===== TESTIMONIALS ===== */}
       <section className="py-20 lg:py-28">
