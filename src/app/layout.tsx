@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { Manrope, Poppins } from 'next/font/google';
+import { Manrope, Raleway } from 'next/font/google';
 import './globals.css';
 import Navbar from '@/components/navigation/Navbar';
 import Footer from '@/components/navigation/Footer';
@@ -13,10 +13,10 @@ const manrope = Manrope({
   display: 'swap',
 });
 
-const poppins = Poppins({
+const raleway = Raleway({
   subsets: ['latin'],
   weight: ['300', '400', '500', '600', '700', '800'],
-  variable: '--font-poppins',
+  variable: '--font-raleway',
   display: 'swap',
 });
 
@@ -67,7 +67,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${manrope.variable} ${poppins.variable}`}>
+    <html lang="en" className={`${manrope.variable} ${raleway.variable}`}>
       <head>
         <link rel="icon" href="/favicon.ico" />
         {/* Schema.org LocalBusiness */}

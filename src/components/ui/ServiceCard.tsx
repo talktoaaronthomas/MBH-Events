@@ -45,12 +45,12 @@ export default function ServiceCard({
         href={`/services/${slug}`}
         className={`group relative flex flex-col h-full overflow-hidden rounded-2xl border transition-all duration-500
           ${tier === 'flagship'
-            ? 'border-mbh-purple/30 bg-gradient-to-br from-mbh-purple/10 to-mbh-black-card shadow-[0_0_30px_rgba(123,47,190,0.1)]'
+            ? 'border-mbh-gold/30 bg-gradient-to-br from-mbh-gold/10 to-mbh-black-card shadow-[0_0_30px_rgba(123,47,190,0.1)]'
             : tier === 'premium'
-            ? 'border-mbh-purple-400/20 bg-gradient-to-br from-mbh-purple-400/5 to-mbh-black-card'
+            ? 'border-mbh-gold-400/20 bg-gradient-to-br from-mbh-gold-400/5 to-mbh-black-card'
             : 'border-white/5 bg-mbh-black-card'
           }
-          hover:border-mbh-purple/40 hover:shadow-[0_20px_50px_rgba(0,0,0,0.4),0_0_30px_rgba(123,47,190,0.15)]
+          hover:border-mbh-gold/40 hover:shadow-[0_20px_50px_rgba(0,0,0,0.4),0_0_30px_rgba(123,47,190,0.15)]
           hover:-translate-y-2
         `}
       >
@@ -71,8 +71,8 @@ export default function ServiceCard({
               <span
                 className={`text-[10px] font-bold uppercase tracking-wider px-3 py-1.5 rounded-full
                   ${tier === 'flagship'
-                    ? 'bg-mbh-purple text-white shadow-[--shadow-glow-sm]'
-                    : 'bg-white/10 backdrop-blur-sm text-mbh-purple-200 border border-mbh-purple-400/30'
+                    ? 'bg-mbh-gold text-white shadow-[--shadow-glow-sm]'
+                    : 'bg-white/10 backdrop-blur-sm text-mbh-gold-200 border border-mbh-gold-400/30'
                   }
                 `}
               >
@@ -82,7 +82,7 @@ export default function ServiceCard({
           )}
 
           {/* Hover arrow */}
-          <div className="absolute bottom-4 right-4 w-10 h-10 rounded-full bg-mbh-purple/80 flex items-center justify-center opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300">
+          <div className="absolute bottom-4 right-4 w-10 h-10 rounded-full bg-mbh-gold/80 flex items-center justify-center opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300">
             <ArrowUpRight size={18} className="text-white" />
           </div>
         </div>
@@ -90,7 +90,7 @@ export default function ServiceCard({
         {/* Content */}
         <div className="p-6 flex flex-col flex-1">
           <div className="flex items-start gap-3 mb-3">
-            <h3 className="font-heading text-lg font-semibold text-mbh-white group-hover:text-mbh-purple-300 transition-colors duration-300 leading-tight">
+            <h3 className="font-heading text-lg font-semibold text-mbh-white group-hover:text-mbh-gold-300 transition-colors duration-300 leading-tight">
               {title}
             </h3>
           </div>
@@ -100,7 +100,7 @@ export default function ServiceCard({
         </div>
 
         {/* Bottom accent line */}
-        <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-mbh-purple to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+        <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-mbh-gold to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
       </Link>
     </motion.div>
   );

@@ -56,7 +56,7 @@ export default function Footer() {
                     key={social.label}
                     href={social.href}
                     aria-label={social.label}
-                    className="w-10 h-10 rounded-lg bg-white/5 flex items-center justify-center text-mbh-white-dim hover:text-mbh-white hover:bg-mbh-purple/20 hover:shadow-[--shadow-glow-sm] transition-all duration-300"
+                    className="w-10 h-10 rounded-lg bg-white/5 flex items-center justify-center text-mbh-white-dim hover:text-mbh-white hover:bg-mbh-gold/20 hover:shadow-[--shadow-glow-sm] transition-all duration-300"
                   >
                     <Icon size={18} />
                   </a>
@@ -81,7 +81,7 @@ export default function Footer() {
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="text-sm text-mbh-white-dim hover:text-mbh-purple-300 transition-colors duration-200"
+                    className="text-sm text-mbh-white-dim hover:text-mbh-gold-300 transition-colors duration-200"
                   >
                     {link.label}
                   </Link>
@@ -100,7 +100,7 @@ export default function Footer() {
                 <li key={service.slug}>
                   <Link
                     href={`/services/${service.slug}`}
-                    className="text-sm text-mbh-white-dim hover:text-mbh-purple-300 transition-colors duration-200"
+                    className="text-sm text-mbh-white-dim hover:text-mbh-gold-300 transition-colors duration-200"
                   >
                     {service.title}
                   </Link>
@@ -109,7 +109,7 @@ export default function Footer() {
               <li className="pt-2 pb-6">
                 <Link
                   href="/services"
-                  className="text-sm font-medium text-mbh-purple-300 hover:text-mbh-purple-200 transition-colors duration-200 inline-block"
+                  className="text-sm font-medium text-mbh-gold-300 hover:text-mbh-gold-200 transition-colors duration-200 inline-block"
                 >
                   View All →
                 </Link>
@@ -124,7 +124,7 @@ export default function Footer() {
             </h4>
             <ul className="space-y-4">
               <li className="flex items-start gap-3">
-                <MapPin size={18} className="text-mbh-purple-300 flex-shrink-0 mt-0.5" />
+                <MapPin size={18} className="text-mbh-gold-300 flex-shrink-0 mt-0.5" />
                 <span className="text-sm text-mbh-white-dim leading-relaxed">
                   Business Bay, Dubai, United Arab Emirates
                 </span>
@@ -132,18 +132,18 @@ export default function Footer() {
               <li>
                 <a
                   href="tel:+971501234567"
-                  className="flex items-center gap-3 text-sm text-mbh-white-dim hover:text-mbh-purple-300 transition-colors"
+                  className="flex items-center gap-3 text-sm text-mbh-white-dim hover:text-mbh-gold-300 transition-colors"
                 >
-                  <Phone size={18} className="text-mbh-purple-300 flex-shrink-0" />
+                  <Phone size={18} className="text-mbh-gold-300 flex-shrink-0" />
                   +971 50 123 4567
                 </a>
               </li>
               <li>
                 <a
                   href="mailto:hello@mbhevents.com"
-                  className="flex items-center gap-3 text-sm text-mbh-white-dim hover:text-mbh-purple-300 transition-colors"
+                  className="flex items-center gap-3 text-sm text-mbh-white-dim hover:text-mbh-gold-300 transition-colors"
                 >
-                  <Mail size={18} className="text-mbh-purple-300 flex-shrink-0" />
+                  <Mail size={18} className="text-mbh-gold-300 flex-shrink-0" />
                   hello@mbhevents.com
                 </a>
               </li>
@@ -159,10 +159,10 @@ export default function Footer() {
             © {new Date().getFullYear()} MBH Events. All rights reserved.
           </p>
           <div className="flex items-center gap-6">
-            <Link href="#" className="text-xs text-mbh-white-dim hover:text-mbh-purple-300 transition-colors">
+            <Link href="#" className="text-xs text-mbh-white-dim hover:text-mbh-gold-300 transition-colors">
               Privacy Policy
             </Link>
-            <Link href="#" className="text-xs text-mbh-white-dim hover:text-mbh-purple-300 transition-colors">
+            <Link href="#" className="text-xs text-mbh-white-dim hover:text-mbh-gold-300 transition-colors">
               Terms of Service
             </Link>
           </div>

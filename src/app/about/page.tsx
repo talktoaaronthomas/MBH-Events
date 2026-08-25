@@ -55,11 +55,11 @@ export default function AboutPage() {
 
             <ScrollReveal variant="fadeRight" delay={0.2}>
               <div>
-                <span className="inline-block text-xs font-medium tracking-wider uppercase text-mbh-purple-300 mb-4">
+                <span className="inline-block text-xs font-medium tracking-wider uppercase text-mbh-gold-300 mb-4">
                   Founded 2012 · Dubai, UAE
                 </span>
                 <h2 className="font-heading text-3xl sm:text-4xl font-bold text-mbh-white mb-6 leading-tight">
-                  Born from a Passion for <span className="text-gradient-purple">Exceptional Events</span>
+                  Born from a Passion for <span className="text-gradient-gold">Exceptional Events</span>
                 </h2>
                 <div className="space-y-4 text-mbh-white-muted leading-relaxed">
                   <p>
@@ -115,9 +115,9 @@ export default function AboutPage() {
               },
             ].map((item) => (
               <StaggerItem key={item.title}>
-                <div className="p-8 rounded-2xl border border-white/5 bg-mbh-black-card hover:border-mbh-purple/20 transition-all duration-300 h-full group">
-                  <div className="w-14 h-14 rounded-xl bg-mbh-purple/10 border border-mbh-purple/20 flex items-center justify-center mb-6 group-hover:bg-mbh-purple/20 transition-colors">
-                    <item.icon size={28} className="text-mbh-purple-300" />
+                <div className="p-8 rounded-2xl border border-white/5 bg-mbh-black-card hover:border-mbh-gold/20 transition-all duration-300 h-full group">
+                  <div className="w-14 h-14 rounded-xl bg-mbh-gold/10 border border-mbh-gold/20 flex items-center justify-center mb-6 group-hover:bg-mbh-gold/20 transition-colors">
+                    <item.icon size={28} className="text-mbh-gold-300" />
                   </div>
                   <h3 className="font-heading text-xl font-semibold text-mbh-white mb-4">
                     {item.title}
@@ -144,7 +144,7 @@ export default function AboutPage() {
           <StaggerContainer className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {team.map((member) => (
               <StaggerItem key={member.id}>
-                <div className="group rounded-2xl border border-white/5 bg-mbh-black-card overflow-hidden hover:border-mbh-purple/20 transition-all duration-300">
+                <div className="group rounded-2xl border border-white/5 bg-mbh-black-card overflow-hidden hover:border-mbh-gold/20 transition-all duration-300">
                   <div className="relative h-72 overflow-hidden">
                     <Image
                       src={member.image}
@@ -159,7 +159,7 @@ export default function AboutPage() {
                     <h3 className="font-heading text-lg font-semibold text-mbh-white">
                       {member.name}
                     </h3>
-                    <p className="text-sm text-mbh-purple-300 font-medium mb-3">
+                    <p className="text-sm text-mbh-gold-300 font-medium mb-3">
                       {member.role}
                     </p>
                     <p className="text-sm text-mbh-white-dim leading-relaxed line-clamp-3">
@@ -194,7 +194,7 @@ export default function AboutPage() {
             ].map((item, index) => (
               <StaggerItem key={index}>
                 <div className="flex items-start gap-3 p-4 rounded-xl border border-white/5 bg-mbh-black-card/50">
-                  <CheckCircle size={20} className="text-mbh-purple-300 flex-shrink-0 mt-0.5" />
+                  <CheckCircle size={20} className="text-mbh-gold-300 flex-shrink-0 mt-0.5" />
                   <span className="text-sm text-mbh-white/90 leading-relaxed">{item}</span>
                 </div>
               </StaggerItem>
@@ -220,9 +220,9 @@ export default function AboutPage() {
               { icon: Truck, title: 'Logistics', desc: 'Transport, valet, accommodation, warehousing, and on-ground ops' },
             ].map((cap) => (
               <StaggerItem key={cap.title}>
-                <div className="aspect-square h-full flex flex-col items-center justify-center text-center p-6 sm:p-8 rounded-2xl border border-white/5 bg-mbh-black-card hover:border-mbh-purple/20 transition-all duration-300 group">
-                  <div className="w-16 h-16 rounded-full bg-mbh-purple/10 border border-mbh-purple/20 flex items-center justify-center mb-5 group-hover:bg-mbh-purple/20 transition-colors">
-                    <cap.icon size={28} className="text-mbh-purple-300" />
+                <div className="aspect-square h-full flex flex-col items-center justify-center text-center p-6 sm:p-8 rounded-2xl border border-white/5 bg-mbh-black-card hover:border-mbh-gold/20 transition-all duration-300 group">
+                  <div className="w-16 h-16 rounded-full bg-mbh-gold/10 border border-mbh-gold/20 flex items-center justify-center mb-5 group-hover:bg-mbh-gold/20 transition-colors">
+                    <cap.icon size={28} className="text-mbh-gold-300" />
                   </div>
                   <h4 className="font-heading text-lg font-semibold text-mbh-white mb-2">{cap.title}</h4>
                   <p className="text-sm text-mbh-white-dim leading-relaxed">{cap.desc}</p>

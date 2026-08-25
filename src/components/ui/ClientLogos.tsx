@@ -32,7 +32,7 @@ export default function ClientLogos() {
               key={`${name}-${index}`}
               className="flex-shrink-0 mx-8 sm:mx-12 flex items-center justify-center"
             >
-              <div className="px-6 py-3 rounded-lg border border-white/5 bg-white/[0.02] text-mbh-white-dim hover:text-mbh-white hover:border-mbh-purple/20 transition-all duration-300 whitespace-nowrap">
+              <div className="px-6 py-3 rounded-lg border border-white/5 bg-white/[0.02] text-mbh-white-dim hover:text-mbh-white hover:border-mbh-gold/20 transition-all duration-300 whitespace-nowrap">
                 <span className="text-sm sm:text-base font-medium tracking-wide">
                   {name}
                 </span>

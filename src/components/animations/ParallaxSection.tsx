@@ -9,7 +9,7 @@ interface ParallaxSectionProps {
   className?: string;
   bgImage?: string;
   overlay?: boolean;
-  overlayVariant?: 'dark' | 'purple' | 'gradient';
+  overlayVariant?: 'dark' | 'gold' | 'gradient';
 }
 
 export default function ParallaxSection({
@@ -50,7 +50,7 @@ export default function ParallaxSection({
 
   const overlayClasses = {
     dark: 'gradient-overlay',
-    purple: 'gradient-overlay-purple',
+    gold: 'gradient-overlay-gold',
     gradient: 'gradient-section',
   };
 

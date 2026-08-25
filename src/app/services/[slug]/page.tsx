@@ -4,7 +4,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import Hero from '@/components/ui/Hero';
 import SectionHeading from '@/components/ui/SectionHeading';
-import GalleryGrid from '@/components/ui/GalleryGrid';
+
 import InquiryForm from '@/components/ui/InquiryForm';
 import CTABand from '@/components/ui/CTABand';
 import ScrollReveal from '@/components/animations/ScrollReveal';
@@ -112,10 +112,10 @@ export default async function ServicePage({ params }: ServicePageProps) {
           <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-5xl mx-auto">
             {service.includedServices.map((item) => (
               <StaggerItem key={item.title}>
-                <div className="p-6 rounded-xl border border-white/5 bg-mbh-black-card hover:border-mbh-purple/20 transition-all duration-300 h-full group">
+                <div className="p-6 rounded-xl border border-white/5 bg-mbh-black-card hover:border-mbh-gold/20 transition-all duration-300 h-full group">
                   <div className="flex items-start gap-4">
-                    <div className="w-10 h-10 rounded-lg bg-mbh-purple/10 border border-mbh-purple/20 flex items-center justify-center flex-shrink-0 mt-0.5 group-hover:bg-mbh-purple/20 transition-colors">
-                      <CheckCircle size={20} className="text-mbh-purple-300" />
+                    <div className="w-10 h-10 rounded-lg bg-mbh-gold/10 border border-mbh-gold/20 flex items-center justify-center flex-shrink-0 mt-0.5 group-hover:bg-mbh-gold/20 transition-colors">
+                      <CheckCircle size={20} className="text-mbh-gold-300" />
                     </div>
                     <div>
                       <h3 className="font-heading text-base font-semibold text-mbh-white mb-2">
@@ -133,16 +133,6 @@ export default async function ServicePage({ params }: ServicePageProps) {
         </div>
       </section>
 
-      {/* Gallery */}
-      <section className="py-20 lg:py-28">
-        <div className="container-mbh">
-          <SectionHeading
-            label="Portfolio"
-            title="Our Work in Action"
-          />
-          <GalleryGrid images={service.galleryImages} alt={service.title} />
-        </div>
-      </section>
 
       {/* Process */}
       <section className="py-20 lg:py-28 gradient-section">
@@ -158,11 +148,11 @@ export default async function ServicePage({ params }: ServicePageProps) {
               <ScrollReveal key={step.step} variant="fadeUp" delay={index * 0.1}>
                 <div className="flex gap-6 mb-8 last:mb-0">
                   <div className="flex flex-col items-center">
-                    <div className="w-12 h-12 rounded-full bg-mbh-purple/10 border border-mbh-purple/30 flex items-center justify-center text-mbh-purple-300 font-heading font-bold text-lg flex-shrink-0">
+                    <div className="w-12 h-12 rounded-full bg-mbh-gold/10 border border-mbh-gold/30 flex items-center justify-center text-mbh-gold-300 font-heading font-bold text-lg flex-shrink-0">
                       {index + 1}
                     </div>
                     {index < service.process.length - 1 && (
-                      <div className="w-[1px] flex-1 bg-gradient-to-b from-mbh-purple/30 to-transparent mt-3" />
+                      <div className="w-[1px] flex-1 bg-gradient-to-b from-mbh-gold/30 to-transparent mt-3" />
                     )}
                   </div>
                   <div className="pb-8">
@@ -192,7 +182,7 @@ export default async function ServicePage({ params }: ServicePageProps) {
             {service.whyChooseUs.map((reason, index) => (
               <StaggerItem key={index}>
                 <div className="flex items-start gap-3 p-4 rounded-xl border border-white/5 bg-mbh-black-card/50">
-                  <CheckCircle size={18} className="text-mbh-purple-300 flex-shrink-0 mt-0.5" />
+                  <CheckCircle size={18} className="text-mbh-gold-300 flex-shrink-0 mt-0.5" />
                   <span className="text-sm text-mbh-white/90 leading-relaxed">{reason}</span>
                 </div>
               </StaggerItem>
@@ -215,13 +205,14 @@ export default async function ServicePage({ params }: ServicePageProps) {
                 <ScrollReveal key={related.slug} variant="fadeUp">
                   <Link
                     href={`/services/${related.slug}`}
-                    className="block p-6 rounded-xl border border-white/5 bg-mbh-black-card hover:border-mbh-purple/20 transition-all duration-300 group"
+                    className="flex flex-col justify-between p-6 rounded-xl border border-white/5 bg-mbh-black-card hover:border-mbh-gold/20 transition-all duration-300 group aspect-square"
                   >
-                    <span className="text-2xl mb-3 block">{related.emoji}</span>
-                    <h4 className="font-heading text-base font-semibold text-mbh-white group-hover:text-mbh-purple-300 transition-colors mb-2">
-                      {related.title}
-                    </h4>
-                    <span className="text-xs text-mbh-purple-300 inline-flex items-center gap-1 group-hover:gap-2 transition-all">
+                    <div>
+                      <h4 className="font-heading text-base sm:text-lg font-semibold text-mbh-white group-hover:text-mbh-gold-300 transition-colors mb-2">
+                        {related.title}
+                      </h4>
+                    </div>
+                    <span className="text-xs text-mbh-gold-300 inline-flex items-center gap-1 group-hover:gap-2 transition-all">
                       Learn More <ArrowRight size={12} />
                     </span>
                   </Link>

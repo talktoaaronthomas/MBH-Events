@@ -23,13 +23,13 @@ export interface HeroProps {
   align?: 'center' | 'left';
 }
 
-const frameCount = 51;
+const frameCount = 76;
 const currentFrame = (index: number) =>
   `/hero-sequence/ezgif-frame-${(index + 1).toString().padStart(3, '0')}.jpg`;
 
 export default function Hero({
   tagline = "Turning Moments into Legacy",
-  title = <>Where Vision Meets <span className="text-gradient-purple">Extraordinary Execution</span></>,
+  title = <>Where Vision Meets <span className="text-white">Extraordinary Execution</span></>,
   subtitle = "MBH Events delivers world-class luxury weddings, corporate experiences, and exclusive events with precision and creative brilliance.",
   ctaText = "Plan Your Event",
   ctaHref = "/contact",
@@ -165,14 +165,14 @@ export default function Hero({
             className="absolute inset-0 bg-cover bg-center scale-105 z-0"
             style={{ backgroundImage: `url(${bgImage})` }}
           />
-          <div className="absolute inset-0 bg-gradient-to-br from-mbh-black via-mbh-purple-950/60 to-mbh-black z-0" />
-          <div className="absolute inset-0 z-0 gradient-overlay-purple" />
+          <div className="absolute inset-0 bg-gradient-to-br from-mbh-black via-mbh-gold-950/60 to-mbh-black z-0" />
+          <div className="absolute inset-0 z-0 gradient-overlay-gold" />
           
           <div className="relative z-10 container-mbh w-full h-full py-32 lg:py-40 flex items-center justify-center">
             <div className={`flex flex-col ${alignClasses[align]} max-w-4xl px-4 w-full ${align === 'center' ? 'mx-auto' : ''}`}>
               {tagline && (
-                <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-mbh-purple/30 bg-mbh-purple/10 text-mbh-purple-300 text-xs sm:text-sm font-medium tracking-wider uppercase mb-6 shadow-[0_0_15px_rgba(168,85,247,0.2)] backdrop-blur-sm">
-                  <span className="w-1.5 h-1.5 rounded-full bg-mbh-purple animate-[glow-pulse_3s_ease-in-out_infinite]" />
+                <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-mbh-gold/30 bg-mbh-gold/10 text-mbh-gold-300 text-xs sm:text-sm font-medium tracking-wider uppercase mb-6 shadow-[0_0_15px_rgba(168,85,247,0.2)] backdrop-blur-sm">
+                  <span className="w-1.5 h-1.5 rounded-full bg-mbh-gold animate-[glow-pulse_3s_ease-in-out_infinite]" />
                   {tagline}
                 </span>
               )}
@@ -182,7 +182,7 @@ export default function Hero({
               </h1>
               
               {subtitle && (
-                <p className="text-base sm:text-lg md:text-xl text-mbh-white-muted leading-relaxed max-w-2xl mb-10 drop-shadow-md">
+                <p className="text-base sm:text-lg md:text-xl text-mbh-white font-medium leading-relaxed max-w-2xl mb-10 drop-shadow-lg">
                   {subtitle}
                 </p>
               )}
@@ -203,7 +203,7 @@ export default function Hero({
                 {secondaryCtaText && (
                   <Link
                     href={secondaryCtaHref!}
-                    className="px-8 py-4 rounded-xl text-base font-semibold text-mbh-white border border-white/30 bg-black/20 backdrop-blur-sm hover:border-mbh-purple/50 hover:bg-mbh-purple/20 transition-all duration-300 inline-flex items-center gap-2"
+                    className="px-8 py-4 rounded-xl text-base font-semibold text-mbh-white border border-white/30 bg-black/20 backdrop-blur-sm hover:border-mbh-gold/50 hover:bg-mbh-gold/20 transition-all duration-300 inline-flex items-center gap-2"
                   >
                     {secondaryCtaText}
                   </Link>
@@ -225,7 +225,7 @@ export default function Hero({
         {/* Loading Spinner overlay */}
         {!isLoaded && (
            <div className="absolute inset-0 flex items-center justify-center z-20 bg-mbh-black">
-             <span className="w-10 h-10 rounded-full border-4 border-mbh-purple border-t-transparent animate-spin"></span>
+             <span className="w-10 h-10 rounded-full border-4 border-mbh-gold border-t-transparent animate-spin"></span>
            </div>
         )}
         
@@ -239,8 +239,8 @@ export default function Hero({
         
         {/* Decorative elements */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none z-10">
-          <div className="absolute -top-1/4 -right-1/4 w-[600px] h-[600px] rounded-full bg-mbh-purple/10 blur-[120px]" />
-          <div className="absolute -bottom-1/4 -left-1/4 w-[500px] h-[500px] rounded-full bg-mbh-purple/10 blur-[100px]" />
+          <div className="absolute -top-1/4 -right-1/4 w-[600px] h-[600px] rounded-full bg-mbh-gold/10 blur-[120px]" />
+          <div className="absolute -bottom-1/4 -left-1/4 w-[500px] h-[500px] rounded-full bg-mbh-gold/10 blur-[100px]" />
         </div>
 
         {/* Text Overlay */}
@@ -249,8 +249,8 @@ export default function Hero({
           className="relative z-20 container-mbh w-full h-full flex flex-col items-center justify-center text-center px-4"
         >
           {tagline && (
-            <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-mbh-purple/30 bg-mbh-purple/10 text-mbh-purple-300 text-xs sm:text-sm font-medium tracking-wider uppercase mb-6 shadow-[0_0_15px_rgba(168,85,247,0.2)] backdrop-blur-sm">
-              <span className="w-1.5 h-1.5 rounded-full bg-mbh-purple animate-[glow-pulse_3s_ease-in-out_infinite]" />
+            <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-mbh-gold/30 bg-mbh-gold/10 text-mbh-gold-300 text-xs sm:text-sm font-medium tracking-wider uppercase mb-6 shadow-[0_0_15px_rgba(168,85,247,0.2)] backdrop-blur-sm">
+              <span className="w-1.5 h-1.5 rounded-full bg-mbh-gold animate-[glow-pulse_3s_ease-in-out_infinite]" />
               {tagline}
             </span>
           )}
@@ -260,7 +260,7 @@ export default function Hero({
           </h1>
           
           {subtitle && (
-            <p className="text-base sm:text-lg md:text-xl text-mbh-white-muted leading-relaxed max-w-2xl mb-10 drop-shadow-md">
+            <p className="text-base sm:text-lg md:text-xl text-mbh-white font-medium leading-relaxed max-w-2xl mb-10 drop-shadow-lg">
               {subtitle}
             </p>
           )}
@@ -281,7 +281,7 @@ export default function Hero({
             {secondaryCtaText && (
               <Link
                 href={secondaryCtaHref!}
-                className="px-8 py-4 rounded-xl text-base font-semibold text-mbh-white border border-white/30 bg-black/20 backdrop-blur-sm hover:border-mbh-purple/50 hover:bg-mbh-purple/20 transition-all duration-300 inline-flex items-center gap-2"
+                className="px-8 py-4 rounded-xl text-base font-semibold text-mbh-white border border-white/30 bg-black/20 backdrop-blur-sm hover:border-mbh-gold/50 hover:bg-mbh-gold/20 transition-all duration-300 inline-flex items-center gap-2"
               >
                 {secondaryCtaText}
               </Link>

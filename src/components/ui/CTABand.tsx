@@ -7,7 +7,8 @@ interface CTABandProps {
   subtitle?: string;
   ctaText?: string;
   ctaHref?: string;
-  variant?: 'gradient' | 'purple' | 'dark';
+  variant?: 'gradient' | 'gold' | 'dark';
+  showOverlay?: boolean;
 }
 
 export default function CTABand({
@@ -16,19 +17,22 @@ export default function CTABand({
   ctaText = 'Plan Your Event',
   ctaHref = '/contact',
   variant = 'gradient',
+  showOverlay = true,
 }: CTABandProps) {
   const bgClasses = {
     gradient: 'gradient-section',
-    purple: 'bg-gradient-to-r from-mbh-purple-900 via-mbh-purple-800 to-mbh-purple-900',
+    gold: 'bg-gradient-to-r from-mbh-gold-900 via-mbh-gold-800 to-mbh-gold-900',
     dark: 'bg-mbh-black-light',
   };
 
   return (
     <section className={`relative py-24 lg:py-32 overflow-hidden ${bgClasses[variant]}`}>
       {/* Decorative elements */}
-      <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] rounded-full bg-mbh-purple/10 blur-[150px]" />
-      </div>
+      {showOverlay && (
+        <div className="absolute inset-0 pointer-events-none overflow-hidden">
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] rounded-full bg-mbh-gold/10 blur-[150px]" />
+        </div>
+      )}
 
       <div className="relative z-10 container-mbh text-center">
         <ScrollReveal variant="fadeUp">

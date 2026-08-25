@@ -30,13 +30,13 @@ export default function HomePage() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
             <ScrollReveal variant="fadeLeft">
               <div>
-                <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-mbh-purple/30 bg-mbh-purple/10 text-mbh-purple-300 text-xs font-medium tracking-wider uppercase mb-6">
+                <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-mbh-gold/30 bg-mbh-gold/10 text-mbh-gold-300 text-xs font-medium tracking-wider uppercase mb-6">
                   <Sparkles size={14} />
                   About MBH Events
                 </span>
                 <h2 className="font-heading text-3xl sm:text-4xl lg:text-5xl font-bold text-mbh-white mb-6 leading-tight">
                   Crafting Events That{' '}
-                  <span className="text-gradient-purple">Define Legacies</span>
+                  <span className="text-gradient-gold">Define Legacies</span>
                 </h2>
                 <p className="text-mbh-white-muted leading-relaxed mb-6">
                   MBH Events is a full-service event management company with an uncompromising
@@ -51,7 +51,7 @@ export default function HomePage() {
                 </p>
                 <Link
                   href="/about"
-                  className="inline-flex items-center gap-2 text-mbh-purple-300 hover:text-mbh-purple-200 font-medium transition-colors group"
+                  className="inline-flex items-center gap-2 text-mbh-gold-300 hover:text-mbh-gold-200 font-medium transition-colors group"
                 >
                   Learn Our Story
                   <ArrowRight size={16} className="transition-transform group-hover:translate-x-1" />
@@ -69,9 +69,9 @@ export default function HomePage() {
                 ].map((item, i) => (
                   <div
                     key={item.title}
-                    className="p-5 rounded-xl border border-white/5 bg-mbh-black-card hover:border-mbh-purple/20 hover:bg-mbh-purple/5 transition-all duration-300 group"
+                    className="p-5 rounded-xl border border-white/5 bg-mbh-black-card hover:border-mbh-gold/20 hover:bg-mbh-gold/5 transition-all duration-300 group"
                   >
-                    <item.icon size={24} className="text-mbh-purple-300 mb-3 group-hover:text-mbh-purple transition-colors" />
+                    <item.icon size={24} className="text-mbh-gold-300 mb-3 group-hover:text-mbh-gold transition-colors" />
                     <h4 className="font-heading font-semibold text-mbh-white mb-1">{item.title}</h4>
                     <p className="text-xs text-mbh-white-dim leading-relaxed">{item.desc}</p>
                   </div>
@@ -110,7 +110,7 @@ export default function HomePage() {
             <div className="text-center mt-12">
               <Link
                 href="/services"
-                className="inline-flex items-center gap-2 px-8 py-4 rounded-xl border border-white/10 text-mbh-white hover:border-mbh-purple/40 hover:bg-mbh-purple/10 transition-all duration-300 font-medium group"
+                className="inline-flex items-center gap-2 px-8 py-4 rounded-xl border border-white/10 text-mbh-white hover:border-mbh-gold/40 hover:bg-mbh-gold/10 transition-all duration-300 font-medium group"
               >
                 View All Services
                 <ArrowRight size={18} className="transition-transform group-hover:translate-x-1" />
@@ -166,9 +166,9 @@ export default function HomePage() {
                     sizes="(max-width: 768px) 100vw, 50vw"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-mbh-black via-mbh-black/20 to-transparent" />
-                  <div className="absolute inset-0 bg-mbh-purple/0 group-hover:bg-mbh-purple/10 transition-colors duration-500" />
+                  <div className="absolute inset-0 bg-mbh-gold/0 group-hover:bg-mbh-gold/10 transition-colors duration-500" />
                   <div className="absolute bottom-0 left-0 right-0 p-6 sm:p-8">
-                    <span className="text-xs font-medium text-mbh-purple-300 uppercase tracking-wider">
+                    <span className="text-xs font-medium text-mbh-gold-300 uppercase tracking-wider">
                       {event.category}
                     </span>
                     <h3 className="font-heading text-xl sm:text-2xl font-bold text-mbh-white mt-2 mb-1">
@@ -208,11 +208,11 @@ export default function HomePage() {
           <div className="grid grid-cols-2 lg:grid-cols-5 gap-6 lg:gap-4">
             {stats.map((stat, index) => (
               <ScrollReveal key={stat.id} variant="fadeUp" delay={index * 0.1} className="h-full">
-                <div className="h-full flex flex-col justify-center text-center p-6 rounded-xl border border-white/5 bg-mbh-black-card/50 hover:border-mbh-purple/20 transition-all duration-300">
+                <div className="h-full flex flex-col justify-center text-center p-6 rounded-xl border border-white/5 bg-mbh-black-card/50 hover:border-mbh-gold/20 transition-all duration-300">
                   <div className="font-heading text-4xl sm:text-5xl font-bold text-mbh-white mb-2">
                     <AnimatedCounter target={stat.value} suffix={stat.suffix} />
                   </div>
-                  <div className="text-sm font-medium text-mbh-purple-300 mb-1">
+                  <div className="text-sm font-medium text-mbh-gold-300 mb-1">
                     {stat.label}
                   </div>
                   <p className="text-xs text-mbh-white-dim leading-relaxed hidden sm:block">
@@ -231,6 +231,8 @@ export default function HomePage() {
         subtitle="Whether it's a corporate milestone or a personal celebration, let MBH Events turn your vision into a legacy."
         ctaText="Start Planning Today"
         ctaHref="/contact"
+        showOverlay={false}
+        variant="dark"
       />
     </>
   );

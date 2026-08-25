@@ -59,7 +59,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
           sizes="100vw"
           priority
         />
-        <div className="absolute inset-0 gradient-overlay-purple" />
+        <div className="absolute inset-0 gradient-overlay-gold" />
         <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-mbh-black to-transparent" />
       </div>
 
@@ -71,13 +71,13 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
               <div className="mb-8">
                 <Link
                   href="/blog"
-                  className="inline-flex items-center gap-2 text-sm text-mbh-white-dim hover:text-mbh-purple-300 transition-colors mb-6"
+                  className="inline-flex items-center gap-2 text-sm text-mbh-white-dim hover:text-mbh-gold-300 transition-colors mb-6"
                 >
                   <ArrowLeft size={14} />
                   Back to Blog
                 </Link>
 
-                <span className="inline-block px-3 py-1 rounded-full text-[10px] font-semibold uppercase tracking-wider bg-mbh-purple/20 text-mbh-purple-300 border border-mbh-purple/30 mb-4">
+                <span className="inline-block px-3 py-1 rounded-full text-[10px] font-semibold uppercase tracking-wider bg-mbh-gold/20 text-mbh-gold-300 border border-mbh-gold/30 mb-4">
                   {post.category}
                 </span>
 
@@ -186,7 +186,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                 <ScrollReveal key={related.slug} variant="fadeUp">
                   <Link
                     href={`/blog/${related.slug}`}
-                    className="group block rounded-2xl border border-white/5 bg-mbh-black-card overflow-hidden hover:border-mbh-purple/20 transition-all duration-300"
+                    className="group block rounded-2xl border border-white/5 bg-mbh-black-card overflow-hidden hover:border-mbh-gold/20 transition-all duration-300"
                   >
                     <div className="relative h-48 overflow-hidden">
                       <Image
@@ -198,10 +198,10 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                       />
                     </div>
                     <div className="p-5">
-                      <h3 className="font-heading text-lg font-semibold text-mbh-white group-hover:text-mbh-purple-300 transition-colors mb-2 leading-tight">
+                      <h3 className="font-heading text-lg font-semibold text-mbh-white group-hover:text-mbh-gold-300 transition-colors mb-2 leading-tight">
                         {related.title}
                       </h3>
-                      <span className="text-sm text-mbh-purple-300 inline-flex items-center gap-1">
+                      <span className="text-sm text-mbh-gold-300 inline-flex items-center gap-1">
                         Read More <ArrowRight size={14} />
                       </span>
                     </div>

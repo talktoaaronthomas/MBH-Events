@@ -111,16 +111,16 @@ export default function Navbar() {
         initial={{ y: -100 }}
         animate={{ y: isLoading ? -100 : 0 }}
         transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-        className={`fixed top-0 left-0 right-0 z-50 transition-colors duration-500 ${
+        className={`fixed z-50 left-1/2 -translate-x-1/2 transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] ${
           isScrolled
-            ? 'glass border-b border-white/5 py-3'
-            : 'bg-transparent py-5'
+            ? 'top-4 w-[calc(100%-2rem)] lg:w-[95%] lg:max-w-7xl bg-mbh-black-light/60 backdrop-blur-xl rounded-2xl lg:rounded-full shadow-[0_10px_40px_rgba(0,0,0,0.5)] py-2'
+            : 'top-0 w-full max-w-full bg-transparent backdrop-blur-none py-5 rounded-none shadow-none'
         }`}
       >
-        <div className="container-mbh flex items-center justify-between">
+        <div className={`${isScrolled ? 'px-4 lg:px-10 w-full' : 'container-mbh'} flex items-center justify-between`}>
           {/* Logo */}
           <Link href="/" className="flex items-center group">
-            <div className="relative w-48 h-20 sm:w-56 sm:h-24">
+            <div className={`relative transition-all duration-500 ${isScrolled ? 'w-40 h-12' : 'w-48 h-20 sm:w-56 sm:h-24'}`}>
               {!isLoading && (
                 <motion.div
                   layoutId="site-logo"
@@ -144,7 +144,7 @@ export default function Navbar() {
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden lg:flex items-center gap-8">
+          <div className={`hidden lg:flex items-center ${isScrolled ? 'gap-6 mx-8' : 'gap-8'}`}>
             {navLinks.map((link) => (
               <div
                 key={link.href}
@@ -185,18 +185,18 @@ export default function Navbar() {
                                   key={service.slug}
                                   href={`/services/${service.slug}`}
                                   className={`flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all duration-200 group
-                                    hover:bg-mbh-purple/10
-                                    ${service.tier === 'flagship' ? 'border-l-2 border-mbh-purple bg-mbh-purple/5' : ''}
-                                    ${service.tier === 'premium' ? 'border-l-2 border-mbh-purple-400 bg-mbh-purple-400/5' : ''}
+                                    hover:bg-mbh-gold/10
+                                    ${service.tier === 'flagship' ? 'border-l-2 border-mbh-gold bg-mbh-gold/5' : ''}
+                                    ${service.tier === 'premium' ? 'border-l-2 border-mbh-gold-400 bg-mbh-gold-400/5' : ''}
                                   `}
                                   onClick={() => setIsServicesOpen(false)}
                                 >
                                   <Icon
                                     size={18}
                                     className={`flex-shrink-0 transition-colors duration-200
-                                      ${service.tier === 'flagship' ? 'text-mbh-purple' : ''}
-                                      ${service.tier === 'premium' ? 'text-mbh-purple-400' : 'text-mbh-white-dim'}
-                                      group-hover:text-mbh-purple-300
+                                      ${service.tier === 'flagship' ? 'text-mbh-gold' : ''}
+                                      ${service.tier === 'premium' ? 'text-mbh-gold-400' : 'text-mbh-white-dim'}
+                                      group-hover:text-mbh-gold-300
                                     `}
                                   />
                                   <div className="flex-1 min-w-0">
@@ -205,12 +205,12 @@ export default function Navbar() {
                                     </span>
                                   </div>
                                   {service.tier === 'flagship' && (
-                                    <span className="text-[10px] font-semibold uppercase tracking-wider bg-mbh-purple/20 text-mbh-purple-300 px-2 py-0.5 rounded-full flex-shrink-0">
+                                    <span className="text-[10px] font-semibold uppercase tracking-wider bg-mbh-gold/20 text-mbh-gold-300 px-2 py-0.5 rounded-full flex-shrink-0">
                                       Flagship
                                     </span>
                                   )}
                                   {service.tier === 'premium' && (
-                                    <span className="text-[10px] font-semibold uppercase tracking-wider bg-mbh-purple-400/20 text-mbh-purple-200 px-2 py-0.5 rounded-full flex-shrink-0">
+                                    <span className="text-[10px] font-semibold uppercase tracking-wider bg-mbh-gold-400/20 text-mbh-gold-200 px-2 py-0.5 rounded-full flex-shrink-0">
                                       Premium
                                     </span>
                                   )}
@@ -221,7 +221,7 @@ export default function Navbar() {
                           <div className="mt-2 pt-2 border-t border-white/5">
                             <Link
                               href="/services"
-                              className="flex items-center justify-center gap-2 px-3 py-2 text-sm font-medium text-mbh-purple-300 hover:text-mbh-white hover:bg-mbh-purple/10 rounded-lg transition-all duration-200"
+                              className="flex items-center justify-center gap-2 px-3 py-2 text-sm font-medium text-mbh-gold-300 hover:text-mbh-white hover:bg-mbh-gold/10 rounded-lg transition-all duration-200"
                               onClick={() => setIsServicesOpen(false)}
                             >
                               View All Services →
@@ -240,14 +240,14 @@ export default function Navbar() {
           <div className="flex items-center gap-4">
             <Link
               href="/contact"
-              className="hidden sm:inline-flex btn-glow px-5 py-2.5 rounded-lg text-sm font-semibold text-white items-center gap-2"
+              className={`hidden sm:inline-flex btn-glow rounded-lg text-sm font-semibold text-white items-center gap-2 transition-all duration-300 ${isScrolled ? 'px-4 py-2' : 'px-5 py-2.5'}`}
             >
               Plan Your Event
             </Link>
 
             <button
               onClick={() => setIsMobileOpen(!isMobileOpen)}
-              className="lg:hidden p-2 text-mbh-white hover:text-mbh-purple transition-colors"
+              className="lg:hidden p-2 text-mbh-white hover:text-mbh-gold transition-colors"
               aria-label="Toggle menu"
             >
               {isMobileOpen ? <X size={24} /> : <Menu size={24} />}
@@ -296,7 +296,7 @@ export default function Navbar() {
                         <>
                           <button
                             onClick={() => setMobileServicesOpen(!mobileServicesOpen)}
-                            className="w-full flex items-center justify-between px-4 py-3 text-lg font-medium text-mbh-white/90 hover:text-mbh-white hover:bg-mbh-purple/10 rounded-lg transition-all"
+                            className="w-full flex items-center justify-between px-4 py-3 text-lg font-medium text-mbh-white/90 hover:text-mbh-white hover:bg-mbh-gold/10 rounded-lg transition-all"
                           >
                             {link.label}
                             <ChevronDown
@@ -324,9 +324,9 @@ export default function Navbar() {
                                           setIsMobileOpen(false);
                                           setMobileServicesOpen(false);
                                         }}
-                                        className="flex items-center gap-3 px-3 py-2.5 text-sm text-mbh-white/70 hover:text-mbh-white hover:bg-mbh-purple/10 rounded-lg transition-all"
+                                        className="flex items-center gap-3 px-3 py-2.5 text-sm text-mbh-white/70 hover:text-mbh-white hover:bg-mbh-gold/10 rounded-lg transition-all"
                                       >
-                                        <Icon size={16} className="text-mbh-purple-300 flex-shrink-0" />
+                                        <Icon size={16} className="text-mbh-gold-300 flex-shrink-0" />
                                         <span className="truncate">{service.title}</span>
                                       </Link>
                                     );
@@ -334,7 +334,7 @@ export default function Navbar() {
                                   <Link
                                     href="/services"
                                     onClick={() => setIsMobileOpen(false)}
-                                    className="flex items-center gap-3 px-3 py-2.5 text-sm font-medium text-mbh-purple-300 hover:text-mbh-white hover:bg-mbh-purple/10 rounded-lg transition-all"
+                                    className="flex items-center gap-3 px-3 py-2.5 text-sm font-medium text-mbh-gold-300 hover:text-mbh-white hover:bg-mbh-gold/10 rounded-lg transition-all"
                                   >
                                     View All Services →
                                   </Link>
@@ -347,7 +347,7 @@ export default function Navbar() {
                         <Link
                           href={link.href}
                           onClick={() => setIsMobileOpen(false)}
-                          className="block px-4 py-3 text-lg font-medium text-mbh-white/90 hover:text-mbh-white hover:bg-mbh-purple/10 rounded-lg transition-all"
+                          className="block px-4 py-3 text-lg font-medium text-mbh-white/90 hover:text-mbh-white hover:bg-mbh-gold/10 rounded-lg transition-all"
                         >
                           {link.label}
                         </Link>

@@ -21,8 +21,8 @@ export default function SectionHeading({
     <div className={`mb-12 lg:mb-16 ${align === 'center' ? 'text-center' : 'text-left'} ${className}`}>
       {label && (
         <ScrollReveal variant="fadeUp" delay={0}>
-          <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-mbh-purple/30 bg-mbh-purple/10 text-mbh-purple-300 text-xs sm:text-sm font-medium tracking-wider uppercase mb-4">
-            <span className="w-1.5 h-1.5 rounded-full bg-mbh-purple" />
+          <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-mbh-gold/30 bg-mbh-gold/10 text-mbh-gold-300 text-xs sm:text-sm font-medium tracking-wider uppercase mb-4">
+            <span className="w-1.5 h-1.5 rounded-full bg-mbh-gold" />
             {label}
           </span>
         </ScrollReveal>

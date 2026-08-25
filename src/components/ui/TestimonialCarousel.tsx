@@ -53,8 +53,8 @@ export default function TestimonialCarousel() {
     <div className="relative max-w-4xl mx-auto">
       {/* Quote icon */}
       <div className="flex justify-center mb-8">
-        <div className="w-14 h-14 rounded-full bg-mbh-purple/10 border border-mbh-purple/20 flex items-center justify-center">
-          <Quote size={24} className="text-mbh-purple-300" />
+        <div className="w-14 h-14 rounded-full bg-mbh-gold/10 border border-mbh-gold/20 flex items-center justify-center">
+          <Quote size={24} className="text-mbh-gold-300" />
         </div>
       </div>
 
@@ -82,7 +82,7 @@ export default function TestimonialCarousel() {
                 {t.role}
                 {t.company && `, ${t.company}`}
               </span>
-              <span className="text-xs text-mbh-purple-300 font-medium mt-1">
+              <span className="text-xs text-mbh-gold-300 font-medium mt-1">
                 {t.eventType}
               </span>
             </div>
@@ -94,7 +94,7 @@ export default function TestimonialCarousel() {
       <div className="flex items-center justify-center gap-6 mt-8">
         <button
           onClick={prev}
-          className="w-10 h-10 rounded-full border border-white/10 hover:border-mbh-purple/40 flex items-center justify-center text-mbh-white-dim hover:text-mbh-white transition-all duration-300 hover:bg-mbh-purple/10"
+          className="w-10 h-10 rounded-full border border-white/10 hover:border-mbh-gold/40 flex items-center justify-center text-mbh-white-dim hover:text-mbh-white transition-all duration-300 hover:bg-mbh-gold/10"
           aria-label="Previous testimonial"
         >
           <ChevronLeft size={18} />
@@ -107,7 +107,7 @@ export default function TestimonialCarousel() {
               onClick={() => goTo(index)}
               className={`h-2 rounded-full transition-all duration-300 ${
                 index === current
-                  ? 'w-8 bg-mbh-purple'
+                  ? 'w-8 bg-mbh-gold'
                   : 'w-2 bg-white/20 hover:bg-white/40'
               }`}
               aria-label={`Go to testimonial ${index + 1}`}
@@ -117,7 +117,7 @@ export default function TestimonialCarousel() {
 
         <button
           onClick={next}
-          className="w-10 h-10 rounded-full border border-white/10 hover:border-mbh-purple/40 flex items-center justify-center text-mbh-white-dim hover:text-mbh-white transition-all duration-300 hover:bg-mbh-purple/10"
+          className="w-10 h-10 rounded-full border border-white/10 hover:border-mbh-gold/40 flex items-center justify-center text-mbh-white-dim hover:text-mbh-white transition-all duration-300 hover:bg-mbh-gold/10"
           aria-label="Next testimonial"
         >
           <ChevronRight size={18} />

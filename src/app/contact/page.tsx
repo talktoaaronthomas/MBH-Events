@@ -58,8 +58,8 @@ export default function ContactPage() {
                     </h3>
                     <div className="space-y-5">
                       <div className="flex items-start gap-4">
-                        <div className="w-10 h-10 rounded-lg bg-mbh-purple/10 flex items-center justify-center flex-shrink-0">
-                          <MapPin size={18} className="text-mbh-purple-300" />
+                        <div className="w-10 h-10 rounded-lg bg-mbh-gold/10 flex items-center justify-center flex-shrink-0">
+                          <MapPin size={18} className="text-mbh-gold-300" />
                         </div>
                         <div>
                           <p className="text-sm font-medium text-mbh-white">Our Office</p>
@@ -71,32 +71,32 @@ export default function ContactPage() {
                       </div>
 
                       <div className="flex items-start gap-4">
-                        <div className="w-10 h-10 rounded-lg bg-mbh-purple/10 flex items-center justify-center flex-shrink-0">
-                          <Phone size={18} className="text-mbh-purple-300" />
+                        <div className="w-10 h-10 rounded-lg bg-mbh-gold/10 flex items-center justify-center flex-shrink-0">
+                          <Phone size={18} className="text-mbh-gold-300" />
                         </div>
                         <div>
                           <p className="text-sm font-medium text-mbh-white">Phone</p>
-                          <a href="tel:+971501234567" className="text-sm text-mbh-white-dim hover:text-mbh-purple-300 transition-colors mt-0.5 block">
+                          <a href="tel:+971501234567" className="text-sm text-mbh-white-dim hover:text-mbh-gold-300 transition-colors mt-0.5 block">
                             +971 50 123 4567
                           </a>
                         </div>
                       </div>
 
                       <div className="flex items-start gap-4">
-                        <div className="w-10 h-10 rounded-lg bg-mbh-purple/10 flex items-center justify-center flex-shrink-0">
-                          <Mail size={18} className="text-mbh-purple-300" />
+                        <div className="w-10 h-10 rounded-lg bg-mbh-gold/10 flex items-center justify-center flex-shrink-0">
+                          <Mail size={18} className="text-mbh-gold-300" />
                         </div>
                         <div>
                           <p className="text-sm font-medium text-mbh-white">Email</p>
-                          <a href="mailto:hello@mbhevents.com" className="text-sm text-mbh-white-dim hover:text-mbh-purple-300 transition-colors mt-0.5 block">
+                          <a href="mailto:hello@mbhevents.com" className="text-sm text-mbh-white-dim hover:text-mbh-gold-300 transition-colors mt-0.5 block">
                             hello@mbhevents.com
                           </a>
                         </div>
                       </div>
 
                       <div className="flex items-start gap-4">
-                        <div className="w-10 h-10 rounded-lg bg-mbh-purple/10 flex items-center justify-center flex-shrink-0">
-                          <MessageCircle size={18} className="text-mbh-purple-300" />
+                        <div className="w-10 h-10 rounded-lg bg-mbh-gold/10 flex items-center justify-center flex-shrink-0">
+                          <MessageCircle size={18} className="text-mbh-gold-300" />
                         </div>
                         <div>
                           <p className="text-sm font-medium text-mbh-white">WhatsApp</p>
@@ -104,7 +104,7 @@ export default function ContactPage() {
                             href="https://wa.me/971501234567"
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="text-sm text-mbh-white-dim hover:text-mbh-purple-300 transition-colors mt-0.5 block"
+                            className="text-sm text-mbh-white-dim hover:text-mbh-gold-300 transition-colors mt-0.5 block"
                           >
                             Chat with us on WhatsApp
                           </a>
@@ -112,8 +112,8 @@ export default function ContactPage() {
                       </div>
 
                       <div className="flex items-start gap-4">
-                        <div className="w-10 h-10 rounded-lg bg-mbh-purple/10 flex items-center justify-center flex-shrink-0">
-                          <Clock size={18} className="text-mbh-purple-300" />
+                        <div className="w-10 h-10 rounded-lg bg-mbh-gold/10 flex items-center justify-center flex-shrink-0">
+                          <Clock size={18} className="text-mbh-gold-300" />
                         </div>
                         <div>
                           <p className="text-sm font-medium text-mbh-white">Office Hours</p>
@@ -143,7 +143,7 @@ export default function ContactPage() {
                             key={social.label}
                             href={social.href}
                             aria-label={social.label}
-                            className="w-11 h-11 rounded-lg bg-white/5 flex items-center justify-center text-mbh-white-dim hover:text-mbh-white hover:bg-mbh-purple/20 transition-all duration-300"
+                            className="w-11 h-11 rounded-lg bg-white/5 flex items-center justify-center text-mbh-white-dim hover:text-mbh-white hover:bg-mbh-gold/20 transition-all duration-300"
                           >
                             <Icon size={20} />
                           </a>

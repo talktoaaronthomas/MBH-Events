@@ -86,7 +86,7 @@ export default function InquiryForm({ preSelectedEventType, compact = false }: I
   };
 
   const inputClasses =
-    'w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-sm text-mbh-white placeholder:text-mbh-white-dim/50 focus:border-mbh-purple/50 focus:ring-1 focus:ring-mbh-purple/30 focus:outline-none transition-all duration-200';
+    'w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-sm text-mbh-white placeholder:text-mbh-white-dim/50 focus:border-mbh-gold/50 focus:ring-1 focus:ring-mbh-gold/30 focus:outline-none transition-all duration-200';
   const errorClasses = 'text-xs text-red-400 mt-1';
 
   if (status === 'success') {
