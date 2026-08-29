@@ -52,7 +52,7 @@ export default function CTABand({
         <ScrollReveal variant="scaleUp" delay={0.2}>
           <Link
             href={ctaHref}
-            className="btn-glow inline-flex items-center gap-3 px-10 py-5 rounded-xl text-lg font-semibold text-white group animate-[glow-pulse_3s_ease-in-out_infinite]"
+            className="btn-glow inline-flex items-center gap-3 px-10 py-5 rounded-xl text-lg font-semibold text-white group"
           >
             {ctaText}
             <ArrowRight

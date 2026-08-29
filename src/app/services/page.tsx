@@ -37,7 +37,7 @@ export default function ServicesPage() {
             subtitle="Every service you need to create extraordinary events — all under one roof."
           />
 
-          <StaggerContainer className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <StaggerContainer className="grid grid-cols-1 gap-4 lg:gap-6">
             {sorted.map((service, index) => (
               <ServiceCard
                 key={service.slug}
