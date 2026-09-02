@@ -83,7 +83,9 @@ export default function HomePage() {
       </section>
 
       {/* ===== SECTION DIVIDER ===== */}
-      <div className="w-full max-w-5xl mx-auto h-px bg-gradient-to-r from-transparent via-mbh-gold/30 to-transparent" />
+      <ScrollReveal variant="fadeIn" delay={0.1}>
+        <div className="w-full max-w-5xl mx-auto h-px bg-gradient-to-r from-transparent via-mbh-gold/30 to-transparent" />
+      </ScrollReveal>
 
       {/* ===== SERVICES GRID ===== */}
       <section className="py-20 lg:py-28 gradient-section">
@@ -94,7 +96,7 @@ export default function HomePage() {
             subtitle="From corporate conferences to luxury weddings — ten specialised service lines, one dedicated partner."
           />
 
-          <StaggerContainer className="grid grid-cols-1 gap-4 lg:gap-6">
+          <StaggerContainer className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {sortedServices.map((service, index) => (
               <ServiceCard
                 key={service.slug}
@@ -196,7 +198,9 @@ export default function HomePage() {
             title="What Our Clients Say"
             subtitle="The trust of our clients is our greatest achievement."
           />
-          <TestimonialCarousel />
+          <ScrollReveal variant="fadeUp" delay={0.2}>
+            <TestimonialCarousel />
+          </ScrollReveal>
         </div>
       </section>
 

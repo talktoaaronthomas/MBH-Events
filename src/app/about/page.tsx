@@ -181,7 +181,7 @@ export default function AboutPage() {
             title="What Sets Us Apart"
           />
 
-          <StaggerContainer className="grid grid-cols-1 sm:grid-cols-2 gap-5 max-w-4xl mx-auto">
+          <StaggerContainer className="grid grid-cols-1 sm:grid-cols-2 auto-rows-fr gap-5 max-w-4xl mx-auto">
             {[
               'Full in-house capabilities — creative, production, staffing, and logistics under one roof',
               'Proven track record with 500+ events across 15+ countries',
@@ -192,8 +192,8 @@ export default function AboutPage() {
               'Premium vendor network with negotiated preferred rates',
               'Post-event analytics and ROI measurement for corporate clients',
             ].map((item, index) => (
-              <StaggerItem key={index}>
-                <div className="flex items-start gap-3 p-4 rounded-xl border border-white/5 bg-mbh-black-card/50">
+              <StaggerItem key={index} className="h-full">
+                <div className="flex items-start gap-3 p-4 rounded-xl border border-white/5 bg-mbh-black-card/50 h-full">
                   <CheckCircle size={20} className="text-mbh-gold-300 flex-shrink-0 mt-0.5" />
                   <span className="text-sm text-mbh-white/90 leading-relaxed">{item}</span>
                 </div>

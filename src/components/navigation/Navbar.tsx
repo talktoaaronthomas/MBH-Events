@@ -113,11 +113,11 @@ export default function Navbar() {
         transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
         className={`fixed z-50 left-1/2 -translate-x-1/2 transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] ${
           isScrolled
-            ? 'top-4 w-[calc(100%-2rem)] lg:w-[95%] lg:max-w-7xl bg-mbh-black-light/60 backdrop-blur-xl rounded-2xl lg:rounded-full shadow-[0_10px_40px_rgba(0,0,0,0.5)] py-2'
-            : 'top-0 w-full max-w-full bg-transparent backdrop-blur-none py-5 rounded-none shadow-none'
+            ? 'top-4 w-[calc(100%-2rem)] lg:w-[95%] max-w-7xl bg-mbh-black-light/60 backdrop-blur-xl rounded-2xl lg:rounded-full shadow-[0_10px_40px_rgba(0,0,0,0.5)] py-2'
+            : 'top-0 w-full bg-transparent backdrop-blur-none py-5 rounded-none shadow-none'
         }`}
       >
-        <div className={`${isScrolled ? 'px-4 lg:px-10 w-full' : 'container-mbh'} flex items-center justify-between`}>
+        <div className={`w-full max-w-7xl mx-auto flex items-center justify-between transition-all duration-700 ${isScrolled ? 'px-4 lg:px-10' : 'px-6 md:px-8 xl:px-16'}`}>
           {/* Logo */}
           <Link href="/" className="flex items-center group">
             <div className={`relative transition-all duration-500 ${isScrolled ? 'w-40 h-12' : 'w-48 h-20 sm:w-56 sm:h-24'}`}>
