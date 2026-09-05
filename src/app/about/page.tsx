@@ -43,13 +43,12 @@ export default function AboutPage() {
             <ScrollReveal variant="fadeLeft">
               <div className="relative aspect-[4/3] rounded-2xl overflow-hidden">
                 <Image
-                  src="/images/about-story.jpg"
-                  alt="MBH Events team at work"
+                  src="/images/3d-logo.png"
+                  alt="MBH Events 3D Logo"
                   fill
-                  className="object-cover"
+                  className="object-contain drop-shadow-2xl scale-110 animate-[float_6s_ease-in-out_infinite]"
                   sizes="(max-width: 768px) 100vw, 50vw"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-mbh-black/60 to-transparent" />
               </div>
             </ScrollReveal>
 

@@ -43,7 +43,7 @@ export default function ServiceCard({
     >
       <Link
         href={`/services/${slug}`}
-        className={`group relative flex flex-col h-full overflow-hidden rounded-2xl border transition-all duration-500
+        className={`group relative flex flex-col md:flex-row h-full overflow-hidden rounded-2xl border transition-all duration-500
           ${tier === 'flagship'
             ? 'border-mbh-gold/30 bg-gradient-to-br from-mbh-gold/10 to-mbh-black-card shadow-[0_0_30px_rgba(212,175,55,0.1)]'
             : tier === 'premium'
@@ -55,7 +55,7 @@ export default function ServiceCard({
         `}
       >
         {/* Image */}
-        <div className="relative h-48 sm:h-56 overflow-hidden shrink-0">
+        <div className="relative h-64 md:h-auto md:w-2/5 md:min-h-[250px] overflow-hidden shrink-0">
           <Image
             src={heroImage}
             alt={title}
@@ -63,7 +63,7 @@ export default function ServiceCard({
             className="object-cover transition-transform duration-700 group-hover:scale-110"
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-mbh-black-card via-transparent to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t md:bg-gradient-to-r from-mbh-black-card via-transparent to-transparent" />
 
           {/* Badge */}
           {tier !== 'standard' && (
@@ -88,7 +88,7 @@ export default function ServiceCard({
         </div>
 
         {/* Content */}
-        <div className="p-6 flex flex-col flex-1">
+        <div className="p-6 md:p-8 md:pl-10 flex flex-col justify-center flex-1">
           <div className="flex items-start gap-3 mb-3">
             <h3 className="font-heading text-lg font-semibold text-mbh-white group-hover:text-mbh-gold-300 transition-colors duration-300 leading-tight">
               {title}

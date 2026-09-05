@@ -83,14 +83,13 @@ export const services: Service[] = [
       keywords: ['corporate events', 'conference management', 'gala dinner planning', 'product launch events', 'corporate event company'],
     },
     tier: 'flagship',
-    heroImage: '/images/services/corporate-hero.jpg',
+    heroImage: '/images/services/Corporate Events & Experiences.png',
     galleryImages: [
-      '/images/services/corporate-1.jpg',
-      '/images/services/corporate-2.jpg',
-      '/images/services/corporate-3.jpg',
-      '/images/services/corporate-4.jpg',
-      '/images/services/corporate-5.jpg',
-      '/images/services/corporate-6.jpg',
+      '/images/corporate/Conferences & Seminars.png',
+      '/images/corporate/Annual Meetings & Corporate Gatherings.png',
+      '/images/corporate/Gala Dinners & Award Nights.png',
+      '/images/corporate/Product Launches & Brand Activations.png',
+      '/images/corporate/Executive & VIP Events.png',
     ],
   },
   {
@@ -151,14 +150,13 @@ export const services: Service[] = [
       keywords: ['luxury wedding planner', 'destination weddings', 'wedding planning', 'social events', 'premium wedding company'],
     },
     tier: 'premium',
-    heroImage: '/images/services/wedding-hero.jpg',
+    heroImage: '/images/services/Luxury Weddings & Social Events.png',
     galleryImages: [
-      '/images/services/wedding-1.jpg',
-      '/images/services/wedding-2.jpg',
-      '/images/services/wedding-3.jpg',
-      '/images/services/wedding-4.jpg',
-      '/images/services/wedding-5.jpg',
-      '/images/services/wedding-6.jpg',
+      '/images/weddings/Luxury & Destination Weddings.png',
+      '/images/weddings/Wedding Planning & Coordination.png',
+      '/images/weddings/Venue Selection & Setup.png',
+      '/images/weddings/Decor & Theme Design.png',
+      '/images/weddings/Private Parties & Celebrations.png',
     ],
   },
   {
@@ -214,7 +212,7 @@ export const services: Service[] = [
       keywords: ['event planning', 'event management', 'event coordinator', 'venue sourcing', 'vendor management'],
     },
     tier: 'standard',
-    heroImage: '/images/services/planning-hero.jpg',
+    heroImage: '/images/services/Event Planning & Management.png',
     galleryImages: [
       '/images/services/planning-1.jpg',
       '/images/services/planning-2.jpg',
@@ -275,7 +273,7 @@ export const services: Service[] = [
       keywords: ['event design', 'stage design', 'experiential design', 'event decor', 'creative event agency'],
     },
     tier: 'standard',
-    heroImage: '/images/services/creative-hero.jpg',
+    heroImage: '/images/services/Creative & Experience Design.png',
     galleryImages: [
       '/images/services/creative-1.jpg',
       '/images/services/creative-2.jpg',
@@ -340,7 +338,7 @@ export const services: Service[] = [
       keywords: ['event production', 'AV production', 'LED screen rental', 'stage lighting', 'live streaming events'],
     },
     tier: 'standard',
-    heroImage: '/images/services/production-hero.jpg',
+    heroImage: '/images/services/Production & Technical Solutions.png',
     galleryImages: [
       '/images/services/production-1.jpg',
       '/images/services/production-2.jpg',
@@ -401,7 +399,7 @@ export const services: Service[] = [
       keywords: ['event entertainment', 'DJ booking', 'celebrity booking', 'live performers', 'show production'],
     },
     tier: 'standard',
-    heroImage: '/images/services/entertainment-hero.jpg',
+    heroImage: '/images/services/Talent & Entertainment.png',
     galleryImages: [
       '/images/services/entertainment-1.jpg',
       '/images/services/entertainment-2.jpg',
@@ -462,7 +460,7 @@ export const services: Service[] = [
       keywords: ['event staffing', 'crowd management', 'event hostesses', 'VIP protocol', 'event security'],
     },
     tier: 'standard',
-    heroImage: '/images/services/staffing-hero.jpg',
+    heroImage: '/images/services/Event Staffing & Crowd Management.png',
     galleryImages: [
       '/images/services/staffing-1.jpg',
       '/images/services/staffing-2.jpg',
@@ -523,7 +521,7 @@ export const services: Service[] = [
       keywords: ['event logistics', 'hospitality management', 'event transportation', 'valet parking events', 'accommodation coordination'],
     },
     tier: 'standard',
-    heroImage: '/images/services/logistics-hero.jpg',
+    heroImage: '/images/services/Logistics & Hospitality Management.png',
     galleryImages: [
       '/images/services/logistics-1.jpg',
       '/images/services/logistics-2.jpg',
@@ -584,7 +582,7 @@ export const services: Service[] = [
       keywords: ['exhibition booth design', 'brand activation', 'trade show management', 'mall activation', 'experiential marketing'],
     },
     tier: 'standard',
-    heroImage: '/images/services/exhibitions-hero.jpg',
+    heroImage: '/images/services/Exhibitions & Brand Activations.png',
     galleryImages: [
       '/images/services/exhibitions-1.jpg',
       '/images/services/exhibitions-2.jpg',
@@ -645,7 +643,7 @@ export const services: Service[] = [
       keywords: ['event rentals', 'furniture rental', 'tent rental events', 'staging rental', 'event equipment hire'],
     },
     tier: 'standard',
-    heroImage: '/images/services/rentals-hero.jpg',
+    heroImage: '/images/services/Event Rentals & Infrastructure.png',
     galleryImages: [
       '/images/services/rentals-1.jpg',
       '/images/services/rentals-2.jpg',

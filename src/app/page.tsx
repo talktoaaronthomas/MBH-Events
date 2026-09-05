@@ -11,6 +11,7 @@ import { stats } from '@/data/stats';
 import Image from 'next/image';
 import Link from 'next/link';
 import { ArrowRight, Sparkles, Shield, Clock, Award } from 'lucide-react';
+import ClientLogosCarousel from '@/components/ui/ClientLogosCarousel';
 
 export default function HomePage() {
   // Sort services — flagship first, then premium, then standard
@@ -96,20 +97,21 @@ export default function HomePage() {
             subtitle="From corporate conferences to luxury weddings — ten specialised service lines, one dedicated partner."
           />
 
-          <StaggerContainer className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {sortedServices.map((service, index) => (
-              <ServiceCard
-                key={service.slug}
-                slug={service.slug}
-                title={service.title}
-                emoji={service.emoji}
-                shortDescription={service.shortDescription}
-                heroImage={service.heroImage}
-                tier={service.tier}
-                index={index}
-              />
+          <div className="flex flex-col gap-6">
+            {sortedServices.map((service) => (
+              <ScrollReveal key={service.slug} variant="fadeUp" amount={0.3}>
+                <ServiceCard
+                  slug={service.slug}
+                  title={service.title}
+                  emoji={service.emoji}
+                  shortDescription={service.shortDescription}
+                  heroImage={service.heroImage}
+                  tier={service.tier}
+                  index={0}
+                />
+              </ScrollReveal>
             ))}
-          </StaggerContainer>
+          </div>
 
           <ScrollReveal variant="fadeUp" delay={0.3}>
             <div className="text-center mt-12">
@@ -230,6 +232,17 @@ export default function HomePage() {
             ))}
           </div>
         </div>
+      </section>
+
+      {/* ===== PROUDLY SUPPORTED ===== */}
+      <section className="py-16 lg:py-24 border-t border-white/5">
+        <div className="container-mbh text-center">
+          <h2 className="font-heading text-3xl md:text-4xl font-bold text-mbh-white mb-16 lg:mb-20">
+            Proudly Supported
+          </h2>
+        </div>
+        
+        <ClientLogosCarousel />
       </section>
 
       {/* ===== CLOSING CTA ===== */}

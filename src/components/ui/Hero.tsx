@@ -55,7 +55,7 @@ export default function Hero({
     let loadedCount = 0;
     
     for (let i = 0; i < frameCount; i++) {
-      const img = new Image();
+      const img = new window.Image();
       img.src = currentFrame(i);
       img.onload = () => {
         loadedCount++;
@@ -101,7 +101,7 @@ export default function Hero({
     };
     
     // Initial draw once first image is loaded
-    const initImage = new Image();
+    const initImage = new window.Image();
     initImage.src = currentFrame(0);
     initImage.onload = () => {
       handleResize();
@@ -163,7 +163,7 @@ export default function Hero({
         <div className={`sticky top-0 w-full flex items-center overflow-hidden ${sizeClasses[size]}`}>
           <div
             className="absolute inset-0 bg-cover bg-center scale-105 z-0"
-            style={{ backgroundImage: `url(${bgImage})` }}
+            style={{ backgroundImage: `url("${bgImage}")` }}
           />
           <div className="absolute inset-0 bg-gradient-to-br from-mbh-black via-mbh-gold-950/60 to-mbh-black z-0" />
           <div className="absolute inset-0 z-0 gradient-overlay-gold" />

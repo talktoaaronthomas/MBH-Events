@@ -7,7 +7,7 @@ export interface InvitationData {
   message: string;
 }
 
-export type TemplateId = 
+export type TemplateId =
   | 'classic-gold' | 'modern-minimal'
   | 'executive-summit' | 'product-launch' | 'annual-gala' | 'startup-mixer' | 'corporate-retreat' | 'investor-pitch'
   | 'rustic-romance' | 'ocean-breeze' | 'vintage-glamour' | 'fairytale-garden' | 'minimalist-love' | 'boho-chic'

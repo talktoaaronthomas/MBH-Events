@@ -4,6 +4,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import Hero from '@/components/ui/Hero';
 import SectionHeading from '@/components/ui/SectionHeading';
+import ScrollHighlightText from '@/components/ui/ScrollHighlightText';
 
 import InquiryForm from '@/components/ui/InquiryForm';
 import CTABand from '@/components/ui/CTABand';
@@ -91,11 +92,7 @@ export default async function ServicePage({ params }: ServicePageProps) {
                 <div className="accent-line mx-auto" />
               </div>
             </ScrollReveal>
-            <ScrollReveal variant="fadeUp" delay={0.1}>
-              <p className="text-lg text-mbh-white-muted leading-relaxed text-center">
-                {service.fullDescription}
-              </p>
-            </ScrollReveal>
+            <ScrollHighlightText text={service.fullDescription} />
           </div>
         </div>
       </section>
@@ -109,27 +106,36 @@ export default async function ServicePage({ params }: ServicePageProps) {
             subtitle="Everything we deliver as part of this service line."
           />
 
-          <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-5xl mx-auto">
-            {service.includedServices.map((item) => (
-              <StaggerItem key={item.title}>
-                <div className="p-6 rounded-xl border border-white/5 bg-mbh-black-card hover:border-mbh-gold/20 transition-all duration-300 h-full group">
-                  <div className="flex items-start gap-4">
-                    <div className="w-10 h-10 rounded-lg bg-mbh-gold/10 border border-mbh-gold/20 flex items-center justify-center flex-shrink-0 mt-0.5 group-hover:bg-mbh-gold/20 transition-colors">
-                      <CheckCircle size={20} className="text-mbh-gold-300" />
-                    </div>
-                    <div>
-                      <h3 className="font-heading text-base font-semibold text-mbh-white mb-2">
+          <div className="relative w-full overflow-hidden flex group py-4">
+            <div className="flex gap-6 animate-[scroll-marquee_40s_linear_infinite] group-hover:[animation-play-state:paused] w-max px-3">
+              {[...service.includedServices, ...service.includedServices].map((item, index) => (
+                <div key={`${item.title}-${index}`} className="w-[320px] md:w-[450px] shrink-0">
+                  <div className="rounded-xl border border-white/5 bg-mbh-black-card overflow-hidden hover:border-mbh-gold/20 transition-all duration-300 h-full group/card flex flex-col">
+                    {['corporate-events', 'luxury-weddings'].includes(service.slug) && (
+                      <div className="relative h-48 w-full overflow-hidden">
+                        <Image
+                          src={service.galleryImages[index % service.galleryImages.length]}
+                          alt={item.title}
+                          fill
+                          className="object-cover transition-transform duration-700 group-hover/card:scale-110"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-mbh-black-card via-mbh-black-card/80 to-transparent" />
+                      </div>
+                    )}
+                    <div className="p-6 flex-grow flex flex-col">
+                      <h3 className="font-heading text-xl font-semibold text-mbh-white mb-3 flex items-start gap-2">
+                        <CheckCircle size={20} className="text-mbh-gold-300 flex-shrink-0 mt-1" />
                         {item.title}
                       </h3>
-                      <p className="text-sm text-mbh-white-dim leading-relaxed">
+                      <p className="text-sm text-mbh-white-dim leading-relaxed whitespace-normal">
                         {item.description}
                       </p>
                     </div>
                   </div>
                 </div>
-              </StaggerItem>
-            ))}
-          </StaggerContainer>
+              ))}
+            </div>
+          </div>
         </div>
       </section>
 
