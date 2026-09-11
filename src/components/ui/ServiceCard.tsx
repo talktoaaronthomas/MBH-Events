@@ -43,7 +43,7 @@ export default function ServiceCard({
     >
       <Link
         href={`/services/${slug}`}
-        className={`group relative flex flex-col justify-end h-[220px] md:h-[280px] overflow-hidden rounded-2xl border transition-all duration-500
+        className={`group relative flex flex-col justify-end h-[180px] md:h-[220px] overflow-hidden rounded-2xl border transition-all duration-500
           ${tier === 'flagship'
             ? 'border-mbh-gold/30 shadow-[0_0_30px_rgba(212,175,55,0.1)]'
             : tier === 'premium'
@@ -85,19 +85,20 @@ export default function ServiceCard({
         )}
 
         {/* Content */}
-        <div className="relative z-20 p-6 md:p-10 flex flex-col justify-end">
-          <div className="flex items-center justify-between gap-4 mb-3">
-            <h3 className="font-heading text-2xl md:text-3xl font-semibold text-mbh-white group-hover:text-mbh-gold-300 transition-colors duration-300 leading-tight drop-shadow-md">
+        <div className="relative z-20 p-6 md:p-10 flex flex-col justify-end h-full">
+          <div className="mb-2">
+            <h3 className="font-heading text-2xl md:text-3xl font-semibold text-mbh-white group-hover:text-mbh-gold-300 transition-colors duration-300 leading-tight drop-shadow-md pr-12">
               {title}
             </h3>
-            {/* Hover arrow */}
-            <div className="w-10 h-10 rounded-full bg-mbh-gold/80 flex items-center justify-center opacity-0 translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300 shrink-0">
-              <ArrowUpRight size={18} className="text-white" />
-            </div>
           </div>
-          <p className="text-base md:text-lg text-mbh-white/90 leading-relaxed max-w-3xl drop-shadow">
+          <p className="text-base md:text-lg text-mbh-white/90 leading-relaxed drop-shadow pr-12">
             {shortDescription}
           </p>
+          
+          {/* Hover arrow */}
+          <div className="absolute bottom-6 right-6 md:bottom-10 md:right-10 w-10 h-10 rounded-full bg-mbh-gold/80 flex items-center justify-center opacity-0 translate-x-2 translate-y-2 group-hover:opacity-100 group-hover:translate-x-0 group-hover:translate-y-0 transition-all duration-300 shrink-0">
+            <ArrowUpRight size={18} className="text-white" />
+          </div>
         </div>
 
         {/* Bottom accent line */}
