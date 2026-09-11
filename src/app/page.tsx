@@ -11,6 +11,7 @@ import { stats } from '@/data/stats';
 import Image from 'next/image';
 import Link from 'next/link';
 import { ArrowRight, Sparkles, Shield, Clock, Award } from 'lucide-react';
+import SupportedClientsCarousel from '@/components/ui/SupportedClientsCarousel';
 import ClientLogosCarousel from '@/components/ui/ClientLogosCarousel';
 
 export default function HomePage() {
@@ -102,7 +103,7 @@ export default function HomePage() {
             subtitle="From corporate conferences to luxury weddings — ten specialised service lines, one dedicated partner."
           />
 
-          <div className="flex flex-col gap-6">
+          <div className="flex flex-col gap-5 max-w-4xl mx-auto">
             {sortedServices.map((service) => (
               <ScrollReveal key={service.slug} variant="fadeUp" amount={0.3}>
                 <ServiceCard
@@ -113,6 +114,7 @@ export default function HomePage() {
                   heroImage={service.heroImage}
                   tier={service.tier}
                   index={0}
+                  compact={true}
                 />
               </ScrollReveal>
             ))}
@@ -209,6 +211,16 @@ export default function HomePage() {
             <TestimonialCarousel />
           </ScrollReveal>
         </div>
+      </section>
+
+      {/* ===== SUPPORTED CLIENTS ===== */}
+      <section className="py-16 lg:py-24 border-t border-white/5">
+        <div className="container-mbh text-center">
+          <h2 className="font-heading text-3xl md:text-4xl font-bold text-mbh-white mb-16 lg:mb-20">
+            Clients We have Supported
+          </h2>
+        </div>
+        <SupportedClientsCarousel />
       </section>
 
       {/* ===== STATS ===== */}

@@ -13,6 +13,7 @@ interface ServiceCardProps {
   heroImage: string;
   tier: 'flagship' | 'premium' | 'standard';
   index?: number;
+  compact?: boolean;
 }
 
 export default function ServiceCard({
@@ -23,6 +24,7 @@ export default function ServiceCard({
   heroImage,
   tier,
   index = 0,
+  compact = false,
 }: ServiceCardProps) {
 
   return (
@@ -43,7 +45,7 @@ export default function ServiceCard({
     >
       <Link
         href={`/services/${slug}`}
-        className={`group relative flex flex-col justify-end h-[180px] md:h-[220px] overflow-hidden rounded-2xl border transition-all duration-500
+        className={`group relative flex flex-col justify-end ${compact ? 'h-[160px] md:h-[200px]' : 'h-[180px] md:h-[220px]'} overflow-hidden rounded-2xl border transition-all duration-500
           ${tier === 'flagship'
             ? 'border-mbh-gold/30 shadow-[0_0_30px_rgba(212,175,55,0.1)]'
             : tier === 'premium'
@@ -85,18 +87,18 @@ export default function ServiceCard({
         )}
 
         {/* Content */}
-        <div className="relative z-20 p-6 md:p-10 flex flex-col justify-end h-full">
+        <div className={`relative z-20 ${compact ? 'p-5 md:p-6' : 'p-6 md:p-10'} flex flex-col justify-end h-full`}>
           <div className="mb-2">
-            <h3 className="font-heading text-2xl md:text-3xl font-semibold text-mbh-white group-hover:text-mbh-gold-300 transition-colors duration-300 leading-tight drop-shadow-md pr-12">
+            <h3 className={`font-heading ${compact ? 'text-xl md:text-2xl' : 'text-2xl md:text-3xl'} font-semibold text-mbh-white group-hover:text-mbh-gold-300 transition-colors duration-300 leading-tight drop-shadow-md pr-12`}>
               {title}
             </h3>
           </div>
-          <p className="text-base md:text-lg text-mbh-white/90 leading-relaxed drop-shadow pr-12">
+          <p className={`${compact ? 'text-sm md:text-base line-clamp-2' : 'text-base md:text-lg'} text-mbh-white/90 leading-relaxed drop-shadow pr-12`}>
             {shortDescription}
           </p>
           
           {/* Hover arrow */}
-          <div className="absolute bottom-6 right-6 md:bottom-10 md:right-10 w-10 h-10 rounded-full bg-mbh-gold/80 flex items-center justify-center opacity-0 translate-x-2 translate-y-2 group-hover:opacity-100 group-hover:translate-x-0 group-hover:translate-y-0 transition-all duration-300 shrink-0">
+          <div className={`absolute ${compact ? 'bottom-5 right-5' : 'bottom-6 right-6 md:bottom-10 md:right-10'} w-10 h-10 rounded-full bg-mbh-gold/80 flex items-center justify-center opacity-0 translate-x-2 translate-y-2 group-hover:opacity-100 group-hover:translate-x-0 group-hover:translate-y-0 transition-all duration-300 shrink-0`}>
             <ArrowUpRight size={18} className="text-white" />
           </div>
         </div>
