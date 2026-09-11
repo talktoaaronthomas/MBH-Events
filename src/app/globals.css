@@ -229,7 +229,7 @@ body {
 .gradient-section {
   background: linear-gradient(
     180deg,
-    var(--color-mbh-black) 0%,
+    transparent 0%,
     var(--color-mbh-gold-950) 50%,
     var(--color-mbh-black) 100%
   );

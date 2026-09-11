@@ -187,9 +187,9 @@ export default async function ServicePage({ params }: ServicePageProps) {
           <StaggerContainer className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-4xl mx-auto">
             {service.whyChooseUs.map((reason, index) => (
               <StaggerItem key={index}>
-                <div className="flex items-start gap-3 p-4 rounded-xl border border-white/5 bg-mbh-black-card/50">
-                  <CheckCircle size={18} className="text-mbh-gold-300 flex-shrink-0 mt-0.5" />
-                  <span className="text-sm text-mbh-white/90 leading-relaxed">{reason}</span>
+                <div className="flex items-start gap-4 p-5 md:p-6 rounded-xl border border-white/5 bg-mbh-black-card/50">
+                  <CheckCircle size={20} className="text-mbh-gold-300 flex-shrink-0 mt-0.5" />
+                  <span className="text-base text-mbh-white/90 leading-relaxed">{reason}</span>
                 </div>
               </StaggerItem>
             ))}

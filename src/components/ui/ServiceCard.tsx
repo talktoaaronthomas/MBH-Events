@@ -43,64 +43,65 @@ export default function ServiceCard({
     >
       <Link
         href={`/services/${slug}`}
-        className={`group relative flex flex-col md:flex-row h-full overflow-hidden rounded-2xl border transition-all duration-500
+        className={`group relative flex flex-col justify-end h-[220px] md:h-[280px] overflow-hidden rounded-2xl border transition-all duration-500
           ${tier === 'flagship'
-            ? 'border-mbh-gold/30 bg-gradient-to-br from-mbh-gold/10 to-mbh-black-card shadow-[0_0_30px_rgba(212,175,55,0.1)]'
+            ? 'border-mbh-gold/30 shadow-[0_0_30px_rgba(212,175,55,0.1)]'
             : tier === 'premium'
-            ? 'border-mbh-gold-400/20 bg-gradient-to-br from-mbh-gold-400/5 to-mbh-black-card'
-            : 'border-white/5 bg-mbh-black-card'
+            ? 'border-mbh-gold-400/20'
+            : 'border-white/5'
           }
           hover:border-mbh-gold/40 hover:shadow-[0_20px_50px_rgba(0,0,0,0.4),0_0_30px_rgba(212,175,55,0.15)]
           hover:-translate-y-2
         `}
       >
-        {/* Image */}
-        <div className="relative h-64 md:h-auto md:w-2/5 md:min-h-[250px] overflow-hidden shrink-0">
+        {/* Background Image */}
+        <div className="absolute inset-0 z-0 overflow-hidden">
           <Image
             src={heroImage}
             alt={title}
             fill
             className="object-cover transition-transform duration-700 group-hover:scale-110"
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            sizes="(max-width: 768px) 100vw, 100vw"
           />
-          <div className="absolute inset-0 bg-gradient-to-t md:bg-gradient-to-r from-mbh-black-card via-transparent to-transparent" />
-
-          {/* Badge */}
-          {tier !== 'standard' && (
-            <div className="absolute top-4 right-4">
-              <span
-                className={`text-[10px] font-bold uppercase tracking-wider px-3 py-1.5 rounded-full
-                  ${tier === 'flagship'
-                    ? 'bg-mbh-gold text-white shadow-[--shadow-glow-sm]'
-                    : 'bg-white/10 backdrop-blur-sm text-mbh-gold-200 border border-mbh-gold-400/30'
-                  }
-                `}
-              >
-                {tier === 'flagship' ? '⭐ Flagship' : '💍 Premium'}
-              </span>
-            </div>
-          )}
-
-          {/* Hover arrow */}
-          <div className="absolute bottom-4 right-4 w-10 h-10 rounded-full bg-mbh-gold/80 flex items-center justify-center opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300">
-            <ArrowUpRight size={18} className="text-white" />
-          </div>
+          {/* Gradients for readability */}
+          <div className="absolute inset-0 bg-gradient-to-t from-mbh-black via-mbh-black/60 to-transparent opacity-90 group-hover:opacity-100 transition-opacity duration-500" />
+          <div className="absolute inset-0 bg-mbh-black/40 group-hover:bg-transparent transition-colors duration-500" />
         </div>
 
+        {/* Badge */}
+        {tier !== 'standard' && (
+          <div className="absolute top-6 right-6 z-20">
+            <span
+              className={`text-[10px] sm:text-xs font-bold uppercase tracking-wider px-3 py-1.5 rounded-full
+                ${tier === 'flagship'
+                  ? 'bg-mbh-gold text-white shadow-[--shadow-glow-sm]'
+                  : 'bg-white/10 backdrop-blur-sm text-mbh-gold-200 border border-mbh-gold-400/30'
+                }
+              `}
+            >
+              {tier === 'flagship' ? '⭐ Flagship' : '💍 Premium'}
+            </span>
+          </div>
+        )}
+
         {/* Content */}
-        <div className="p-6 md:p-8 md:pl-10 flex flex-col justify-center flex-1">
-          <div className="flex items-start gap-3 mb-3">
-            <h3 className="font-heading text-lg font-semibold text-mbh-white group-hover:text-mbh-gold-300 transition-colors duration-300 leading-tight">
+        <div className="relative z-20 p-6 md:p-10 flex flex-col justify-end">
+          <div className="flex items-center justify-between gap-4 mb-3">
+            <h3 className="font-heading text-2xl md:text-3xl font-semibold text-mbh-white group-hover:text-mbh-gold-300 transition-colors duration-300 leading-tight drop-shadow-md">
               {title}
             </h3>
+            {/* Hover arrow */}
+            <div className="w-10 h-10 rounded-full bg-mbh-gold/80 flex items-center justify-center opacity-0 translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300 shrink-0">
+              <ArrowUpRight size={18} className="text-white" />
+            </div>
           </div>
-          <p className="text-sm text-mbh-white-dim leading-relaxed line-clamp-2">
+          <p className="text-base md:text-lg text-mbh-white/90 leading-relaxed max-w-3xl drop-shadow">
             {shortDescription}
           </p>
         </div>
 
         {/* Bottom accent line */}
-        <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-mbh-gold to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+        <div className="absolute bottom-0 left-0 right-0 h-[3px] bg-gradient-to-r from-transparent via-mbh-gold to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-20" />
       </Link>
     </motion.div>
   );

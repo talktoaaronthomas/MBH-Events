@@ -26,7 +26,7 @@ export default function HomePage() {
       <Hero />
 
       {/* ===== INTRO ===== */}
-      <section className="py-20 lg:py-28 relative">
+      <section className="pt-20 lg:pt-28 pb-10 lg:pb-14 relative">
         <div className="container-mbh">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
             <ScrollReveal variant="fadeLeft">
@@ -84,13 +84,18 @@ export default function HomePage() {
       </section>
 
       {/* ===== SECTION DIVIDER ===== */}
-      <ScrollReveal variant="fadeIn" delay={0.1}>
-        <div className="w-full max-w-5xl mx-auto h-px bg-gradient-to-r from-transparent via-mbh-gold/30 to-transparent" />
-      </ScrollReveal>
+      <div className="relative py-4 pointer-events-none flex justify-center items-center z-10">
+        <ScrollReveal variant="fadeIn" delay={0.1} className="w-full relative z-10">
+          <div className="w-full max-w-5xl mx-auto h-px bg-gradient-to-r from-transparent via-mbh-gold/30 to-transparent" />
+        </ScrollReveal>
+      </div>
 
       {/* ===== SERVICES GRID ===== */}
-      <section className="py-20 lg:py-28 gradient-section">
-        <div className="container-mbh">
+      <section className="pt-10 lg:pt-14 pb-20 lg:pb-28 gradient-section relative">
+        {/* White Gaussian Blur */}
+        <div className="absolute top-[-100px] left-1/2 -translate-x-1/2 w-full max-w-4xl h-[400px] bg-white/[0.05] blur-[120px] rounded-[100%] z-0 pointer-events-none" />
+
+        <div className="container-mbh relative z-10">
           <SectionHeading
             label="What We Do"
             title="Full-Spectrum Event Solutions"
@@ -238,10 +243,10 @@ export default function HomePage() {
       <section className="py-16 lg:py-24 border-t border-white/5">
         <div className="container-mbh text-center">
           <h2 className="font-heading text-3xl md:text-4xl font-bold text-mbh-white mb-16 lg:mb-20">
-            Proudly Supported
+            Industry Partners
           </h2>
         </div>
-        
+
         <ClientLogosCarousel />
       </section>
 

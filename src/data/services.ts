@@ -67,6 +67,7 @@ export const services: Service[] = [
       'Full in-house production, creative, and logistics capabilities',
       'Dedicated project manager for seamless coordination',
       'Strict adherence to timelines, budgets, and brand guidelines',
+      'Unwavering commitment to excellence and complete client satisfaction',
     ],
     process: [
       { step: 'Discovery', description: 'We deep-dive into your brand, objectives, and audience to craft a tailored event strategy.' },
@@ -134,6 +135,7 @@ export const services: Service[] = [
       'Trusted network of premium vendors and luxury venues',
       'White-glove service with 24/7 availability for our couples',
       'Discreet, detail-obsessed approach for high-profile celebrations',
+      'Unwavering commitment to excellence and complete client satisfaction',
     ],
     process: [
       { step: 'Vision Session', description: 'We sit with you to understand your love story, style preferences, and dream celebration.' },
@@ -196,6 +198,7 @@ export const services: Service[] = [
       'Vast vendor network with negotiated preferred rates',
       'Risk mitigation with contingency planning for every scenario',
       'Single point of contact for effortless coordination',
+      'Unwavering commitment to excellence and complete client satisfaction',
     ],
     process: [
       { step: 'Brief & Scope', description: 'We define clear objectives, audience, budget, and success metrics.' },
@@ -257,6 +260,7 @@ export const services: Service[] = [
       'Trend-forward designs blending international aesthetics with local sensibilities',
       'End-to-end — from concept sketch to on-site installation',
       'Material innovation and sustainable design options',
+      'Unwavering commitment to excellence and complete client satisfaction',
     ],
     process: [
       { step: 'Creative Brief', description: 'We absorb your vision, brand guidelines, and audience profile.' },
@@ -322,6 +326,7 @@ export const services: Service[] = [
       'Broadcast-quality production for live streaming and hybrid events',
       'Safety-first approach with certified rigging and electrical teams',
       'Scalable solutions from boardroom to stadium',
+      'Unwavering commitment to excellence and complete client satisfaction',
     ],
     process: [
       { step: 'Technical Survey', description: 'Venue inspection, power assessment, and technical requirements scoping.' },
@@ -383,6 +388,7 @@ export const services: Service[] = [
       'Custom show concepts designed around your event theme',
       'Technical rider fulfillment with our in-house production team',
       'Backup talent plans for risk-free entertainment',
+      'Unwavering commitment to excellence and complete client satisfaction',
     ],
     process: [
       { step: 'Entertainment Brief', description: 'We understand your audience, event vibe, and entertainment goals.' },
@@ -444,6 +450,7 @@ export const services: Service[] = [
       'Custom uniforms and brand-aligned grooming standards',
       'Scalable teams from 5 to 500+ staff members',
       'Dedicated staffing coordinator for seamless management',
+      'Unwavering commitment to excellence and complete client satisfaction',
     ],
     process: [
       { step: 'Requirements Analysis', description: 'We assess your event type, scale, and staffing needs in detail.' },
@@ -505,6 +512,7 @@ export const services: Service[] = [
       'Real-time communication systems for on-ground coordination',
       'Experience managing logistics for 10,000+ guest events',
       'Contingency planning for weather, traffic, and operational risks',
+      'Unwavering commitment to excellence and complete client satisfaction',
     ],
     process: [
       { step: 'Logistics Audit', description: 'Comprehensive assessment of venue access, capacity, and operational requirements.' },
@@ -566,6 +574,7 @@ export const services: Service[] = [
       'Integrated digital + physical activation strategies',
       'ROI-focused approach with lead capture and analytics',
       'Experience across GITEX, GISEC, Arab Health, and major international expos',
+      'Unwavering commitment to excellence and complete client satisfaction',
     ],
     process: [
       { step: 'Brand Immersion', description: 'We study your brand, products, and target audience for the activation.' },
@@ -627,6 +636,7 @@ export const services: Service[] = [
       'Delivery, installation, and collection included',
       'Flexible packages for any budget and scale',
       'Quick turnaround — last-minute requests welcome',
+      'Unwavering commitment to excellence and complete client satisfaction',
     ],
     process: [
       { step: 'Requirement Listing', description: 'We assess your event needs and recommend the right rental package.' },
