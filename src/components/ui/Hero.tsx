@@ -19,6 +19,7 @@ export interface HeroProps {
   secondaryCtaText?: string;
   secondaryCtaHref?: string;
   bgImage?: string;
+  videoEmbed?: React.ReactNode;
   size?: 'full' | 'large' | 'medium';
   align?: 'center' | 'left';
 }
@@ -36,6 +37,7 @@ export default function Hero({
   secondaryCtaText = "Explore Services",
   secondaryCtaHref = "/services",
   bgImage,
+  videoEmbed,
   size = 'full',
   align = 'center',
 }: HeroProps) {
@@ -156,15 +158,21 @@ export default function Hero({
     left: 'text-left items-start',
   };
 
-  // If bgImage is provided, render static backwards-compatible version
-  if (bgImage) {
+  // If bgImage or videoEmbed is provided, render static backwards-compatible version
+  if (bgImage || videoEmbed) {
     return (
       <section className={`relative flex flex-col ${sizeClasses[size]}`}>
         <div className={`sticky top-0 w-full flex items-center overflow-hidden ${sizeClasses[size]}`}>
-          <div
-            className="absolute inset-0 bg-cover bg-center scale-105 z-0"
-            style={{ backgroundImage: `url("${bgImage}")` }}
-          />
+          {videoEmbed ? (
+            <div className="absolute inset-0 z-0 bg-mbh-black flex items-center justify-center overflow-hidden pointer-events-none">
+              {videoEmbed}
+            </div>
+          ) : (
+            <div
+              className="absolute inset-0 bg-cover bg-center scale-105 z-0"
+              style={{ backgroundImage: `url("${bgImage}")` }}
+            />
+          )}
           <div className="absolute inset-0 bg-gradient-to-br from-mbh-black via-mbh-gold-950/60 to-mbh-black z-0" />
           <div className="absolute inset-0 z-0 gradient-overlay-gold" />
           

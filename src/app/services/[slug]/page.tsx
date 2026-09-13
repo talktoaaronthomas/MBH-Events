@@ -12,6 +12,7 @@ import ScrollReveal from '@/components/animations/ScrollReveal';
 import { StaggerContainer, StaggerItem } from '@/components/animations/ScrollReveal';
 import { services, getServiceBySlug, getRelatedServices } from '@/data/services';
 import { CheckCircle, ArrowRight } from 'lucide-react';
+import VideoBackground from '@/components/ui/VideoBackground';
 
 interface ServicePageProps {
   params: Promise<{ slug: string }>;
@@ -52,6 +53,95 @@ export default async function ServicePage({ params }: ServicePageProps) {
 
   return (
     <>
+      {service.slug === 'luxury-weddings' && (
+        <style dangerouslySetInnerHTML={{ __html: `
+          body {
+            background-color: #F4EFE7 !important;
+          }
+          
+          /* Apply variables only within content-wrapper so Hero and Navbar stay white */
+          .content-wrapper {
+            --color-mbh-gold: #2E2618 !important;
+            --color-mbh-gold-300: #2E2618 !important;
+            --color-mbh-gold-400: #2E2618 !important;
+            --color-mbh-gold-600: #2E2618 !important;
+            --color-mbh-white: #2E2618 !important;
+            --color-mbh-white-dim: rgba(46, 38, 24, 0.8) !important;
+            --color-mbh-black-card: #F4EFE7 !important;
+            --color-mbh-black: #F4EFE7 !important;
+            --color-mbh-black-light: #F4EFE7 !important;
+            --color-mbh-gold-950: #F4EFE7 !important;
+            --color-white: #2E2618 !important;
+          }
+
+          /* Force all headings and text elements to use the dark color */
+          .content-wrapper .text-white, 
+          .content-wrapper .text-mbh-white, 
+          .content-wrapper .text-mbh-white-dim, 
+          .content-wrapper h1, 
+          .content-wrapper h2, 
+          .content-wrapper h3, 
+          .content-wrapper h4, 
+          .content-wrapper p, 
+          .content-wrapper span {
+            color: #2E2618 !important;
+          }
+
+          /* Services & Capabilities Cards AND Related Cards */
+          .content-wrapper .services-card,
+          .content-wrapper .related-card {
+            background-color: #2E2618 !important;
+            border-color: rgba(250, 250, 250, 0.1) !important;
+          }
+          .content-wrapper .services-card h3,
+          .content-wrapper .services-card p,
+          .content-wrapper .services-card span,
+          .content-wrapper .services-card .text-mbh-white,
+          .content-wrapper .services-card .text-mbh-white-dim,
+          .content-wrapper .related-card h4,
+          .content-wrapper .related-card p,
+          .content-wrapper .related-card span,
+          .content-wrapper .related-card .text-mbh-white,
+          .content-wrapper .related-card .text-mbh-gold-300 {
+            color: #FAFAFA !important;
+          }
+          
+          /* Form CTA Buttons */
+          .content-wrapper .btn-glow,
+          .content-wrapper .btn-glow * {
+            color: #FAFAFA !important;
+          }
+          .content-wrapper form .btn-glow {
+            box-shadow: none !important;
+          }
+          .content-wrapper form .btn-glow::after {
+            display: none !important;
+          }
+          
+          /* Form Fields */
+          .content-wrapper form input,
+          .content-wrapper form select,
+          .content-wrapper form textarea {
+            border-color: rgba(139, 109, 56, 0.4) !important;
+          }
+          .content-wrapper form input:focus,
+          .content-wrapper form select:focus,
+          .content-wrapper form textarea:focus {
+            border-color: rgba(139, 109, 56, 0.8) !important;
+            box-shadow: 0 0 0 1px rgba(139, 109, 56, 0.3) !important;
+          }
+          
+          /* Ensure gradient sections have the correct background */
+          .content-wrapper .gradient-section {
+            background: #F4EFE7 !important;
+          }
+          
+          /* Override borders */
+          .content-wrapper .border-white\\/5 {
+            border-color: rgba(46, 38, 24, 0.1) !important;
+          }
+        `}} />
+      )}
       {/* Hero */}
       <Hero
         tagline={service.emoji + ' ' + service.title}
@@ -59,12 +149,26 @@ export default async function ServicePage({ params }: ServicePageProps) {
         subtitle={service.shortDescription}
         ctaText="Get a Quote"
         ctaHref="#inquiry"
-        bgImage={service.heroImage}
+        bgImage={service.slug === 'luxury-weddings' ? undefined : service.heroImage}
+        videoEmbed={
+          service.slug === 'luxury-weddings' ? (
+            <video 
+              autoPlay 
+              muted 
+              loop 
+              playsInline 
+              className="absolute inset-0 w-full h-full object-cover z-0"
+            >
+              <source src="/videos/luxury-weddings.mp4" type="video/mp4" />
+            </video>
+          ) : undefined
+        }
         size="large"
       />
 
-      {/* Schema markup */}
-      <script
+      <div className="content-wrapper">
+        {/* Schema markup */}
+        <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify({
@@ -110,7 +214,7 @@ export default async function ServicePage({ params }: ServicePageProps) {
             <div className="flex gap-6 animate-[scroll-marquee_40s_linear_infinite] group-hover:[animation-play-state:paused] w-max px-3">
               {[...service.includedServices, ...service.includedServices].map((item, index) => (
                 <div key={`${item.title}-${index}`} className="w-[320px] md:w-[450px] shrink-0">
-                  <div className="rounded-xl border border-white/5 bg-mbh-black-card overflow-hidden hover:border-mbh-gold/20 transition-all duration-300 h-full group/card flex flex-col">
+                  <div className="services-card rounded-xl border border-white/5 bg-mbh-black-card overflow-hidden hover:border-mbh-gold/20 transition-all duration-300 h-full group/card flex flex-col">
                     {['corporate-events', 'luxury-weddings'].includes(service.slug) && (
                       <div className="relative h-48 w-full overflow-hidden">
                         <Image
@@ -211,7 +315,7 @@ export default async function ServicePage({ params }: ServicePageProps) {
                 <ScrollReveal key={related.slug} variant="fadeUp">
                   <Link
                     href={`/services/${related.slug}`}
-                    className="flex flex-col justify-between p-6 rounded-xl border border-white/5 bg-mbh-black-card hover:border-mbh-gold/20 transition-all duration-300 group aspect-square"
+                    className="related-card flex flex-col justify-between p-6 rounded-xl border border-white/5 bg-mbh-black-card hover:border-mbh-gold/20 transition-all duration-300 group aspect-square"
                   >
                     <div>
                       <h4 className="font-heading text-base sm:text-lg font-semibold text-mbh-white group-hover:text-mbh-gold-300 transition-colors mb-2">
@@ -244,6 +348,7 @@ export default async function ServicePage({ params }: ServicePageProps) {
           </div>
         </div>
       </section>
+      </div>
     </>
   );
 }
