@@ -12,7 +12,7 @@ import ScrollReveal from '@/components/animations/ScrollReveal';
 import { StaggerContainer, StaggerItem } from '@/components/animations/ScrollReveal';
 import { services, getServiceBySlug, getRelatedServices } from '@/data/services';
 import { CheckCircle, ArrowRight } from 'lucide-react';
-import VideoBackground from '@/components/ui/VideoBackground';
+
 
 interface ServicePageProps {
   params: Promise<{ slug: string }>;
