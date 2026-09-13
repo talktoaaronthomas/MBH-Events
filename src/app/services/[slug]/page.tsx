@@ -54,10 +54,12 @@ export default async function ServicePage({ params }: ServicePageProps) {
   return (
     <>
       {service.slug === 'luxury-weddings' && (
-        <style dangerouslySetInnerHTML={{ __html: `
-          body {
-            background-color: #F4EFE7 !important;
-          }
+        <>
+          <link rel="preload" as="video" href="/videos/luxury-weddings.mp4" type="video/mp4" />
+          <style dangerouslySetInnerHTML={{ __html: `
+            body {
+              background-color: #F4EFE7 !important;
+            }
           
           /* Apply variables only within content-wrapper so Hero and Navbar stay white */
           .content-wrapper {
@@ -141,6 +143,7 @@ export default async function ServicePage({ params }: ServicePageProps) {
             border-color: rgba(46, 38, 24, 0.1) !important;
           }
         `}} />
+        </>
       )}
       {/* Hero */}
       <Hero
@@ -156,7 +159,8 @@ export default async function ServicePage({ params }: ServicePageProps) {
               autoPlay 
               muted 
               loop 
-              playsInline 
+              playsInline
+              preload="auto"
               className="absolute inset-0 w-full h-full object-cover z-0"
             >
               <source src="/videos/luxury-weddings.mp4" type="video/mp4" />
