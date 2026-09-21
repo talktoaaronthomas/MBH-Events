@@ -53,9 +53,735 @@ export default async function ServicePage({ params }: ServicePageProps) {
 
   return (
     <>
+      {['luxury-weddings', 'corporate-events', 'event-planning', 'creative-design', 'production-technical', 'talent-entertainment', 'event-staffing', 'logistics-hospitality', 'exhibitions-activations', 'event-rentals'].includes(service.slug) && (
+        <link rel="preload" as="video" href={`/videos/${service.slug}.mp4`} type="video/mp4" />
+      )}
+      {service.slug === 'event-planning' && (
+        <>
+          <style dangerouslySetInnerHTML={{ __html: `
+          /* Apply pastel blue variables to the whole page */
+          :root {
+            --color-mbh-gold: #A7C7E7 !important;
+            --color-mbh-gold-300: #D6E6F4 !important;
+            --color-mbh-gold-400: #C5DDF1 !important;
+            --color-mbh-gold-600: #89B4D9 !important;
+            --color-mbh-gold-950: #1C2B36 !important;
+          }
+
+          /* Force all headings to use pastel blue */
+          .content-wrapper h1, 
+          .content-wrapper h2, 
+          .content-wrapper h3, 
+          .content-wrapper h4 {
+            color: #A7C7E7 !important;
+          }
+          
+          /* Soft pastel blue for text elements to match the theme */
+          .content-wrapper .text-white, 
+          .content-wrapper .text-mbh-white,
+          .content-wrapper p {
+            color: #EAF4FC !important;
+          }
+
+          .content-wrapper .text-mbh-white-dim {
+            color: #C5DDF1 !important;
+          }
+
+          /* Services & Capabilities Cards AND Related Cards */
+          .content-wrapper .services-card:hover,
+          .content-wrapper .related-card:hover {
+            border-color: rgba(167, 199, 231, 0.4) !important;
+          }
+          
+          /* Buttons */
+          .btn-glow {
+            box-shadow: 0 0 20px rgba(167, 199, 231, 0.3) !important;
+          }
+          .btn-glow:hover {
+            box-shadow: 0 0 40px rgba(167, 199, 231, 0.6), 0 0 80px rgba(167, 199, 231, 0.2) !important;
+          }
+          
+          /* Form Fields */
+          .content-wrapper form input,
+          .content-wrapper form select,
+          .content-wrapper form textarea {
+            border-color: rgba(167, 199, 231, 0.4) !important;
+          }
+          .content-wrapper form input:focus,
+          .content-wrapper form select:focus,
+          .content-wrapper form textarea:focus {
+            border-color: rgba(167, 199, 231, 0.8) !important;
+            box-shadow: 0 0 0 1px rgba(167, 199, 231, 0.3) !important;
+          }
+
+          /* --- Hero Specific Overrides --- */
+          /* Override the hardcoded gradient overlay */
+          .gradient-overlay-gold {
+            background: linear-gradient(
+              135deg,
+              rgba(10, 10, 10, 0.5) 0%,
+              rgba(28, 43, 54, 0.4) 50%,
+              rgba(10, 10, 10, 0.7) 100%
+            ) !important;
+          }
+          
+          /* Override Hero button animation and hardcoded purple shadows */
+          @keyframes glow-pulse-blue {
+            0%, 100% { box-shadow: 0 0 20px rgba(167, 199, 231, 0.4); }
+            50% { box-shadow: 0 0 40px rgba(167, 199, 231, 0.7), 0 0 60px rgba(167, 199, 231, 0.3); }
+          }
+          
+          /* Override any hardcoded Tailwind shadow classes in Hero */
+          [class*="shadow-[0_0_20px_rgba(168,85,247,"] {
+            box-shadow: 0 0 20px rgba(167, 199, 231, 0.4) !important;
+          }
+          [class*="shadow-[0_0_15px_rgba(168,85,247,"] {
+            box-shadow: 0 0 15px rgba(167, 199, 231, 0.2) !important;
+          }
+          
+          /* Override the pulse animation for Hero elements */
+          .animate-\\[glow-pulse_3s_ease-in-out_infinite\\] {
+            animation: glow-pulse-blue 3s ease-in-out infinite !important;
+          }
+        `}} />
+        </>
+      )}
+      {service.slug === 'creative-design' && (
+        <>
+          <style dangerouslySetInnerHTML={{ __html: `
+          /* Apply pastel orange variables to the whole page */
+          :root {
+            --color-mbh-gold: #FAC898 !important;
+            --color-mbh-gold-300: #FFE4C4 !important;
+            --color-mbh-gold-400: #FFDAB9 !important;
+            --color-mbh-gold-600: #F4A460 !important;
+            --color-mbh-gold-950: #331C0D !important;
+          }
+
+          /* Force all headings to use pastel orange */
+          .content-wrapper h1, 
+          .content-wrapper h2, 
+          .content-wrapper h3, 
+          .content-wrapper h4 {
+            color: #FAC898 !important;
+          }
+          
+          /* Soft pastel orange tint for text elements to match the theme */
+          .content-wrapper .text-white, 
+          .content-wrapper .text-mbh-white,
+          .content-wrapper p {
+            color: #FFF2E6 !important;
+          }
+
+          .content-wrapper .text-mbh-white-dim {
+            color: #FFE4C4 !important;
+          }
+
+          /* Services & Capabilities Cards AND Related Cards */
+          .content-wrapper .services-card:hover,
+          .content-wrapper .related-card:hover {
+            border-color: rgba(250, 200, 152, 0.4) !important;
+          }
+          
+          /* Buttons */
+          .btn-glow {
+            box-shadow: 0 0 20px rgba(250, 200, 152, 0.3) !important;
+          }
+          .btn-glow:hover {
+            box-shadow: 0 0 40px rgba(250, 200, 152, 0.6), 0 0 80px rgba(250, 200, 152, 0.2) !important;
+          }
+          
+          /* Form Fields */
+          .content-wrapper form input,
+          .content-wrapper form select,
+          .content-wrapper form textarea {
+            border-color: rgba(250, 200, 152, 0.4) !important;
+          }
+          .content-wrapper form input:focus,
+          .content-wrapper form select:focus,
+          .content-wrapper form textarea:focus {
+            border-color: rgba(250, 200, 152, 0.8) !important;
+            box-shadow: 0 0 0 1px rgba(250, 200, 152, 0.3) !important;
+          }
+
+          /* --- Hero Specific Overrides --- */
+          /* Override the hardcoded gradient overlay */
+          .gradient-overlay-gold {
+            background: linear-gradient(
+              135deg,
+              rgba(10, 10, 10, 0.5) 0%,
+              rgba(51, 28, 13, 0.4) 50%,
+              rgba(10, 10, 10, 0.7) 100%
+            ) !important;
+          }
+          
+          /* Override Hero button animation and hardcoded purple shadows */
+          @keyframes glow-pulse-orange {
+            0%, 100% { box-shadow: 0 0 20px rgba(250, 200, 152, 0.4); }
+            50% { box-shadow: 0 0 40px rgba(250, 200, 152, 0.7), 0 0 60px rgba(250, 200, 152, 0.3); }
+          }
+          
+          /* Override any hardcoded Tailwind shadow classes in Hero */
+          [class*="shadow-[0_0_20px_rgba(168,85,247,"] {
+            box-shadow: 0 0 20px rgba(250, 200, 152, 0.4) !important;
+          }
+          [class*="shadow-[0_0_15px_rgba(168,85,247,"] {
+            box-shadow: 0 0 15px rgba(250, 200, 152, 0.2) !important;
+          }
+          
+          /* Override the pulse animation for Hero elements */
+          .animate-\\[glow-pulse_3s_ease-in-out_infinite\\] {
+            animation: glow-pulse-orange 3s ease-in-out infinite !important;
+          }
+        `}} />
+        </>
+      )}
+      {service.slug === 'production-technical' && (
+        <>
+          <style dangerouslySetInnerHTML={{ __html: `
+          /* Apply pastel green variables to the whole page */
+          :root {
+            --color-mbh-gold: #A8E6CF !important;
+            --color-mbh-gold-300: #D4F3E6 !important;
+            --color-mbh-gold-400: #C1ECD8 !important;
+            --color-mbh-gold-600: #7BC8A4 !important;
+            --color-mbh-gold-950: #1A3326 !important;
+          }
+
+          /* Force all headings to use pastel green */
+          .content-wrapper h1, 
+          .content-wrapper h2, 
+          .content-wrapper h3, 
+          .content-wrapper h4 {
+            color: #A8E6CF !important;
+          }
+          
+          /* Soft pastel green tint for text elements to match the theme */
+          .content-wrapper .text-white, 
+          .content-wrapper .text-mbh-white,
+          .content-wrapper p {
+            color: #F0FDF6 !important;
+          }
+
+          .content-wrapper .text-mbh-white-dim {
+            color: #D4F3E6 !important;
+          }
+
+          /* Services & Capabilities Cards AND Related Cards */
+          .content-wrapper .services-card:hover,
+          .content-wrapper .related-card:hover {
+            border-color: rgba(168, 230, 207, 0.4) !important;
+          }
+          
+          /* Buttons */
+          .btn-glow {
+            box-shadow: 0 0 20px rgba(168, 230, 207, 0.3) !important;
+          }
+          .btn-glow:hover {
+            box-shadow: 0 0 40px rgba(168, 230, 207, 0.6), 0 0 80px rgba(168, 230, 207, 0.2) !important;
+          }
+          
+          /* Form Fields */
+          .content-wrapper form input,
+          .content-wrapper form select,
+          .content-wrapper form textarea {
+            border-color: rgba(168, 230, 207, 0.4) !important;
+          }
+          .content-wrapper form input:focus,
+          .content-wrapper form select:focus,
+          .content-wrapper form textarea:focus {
+            border-color: rgba(168, 230, 207, 0.8) !important;
+            box-shadow: 0 0 0 1px rgba(168, 230, 207, 0.3) !important;
+          }
+
+          /* --- Hero Specific Overrides --- */
+          /* Override the hardcoded gradient overlay */
+          .gradient-overlay-gold {
+            background: linear-gradient(
+              135deg,
+              rgba(10, 10, 10, 0.5) 0%,
+              rgba(26, 51, 38, 0.4) 50%,
+              rgba(10, 10, 10, 0.7) 100%
+            ) !important;
+          }
+          
+          /* Override Hero button animation and hardcoded purple shadows */
+          @keyframes glow-pulse-green {
+            0%, 100% { box-shadow: 0 0 20px rgba(168, 230, 207, 0.4); }
+            50% { box-shadow: 0 0 40px rgba(168, 230, 207, 0.7), 0 0 60px rgba(168, 230, 207, 0.3); }
+          }
+          
+          /* Override any hardcoded Tailwind shadow classes in Hero */
+          [class*="shadow-[0_0_20px_rgba(168,85,247,"] {
+            box-shadow: 0 0 20px rgba(168, 230, 207, 0.4) !important;
+          }
+          [class*="shadow-[0_0_15px_rgba(168,85,247,"] {
+            box-shadow: 0 0 15px rgba(168, 230, 207, 0.2) !important;
+          }
+          
+          /* Override the pulse animation for Hero elements */
+          .animate-\\[glow-pulse_3s_ease-in-out_infinite\\] {
+            animation: glow-pulse-green 3s ease-in-out infinite !important;
+          }
+        `}} />
+        </>
+      )}
+      {service.slug === 'talent-entertainment' && (
+        <>
+          <style dangerouslySetInnerHTML={{ __html: `
+          /* Apply pastel red variables to the whole page */
+          :root {
+            --color-mbh-gold: #FF6961 !important;
+            --color-mbh-gold-300: #FFB3B0 !important;
+            --color-mbh-gold-400: #FF9B97 !important;
+            --color-mbh-gold-600: #E65A54 !important;
+            --color-mbh-gold-950: #331513 !important;
+          }
+
+          /* Force all headings to use pastel red */
+          .content-wrapper h1, 
+          .content-wrapper h2, 
+          .content-wrapper h3, 
+          .content-wrapper h4 {
+            color: #FF6961 !important;
+          }
+          
+          /* Soft pastel red tint for text elements to match the theme */
+          .content-wrapper .text-white, 
+          .content-wrapper .text-mbh-white,
+          .content-wrapper p {
+            color: #FFF0F0 !important;
+          }
+
+          .content-wrapper .text-mbh-white-dim {
+            color: #FFB3B0 !important;
+          }
+
+          /* Services & Capabilities Cards AND Related Cards */
+          .content-wrapper .services-card:hover,
+          .content-wrapper .related-card:hover {
+            border-color: rgba(255, 105, 97, 0.4) !important;
+          }
+          
+          /* Buttons */
+          .btn-glow {
+            box-shadow: 0 0 20px rgba(255, 105, 97, 0.3) !important;
+          }
+          .btn-glow:hover {
+            box-shadow: 0 0 40px rgba(255, 105, 97, 0.6), 0 0 80px rgba(255, 105, 97, 0.2) !important;
+          }
+          
+          /* Form Fields */
+          .content-wrapper form input,
+          .content-wrapper form select,
+          .content-wrapper form textarea {
+            border-color: rgba(255, 105, 97, 0.4) !important;
+          }
+          .content-wrapper form input:focus,
+          .content-wrapper form select:focus,
+          .content-wrapper form textarea:focus {
+            border-color: rgba(255, 105, 97, 0.8) !important;
+            box-shadow: 0 0 0 1px rgba(255, 105, 97, 0.3) !important;
+          }
+
+          /* --- Hero Specific Overrides --- */
+          /* Override the hardcoded gradient overlay */
+          .gradient-overlay-gold {
+            background: linear-gradient(
+              135deg,
+              rgba(10, 10, 10, 0.5) 0%,
+              rgba(51, 21, 19, 0.4) 50%,
+              rgba(10, 10, 10, 0.7) 100%
+            ) !important;
+          }
+          
+          /* Override Hero button animation and hardcoded purple shadows */
+          @keyframes glow-pulse-red {
+            0%, 100% { box-shadow: 0 0 20px rgba(255, 105, 97, 0.4); }
+            50% { box-shadow: 0 0 40px rgba(255, 105, 97, 0.7), 0 0 60px rgba(255, 105, 97, 0.3); }
+          }
+          
+          /* Override any hardcoded Tailwind shadow classes in Hero */
+          [class*="shadow-[0_0_20px_rgba(168,85,247,"] {
+            box-shadow: 0 0 20px rgba(255, 105, 97, 0.4) !important;
+          }
+          [class*="shadow-[0_0_15px_rgba(168,85,247,"] {
+            box-shadow: 0 0 15px rgba(255, 105, 97, 0.2) !important;
+          }
+          
+          /* Override the pulse animation for Hero elements */
+          .animate-\\[glow-pulse_3s_ease-in-out_infinite\\] {
+            animation: glow-pulse-red 3s ease-in-out infinite !important;
+          }
+        `}} />
+        </>
+      )}
+      {service.slug === 'event-staffing' && (
+        <>
+          <style dangerouslySetInnerHTML={{ __html: `
+          /* Apply pastel violet variables to the whole page */
+          :root {
+            --color-mbh-gold: #CBAACB !important;
+            --color-mbh-gold-300: #E6D7E6 !important;
+            --color-mbh-gold-400: #D9C1D9 !important;
+            --color-mbh-gold-600: #A67CA6 !important;
+            --color-mbh-gold-950: #261A26 !important;
+          }
+
+          /* Force all headings to use pastel violet */
+          .content-wrapper h1, 
+          .content-wrapper h2, 
+          .content-wrapper h3, 
+          .content-wrapper h4 {
+            color: #CBAACB !important;
+          }
+          
+          /* Soft pastel violet tint for text elements to match the theme */
+          .content-wrapper .text-white, 
+          .content-wrapper .text-mbh-white,
+          .content-wrapper p {
+            color: #F7F2F7 !important;
+          }
+
+          .content-wrapper .text-mbh-white-dim {
+            color: #E6D7E6 !important;
+          }
+
+          /* Services & Capabilities Cards AND Related Cards */
+          .content-wrapper .services-card:hover,
+          .content-wrapper .related-card:hover {
+            border-color: rgba(203, 170, 203, 0.4) !important;
+          }
+          
+          /* Buttons */
+          .btn-glow {
+            box-shadow: 0 0 20px rgba(203, 170, 203, 0.3) !important;
+          }
+          .btn-glow:hover {
+            box-shadow: 0 0 40px rgba(203, 170, 203, 0.6), 0 0 80px rgba(203, 170, 203, 0.2) !important;
+          }
+          
+          /* Form Fields */
+          .content-wrapper form input,
+          .content-wrapper form select,
+          .content-wrapper form textarea {
+            border-color: rgba(203, 170, 203, 0.4) !important;
+          }
+          .content-wrapper form input:focus,
+          .content-wrapper form select:focus,
+          .content-wrapper form textarea:focus {
+            border-color: rgba(203, 170, 203, 0.8) !important;
+            box-shadow: 0 0 0 1px rgba(203, 170, 203, 0.3) !important;
+          }
+
+          /* --- Hero Specific Overrides --- */
+          /* Override the hardcoded gradient overlay */
+          .gradient-overlay-gold {
+            background: linear-gradient(
+              135deg,
+              rgba(10, 10, 10, 0.5) 0%,
+              rgba(38, 26, 38, 0.4) 50%,
+              rgba(10, 10, 10, 0.7) 100%
+            ) !important;
+          }
+          
+          /* Override Hero button animation and hardcoded purple shadows */
+          @keyframes glow-pulse-violet {
+            0%, 100% { box-shadow: 0 0 20px rgba(203, 170, 203, 0.4); }
+            50% { box-shadow: 0 0 40px rgba(203, 170, 203, 0.7), 0 0 60px rgba(203, 170, 203, 0.3); }
+          }
+          
+          /* Override any hardcoded Tailwind shadow classes in Hero */
+          [class*="shadow-[0_0_20px_rgba(168,85,247,"] {
+            box-shadow: 0 0 20px rgba(203, 170, 203, 0.4) !important;
+          }
+          [class*="shadow-[0_0_15px_rgba(168,85,247,"] {
+            box-shadow: 0 0 15px rgba(203, 170, 203, 0.2) !important;
+          }
+          
+          /* Override the pulse animation for Hero elements */
+          .animate-\\[glow-pulse_3s_ease-in-out_infinite\\] {
+            animation: glow-pulse-violet 3s ease-in-out infinite !important;
+          }
+        `}} />
+        </>
+      )}
+      {service.slug === 'logistics-hospitality' && (
+        <>
+          <style dangerouslySetInnerHTML={{ __html: `
+          /* Apply pastel pink variables to the whole page */
+          :root {
+            --color-mbh-gold: #FFD1DC !important;
+            --color-mbh-gold-300: #FFEBF0 !important;
+            --color-mbh-gold-400: #FFDEE6 !important;
+            --color-mbh-gold-600: #E69CAB !important;
+            --color-mbh-gold-950: #332226 !important;
+          }
+
+          /* Force all headings to use pastel pink */
+          .content-wrapper h1, 
+          .content-wrapper h2, 
+          .content-wrapper h3, 
+          .content-wrapper h4 {
+            color: #FFD1DC !important;
+          }
+          
+          /* Soft pastel pink tint for text elements to match the theme */
+          .content-wrapper .text-white, 
+          .content-wrapper .text-mbh-white,
+          .content-wrapper p {
+            color: #FFF7F9 !important;
+          }
+
+          .content-wrapper .text-mbh-white-dim {
+            color: #FFEBF0 !important;
+          }
+
+          /* Services & Capabilities Cards AND Related Cards */
+          .content-wrapper .services-card:hover,
+          .content-wrapper .related-card:hover {
+            border-color: rgba(255, 209, 220, 0.4) !important;
+          }
+          
+          /* Buttons */
+          .btn-glow {
+            box-shadow: 0 0 20px rgba(255, 209, 220, 0.3) !important;
+          }
+          .btn-glow:hover {
+            box-shadow: 0 0 40px rgba(255, 209, 220, 0.6), 0 0 80px rgba(255, 209, 220, 0.2) !important;
+          }
+          
+          /* Form Fields */
+          .content-wrapper form input,
+          .content-wrapper form select,
+          .content-wrapper form textarea {
+            border-color: rgba(255, 209, 220, 0.4) !important;
+          }
+          .content-wrapper form input:focus,
+          .content-wrapper form select:focus,
+          .content-wrapper form textarea:focus {
+            border-color: rgba(255, 209, 220, 0.8) !important;
+            box-shadow: 0 0 0 1px rgba(255, 209, 220, 0.3) !important;
+          }
+
+          /* --- Hero Specific Overrides --- */
+          /* Override the hardcoded gradient overlay */
+          .gradient-overlay-gold {
+            background: linear-gradient(
+              135deg,
+              rgba(10, 10, 10, 0.5) 0%,
+              rgba(51, 34, 38, 0.4) 50%,
+              rgba(10, 10, 10, 0.7) 100%
+            ) !important;
+          }
+          
+          /* Override Hero button animation and hardcoded purple shadows */
+          @keyframes glow-pulse-pink {
+            0%, 100% { box-shadow: 0 0 20px rgba(255, 209, 220, 0.4); }
+            50% { box-shadow: 0 0 40px rgba(255, 209, 220, 0.7), 0 0 60px rgba(255, 209, 220, 0.3); }
+          }
+          
+          /* Override any hardcoded Tailwind shadow classes in Hero */
+          [class*="shadow-[0_0_20px_rgba(168,85,247,"] {
+            box-shadow: 0 0 20px rgba(255, 209, 220, 0.4) !important;
+          }
+          [class*="shadow-[0_0_15px_rgba(168,85,247,"] {
+            box-shadow: 0 0 15px rgba(255, 209, 220, 0.2) !important;
+          }
+          
+          /* Override the pulse animation for Hero elements */
+          .animate-\\[glow-pulse_3s_ease-in-out_infinite\\] {
+            animation: glow-pulse-pink 3s ease-in-out infinite !important;
+          }
+        `}} />
+        </>
+      )}
+      {service.slug === 'exhibitions-activations' && (
+        <>
+          <style dangerouslySetInnerHTML={{ __html: `
+          /* Apply pastel grey variables to the whole page */
+          :root {
+            --color-mbh-gold: #D1D5DB !important;
+            --color-mbh-gold-300: #F3F4F6 !important;
+            --color-mbh-gold-400: #E5E7EB !important;
+            --color-mbh-gold-600: #9CA3AF !important;
+            --color-mbh-gold-950: #111827 !important;
+          }
+
+          /* Force all headings to use pastel grey */
+          .content-wrapper h1, 
+          .content-wrapper h2, 
+          .content-wrapper h3, 
+          .content-wrapper h4 {
+            color: #D1D5DB !important;
+          }
+          
+          /* Soft pastel grey tint for text elements to match the theme */
+          .content-wrapper .text-white, 
+          .content-wrapper .text-mbh-white,
+          .content-wrapper p {
+            color: #F9FAFB !important;
+          }
+
+          .content-wrapper .text-mbh-white-dim {
+            color: #F3F4F6 !important;
+          }
+
+          /* Services & Capabilities Cards AND Related Cards */
+          .content-wrapper .services-card:hover,
+          .content-wrapper .related-card:hover {
+            border-color: rgba(209, 213, 219, 0.4) !important;
+          }
+          
+          /* Buttons */
+          .btn-glow {
+            box-shadow: 0 0 20px rgba(209, 213, 219, 0.3) !important;
+          }
+          .btn-glow:hover {
+            box-shadow: 0 0 40px rgba(209, 213, 219, 0.6), 0 0 80px rgba(209, 213, 219, 0.2) !important;
+          }
+          
+          /* Form Fields */
+          .content-wrapper form input,
+          .content-wrapper form select,
+          .content-wrapper form textarea {
+            border-color: rgba(209, 213, 219, 0.4) !important;
+          }
+          .content-wrapper form input:focus,
+          .content-wrapper form select:focus,
+          .content-wrapper form textarea:focus {
+            border-color: rgba(209, 213, 219, 0.8) !important;
+            box-shadow: 0 0 0 1px rgba(209, 213, 219, 0.3) !important;
+          }
+
+          /* --- Hero Specific Overrides --- */
+          /* Override the hardcoded gradient overlay */
+          .gradient-overlay-gold {
+            background: linear-gradient(
+              135deg,
+              rgba(10, 10, 10, 0.5) 0%,
+              rgba(17, 24, 39, 0.4) 50%,
+              rgba(10, 10, 10, 0.7) 100%
+            ) !important;
+          }
+          
+          /* Override Hero button animation and hardcoded purple shadows */
+          @keyframes glow-pulse-grey {
+            0%, 100% { box-shadow: 0 0 20px rgba(209, 213, 219, 0.4); }
+            50% { box-shadow: 0 0 40px rgba(209, 213, 219, 0.7), 0 0 60px rgba(209, 213, 219, 0.3); }
+          }
+          
+          /* Override any hardcoded Tailwind shadow classes in Hero */
+          [class*="shadow-[0_0_20px_rgba(168,85,247,"] {
+            box-shadow: 0 0 20px rgba(209, 213, 219, 0.4) !important;
+          }
+          [class*="shadow-[0_0_15px_rgba(168,85,247,"] {
+            box-shadow: 0 0 15px rgba(209, 213, 219, 0.2) !important;
+          }
+          
+          /* Override the pulse animation for Hero elements */
+          .animate-\\[glow-pulse_3s_ease-in-out_infinite\\] {
+            animation: glow-pulse-grey 3s ease-in-out infinite !important;
+          }
+        `}} />
+        </>
+      )}
+      {service.slug === 'event-rentals' && (
+        <>
+          <style dangerouslySetInnerHTML={{ __html: `
+          /* Apply pastel white variables to the whole page */
+          :root {
+            --color-mbh-gold: #F5F5F5 !important;
+            --color-mbh-gold-300: #FFFFFF !important;
+            --color-mbh-gold-400: #FAFAFA !important;
+            --color-mbh-gold-600: #D4D4D4 !important;
+            --color-mbh-gold-950: #171717 !important;
+          }
+
+          /* Force all headings to use pastel white */
+          .content-wrapper h1, 
+          .content-wrapper h2, 
+          .content-wrapper h3, 
+          .content-wrapper h4 {
+            color: #F5F5F5 !important;
+          }
+          
+          /* Soft pastel white tint for text elements to match the theme */
+          .content-wrapper .text-white, 
+          .content-wrapper .text-mbh-white,
+          .content-wrapper p {
+            color: #FFFFFF !important;
+          }
+
+          .content-wrapper .text-mbh-white-dim {
+            color: #FAFAFA !important;
+          }
+
+          /* Services & Capabilities Cards AND Related Cards */
+          .content-wrapper .services-card:hover,
+          .content-wrapper .related-card:hover {
+            border-color: rgba(245, 245, 245, 0.4) !important;
+          }
+          
+          /* Buttons */
+          .btn-glow {
+            box-shadow: 0 0 20px rgba(245, 245, 245, 0.3) !important;
+            color: #000000 !important;
+          }
+          .btn-glow * {
+            color: #000000 !important;
+          }
+          .btn-glow:hover {
+            box-shadow: 0 0 40px rgba(245, 245, 245, 0.6), 0 0 80px rgba(245, 245, 245, 0.2) !important;
+          }
+          
+          /* Form Fields */
+          .content-wrapper form input,
+          .content-wrapper form select,
+          .content-wrapper form textarea {
+            border-color: rgba(245, 245, 245, 0.4) !important;
+          }
+          .content-wrapper form input:focus,
+          .content-wrapper form select:focus,
+          .content-wrapper form textarea:focus {
+            border-color: rgba(245, 245, 245, 0.8) !important;
+            box-shadow: 0 0 0 1px rgba(245, 245, 245, 0.3) !important;
+          }
+
+          /* --- Hero Specific Overrides --- */
+          /* Override the hardcoded gradient overlay */
+          .gradient-overlay-gold {
+            background: linear-gradient(
+              135deg,
+              rgba(10, 10, 10, 0.5) 0%,
+              rgba(23, 23, 23, 0.4) 50%,
+              rgba(10, 10, 10, 0.7) 100%
+            ) !important;
+          }
+          
+          /* Override Hero button animation and hardcoded purple shadows */
+          @keyframes glow-pulse-white {
+            0%, 100% { box-shadow: 0 0 20px rgba(245, 245, 245, 0.4); }
+            50% { box-shadow: 0 0 40px rgba(245, 245, 245, 0.7), 0 0 60px rgba(245, 245, 245, 0.3); }
+          }
+          
+          /* Override any hardcoded Tailwind shadow classes in Hero */
+          [class*="shadow-[0_0_20px_rgba(168,85,247,"] {
+            box-shadow: 0 0 20px rgba(245, 245, 245, 0.4) !important;
+          }
+          [class*="shadow-[0_0_15px_rgba(168,85,247,"] {
+            box-shadow: 0 0 15px rgba(245, 245, 245, 0.2) !important;
+          }
+          
+          /* Override the pulse animation for Hero elements */
+          .animate-\\[glow-pulse_3s_ease-in-out_infinite\\] {
+            animation: glow-pulse-white 3s ease-in-out infinite !important;
+          }
+        `}} />
+        </>
+      )}
       {service.slug === 'luxury-weddings' && (
         <>
-          <link rel="preload" as="video" href="/videos/luxury-weddings.mp4" type="video/mp4" />
           <style dangerouslySetInnerHTML={{ __html: `
             body {
               background-color: #F4EFE7 !important;
@@ -152,9 +878,9 @@ export default async function ServicePage({ params }: ServicePageProps) {
         subtitle={service.shortDescription}
         ctaText="Get a Quote"
         ctaHref="#inquiry"
-        bgImage={service.slug === 'luxury-weddings' ? undefined : service.heroImage}
+        bgImage={['luxury-weddings', 'corporate-events', 'event-planning', 'creative-design', 'production-technical', 'talent-entertainment', 'event-staffing', 'logistics-hospitality', 'exhibitions-activations', 'event-rentals'].includes(service.slug) ? undefined : service.heroImage}
         videoEmbed={
-          service.slug === 'luxury-weddings' ? (
+          ['luxury-weddings', 'corporate-events', 'event-planning', 'creative-design', 'production-technical', 'talent-entertainment', 'event-staffing', 'logistics-hospitality', 'exhibitions-activations', 'event-rentals'].includes(service.slug) ? (
             <video 
               autoPlay 
               muted 
@@ -163,7 +889,7 @@ export default async function ServicePage({ params }: ServicePageProps) {
               preload="auto"
               className="absolute inset-0 w-full h-full object-cover z-0"
             >
-              <source src="/videos/luxury-weddings.mp4" type="video/mp4" />
+              <source src={`/videos/${service.slug}.mp4`} type="video/mp4" />
             </video>
           ) : undefined
         }
