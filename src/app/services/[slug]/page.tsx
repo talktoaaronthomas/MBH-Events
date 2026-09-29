@@ -12,6 +12,7 @@ import ScrollReveal from '@/components/animations/ScrollReveal';
 import { StaggerContainer, StaggerItem } from '@/components/animations/ScrollReveal';
 import { services, getServiceBySlug, getRelatedServices } from '@/data/services';
 import { CheckCircle, ArrowRight } from 'lucide-react';
+import CapabilitiesCarousel from '@/components/ui/CapabilitiesCarousel';
 
 
 interface ServicePageProps {
@@ -726,10 +727,6 @@ export default async function ServicePage({ params }: ServicePageProps) {
           /* Buttons */
           .btn-glow {
             box-shadow: 0 0 20px rgba(245, 245, 245, 0.3) !important;
-            color: #000000 !important;
-          }
-          .btn-glow * {
-            color: #000000 !important;
           }
           .btn-glow:hover {
             box-shadow: 0 0 40px rgba(245, 245, 245, 0.6), 0 0 80px rgba(245, 245, 245, 0.2) !important;
@@ -871,6 +868,16 @@ export default async function ServicePage({ params }: ServicePageProps) {
         `}} />
         </>
       )}
+      {['event-planning', 'creative-design', 'production-technical', 'talent-entertainment', 'event-staffing', 'logistics-hospitality', 'exhibitions-activations', 'event-rentals'].includes(service.slug) && (
+        <style dangerouslySetInnerHTML={{ __html: `
+          body .btn-glow,
+          body .btn-glow *,
+          .content-wrapper .btn-glow,
+          .content-wrapper .btn-glow * {
+            color: var(--color-mbh-gold-950) !important;
+          }
+        `}} />
+      )}
       {/* Hero */}
       <Hero
         tagline={service.emoji + ' ' + service.title}
@@ -940,36 +947,33 @@ export default async function ServicePage({ params }: ServicePageProps) {
             subtitle="Everything we deliver as part of this service line."
           />
 
-          <div className="relative w-full overflow-hidden flex group py-4">
-            <div className="flex gap-6 animate-[scroll-marquee_40s_linear_infinite] group-hover:[animation-play-state:paused] w-max px-3">
-              {[...service.includedServices, ...service.includedServices].map((item, index) => (
-                <div key={`${item.title}-${index}`} className="w-[320px] md:w-[450px] shrink-0">
-                  <div className="services-card rounded-xl border border-white/5 bg-mbh-black-card overflow-hidden hover:border-mbh-gold/20 transition-all duration-300 h-full group/card flex flex-col">
-                    {['corporate-events', 'luxury-weddings'].includes(service.slug) && (
-                      <div className="relative h-48 w-full overflow-hidden">
-                        <Image
-                          src={service.galleryImages[index % service.galleryImages.length]}
-                          alt={item.title}
-                          fill
-                          className="object-cover transition-transform duration-700 group-hover/card:scale-110"
-                        />
-                        <div className="absolute inset-0 bg-gradient-to-t from-mbh-black-card via-mbh-black-card/80 to-transparent" />
+          {['corporate-events', 'luxury-weddings'].includes(service.slug) ? (
+            <CapabilitiesCarousel 
+              includedServices={service.includedServices}
+              slug={service.slug}
+              galleryImages={service.galleryImages}
+            />
+          ) : (
+            <div className="relative w-full overflow-hidden flex group py-4">
+              <div className="flex gap-6 animate-[scroll-marquee_40s_linear_infinite] group-hover:[animation-play-state:paused] w-max px-3">
+                {[...service.includedServices, ...service.includedServices].map((item, index) => (
+                  <div key={`${item.title}-${index}`} className="w-[320px] md:w-[450px] shrink-0">
+                    <div className="services-card rounded-xl border border-white/5 bg-mbh-black-card overflow-hidden hover:border-mbh-gold/20 transition-all duration-300 h-full group/card flex flex-col">
+                      <div className="p-6 flex-grow flex flex-col">
+                        <h3 className="font-heading text-xl font-semibold text-mbh-white mb-3 flex items-start gap-2">
+                          <CheckCircle size={20} className="text-mbh-gold-300 flex-shrink-0 mt-1" />
+                          {item.title}
+                        </h3>
+                        <p className="text-sm text-mbh-white-dim leading-relaxed whitespace-normal">
+                          {item.description}
+                        </p>
                       </div>
-                    )}
-                    <div className="p-6 flex-grow flex flex-col">
-                      <h3 className="font-heading text-xl font-semibold text-mbh-white mb-3 flex items-start gap-2">
-                        <CheckCircle size={20} className="text-mbh-gold-300 flex-shrink-0 mt-1" />
-                        {item.title}
-                      </h3>
-                      <p className="text-sm text-mbh-white-dim leading-relaxed whitespace-normal">
-                        {item.description}
-                      </p>
                     </div>
                   </div>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
-          </div>
+          )}
         </div>
       </section>
 
@@ -1021,8 +1025,8 @@ export default async function ServicePage({ params }: ServicePageProps) {
           <StaggerContainer className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-4xl mx-auto">
             {service.whyChooseUs.map((reason, index) => (
               <StaggerItem key={index}>
-                <div className="flex items-start gap-4 p-5 md:p-6 rounded-xl border border-white/5 bg-mbh-black-card/50">
-                  <CheckCircle size={20} className="text-mbh-gold-300 flex-shrink-0 mt-0.5" />
+                <div className="flex items-start gap-4 p-5 md:p-6 rounded-xl border border-white/10 bg-white/[0.03] hover:bg-white/[0.05] transition-colors">
+                  <CheckCircle size={20} className="text-mbh-gold flex-shrink-0 mt-0.5" />
                   <span className="text-base text-mbh-white/90 leading-relaxed">{reason}</span>
                 </div>
               </StaggerItem>
@@ -1045,16 +1049,25 @@ export default async function ServicePage({ params }: ServicePageProps) {
                 <ScrollReveal key={related.slug} variant="fadeUp">
                   <Link
                     href={`/services/${related.slug}`}
-                    className="related-card flex flex-col justify-between p-6 rounded-xl border border-white/5 bg-mbh-black-card hover:border-mbh-gold/20 transition-all duration-300 group aspect-square"
+                    className="related-card relative flex flex-col p-5 md:p-6 rounded-xl border border-white/5 bg-mbh-black-card hover:border-mbh-gold/30 transition-all duration-300 group overflow-hidden aspect-square"
                   >
-                    <div>
-                      <h4 className="font-heading text-base sm:text-lg font-semibold text-mbh-white group-hover:text-mbh-gold-300 transition-colors mb-2">
+                    <Image
+                      src={related.heroImage}
+                      alt={related.title}
+                      fill
+                      className="object-cover transition-transform duration-700 group-hover:scale-110"
+                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-mbh-black-card via-mbh-black-card/40 to-transparent opacity-90 group-hover:opacity-75 transition-opacity duration-300" />
+                    
+                    <div className="relative z-10 mt-auto">
+                      <h4 className="font-heading text-base sm:text-lg font-semibold text-mbh-white group-hover:text-mbh-gold-300 transition-colors mb-3 drop-shadow-md">
                         {related.title}
                       </h4>
+                      <span className="text-xs font-semibold text-mbh-gold-300 inline-flex items-center gap-1 group-hover:gap-2 transition-all">
+                        Learn More <ArrowRight size={12} />
+                      </span>
                     </div>
-                    <span className="text-xs text-mbh-gold-300 inline-flex items-center gap-1 group-hover:gap-2 transition-all">
-                      Learn More <ArrowRight size={12} />
-                    </span>
                   </Link>
                 </ScrollReveal>
               ))}

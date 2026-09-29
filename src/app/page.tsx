@@ -24,7 +24,7 @@ export default function HomePage() {
   return (
     <>
       {/* ===== HERO ===== */}
-      <Hero />
+      <Hero tagline="Moments Beyond Hospitality" hideTaglineBox={true} />
 
       {/* ===== INTRO ===== */}
       <section className="pt-20 lg:pt-28 pb-10 lg:pb-14 relative">
@@ -84,17 +84,14 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ===== SECTION DIVIDER ===== */}
-      <div className="relative py-4 pointer-events-none flex justify-center items-center z-10">
-        <ScrollReveal variant="fadeIn" delay={0.1} className="w-full relative z-10">
-          <div className="w-full max-w-5xl mx-auto h-px bg-gradient-to-r from-transparent via-mbh-gold/30 to-transparent" />
-        </ScrollReveal>
-      </div>
+
 
       {/* ===== SERVICES GRID ===== */}
-      <section className="pt-10 lg:pt-14 pb-20 lg:pb-28 gradient-section relative">
-        {/* White Gaussian Blur */}
-        <div className="absolute top-[-100px] left-1/2 -translate-x-1/2 w-full max-w-4xl h-[400px] bg-white/[0.05] blur-[120px] rounded-[100%] z-0 pointer-events-none" />
+      <section className="pt-10 lg:pt-14 pb-20 lg:pb-28 bg-mbh-black-card relative overflow-hidden">
+        {/* Animated Background Elements */}
+        <div className="absolute top-[0%] left-[-5%] w-[500px] h-[500px] bg-mbh-gold/20 blur-[80px] rounded-full z-0 pointer-events-none animate-[float-large_20s_ease-in-out_infinite]" />
+        <div className="absolute top-[20%] right-[-5%] w-[600px] h-[600px] bg-white/10 blur-[90px] rounded-full z-0 pointer-events-none animate-[float-large_25s_ease-in-out_infinite_reverse]" />
+        <div className="absolute bottom-[10%] left-[20%] w-[400px] h-[400px] bg-mbh-gold/15 blur-[70px] rounded-full z-0 pointer-events-none animate-[float-large_18s_ease-in-out_infinite]" />
 
         <div className="container-mbh relative z-10">
           <SectionHeading
@@ -224,7 +221,7 @@ export default function HomePage() {
       </section>
 
       {/* ===== STATS ===== */}
-      <section className="py-20 lg:py-28 gradient-section">
+      <section className="py-20 lg:py-28 bg-mbh-black-card">
         <div className="container-mbh">
           <SectionHeading
             label="By The Numbers"

@@ -31,7 +31,7 @@ export default function SupportedClientsCarousel() {
             key={idx}
             className="flex items-center justify-center mx-8 sm:mx-12 opacity-60 hover:opacity-100 transition-all duration-300 group"
           >
-            <div className="relative w-32 h-16 sm:w-40 sm:h-20 grayscale hover:grayscale-0 transition-all duration-300">
+            <div className="relative w-32 h-16 sm:w-40 sm:h-20 transition-all duration-300">
               <Image
                 src={client.image}
                 alt={client.name}

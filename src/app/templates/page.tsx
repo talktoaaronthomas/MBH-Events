@@ -3,6 +3,7 @@ import Link from 'next/link';
 import Hero from '@/components/ui/Hero';
 import SectionHeading from '@/components/ui/SectionHeading';
 import ScrollReveal, { StaggerContainer, StaggerItem } from '@/components/animations/ScrollReveal';
+
 import TemplatePreview from '@/components/templates/TemplatePreview';
 import { defaultInvitationData, TemplateId } from '@/types/invitation';
 import { Edit3 } from 'lucide-react';
@@ -13,40 +14,7 @@ export const metadata: Metadata = {
 };
 
 const templates: { id: TemplateId; name: string; description: string }[] = [
-  // Original
-  { id: 'classic-gold', name: 'Classic Gold', description: 'An elegant, timeless design featuring gold accents and sophisticated typography.' },
-  { id: 'modern-minimal', name: 'Modern Minimal', description: 'Clean, high-contrast aesthetics with a focus on modern typography and whitespace.' },
-  
-  // Corporate & Professional
-  { id: 'executive-summit', name: 'Executive Summit', description: 'Dark, professional, and sharp. Perfect for board meetings and executive briefings.' },
-  { id: 'product-launch', name: 'Product Launch', description: 'Vibrant neon accents on a sleek black background for high-energy tech launches.' },
-  { id: 'annual-gala', name: 'Annual Gala', description: 'Ultra-elegant black and white styling with serif typography for formal corporate galas.' },
-  { id: 'startup-mixer', name: 'Startup Mixer', description: 'Bold, energetic, and colorful. Designed for networking events and startup pitches.' },
-  { id: 'corporate-retreat', name: 'Corporate Retreat', description: 'Earthy, relaxed, and botanical. Ideal for offsites, team building, and wellness retreats.' },
-  { id: 'investor-pitch', name: 'Investor Pitch', description: 'Minimalist, serious, and highly professional monochromatic layout for confidential meetings.' },
-  
-  // Weddings & Romance
-  { id: 'rustic-romance', name: 'Rustic Romance', description: 'Warm earth tones and soft serif typography perfect for outdoor or barn weddings.' },
-  { id: 'ocean-breeze', name: 'Ocean Breeze', description: 'Airy blues and soft watercolors mimicking the sea. Ideal for beach weddings and coastal events.' },
-  { id: 'vintage-glamour', name: 'Vintage Glamour', description: 'Art Deco inspired linework with gold and black aesthetics for Great Gatsby style romance.' },
-  { id: 'fairytale-garden', name: 'Fairytale Garden', description: 'Soft pastel gradients and gentle typography for romantic garden weddings.' },
-  { id: 'minimalist-love', name: 'Minimalist Love', description: 'Maximum whitespace and incredibly elegant typography for chic, modern couples.' },
-  { id: 'boho-chic', name: 'Boho Chic', description: 'Terracotta arches and warm tones for the perfect bohemian celebration.' },
-  
-  // Parties & Social
-  { id: 'neon-nights', name: 'Neon Nights', description: 'Cyberpunk inspired grids and neon glows for the ultimate club or dance party.' },
-  { id: 'summer-bbq', name: 'Summer BBQ', description: 'Bright, casual, and energetic. Get ready for burgers, sun, and good times.' },
-  { id: 'masquerade-ball', name: 'Masquerade Ball', description: 'Deep purples and ornate gold corners for a night of mystery and velvet.' },
-  { id: 'vip-afterparty', name: 'VIP Afterparty', description: 'Exclusive, dark, and sleek. An invitation for those on the guest list only.' },
-  { id: 'retro-80s', name: 'Retro 80s', description: 'Synthwave suns and bold colors for an absolutely radical throwback party.' },
-  { id: 'sunset-soiree', name: 'Sunset Soiree', description: 'Warm pinks and oranges mimicking a perfect sunset for relaxed evening gatherings.' },
-  
-  // Milestones & Family
-  { id: 'baby-shower', name: 'Baby Shower', description: 'Soft, welcoming curves and gentle colors to celebrate a new arrival.' },
-  { id: 'golden-anniversary', name: 'Golden Anniversary', description: 'Traditional gold and cream elegance for celebrating 50 years of love.' },
-  { id: 'graduation-party', name: 'Graduation Party', description: 'Academic blues and golds to proudly announce a major educational milestone.' },
-  { id: 'sweet-sixteen', name: 'Sweet Sixteen', description: 'Fun, vibrant, and packed with energy for a milestone birthday celebration.' },
-  { id: 'housewarming', name: 'Housewarming', description: 'Warm, cozy, and earthy aesthetics to welcome friends to your new home.' },
+  { id: 'kasavu', name: 'Kasavu Wedding', description: 'Traditional Kerala wedding invitation with elegant gold zari borders.' }
 ];
 
 export default function TemplatesPage() {
@@ -72,8 +40,8 @@ export default function TemplatesPage() {
                 <div className="group rounded-2xl border border-white/5 bg-mbh-black-card overflow-hidden hover:border-mbh-gold/20 transition-all duration-300 flex flex-col h-full">
                   
                   {/* Template Preview scaled down */}
-                  <div className="relative w-full aspect-[3/4] bg-mbh-black flex items-center justify-center p-8 overflow-hidden pointer-events-none">
-                     <div className="w-full h-full scale-100 sm:scale-90 origin-top">
+                  <div className="relative w-full aspect-[3/4] bg-[#141615] flex items-center justify-center p-8 overflow-hidden pointer-events-none">
+                     <div className="w-full h-full scale-[0.6] sm:scale-50 origin-top">
                         <TemplatePreview templateId={template.id} data={defaultInvitationData} />
                      </div>
                      {/* Overlay for hover effect */}

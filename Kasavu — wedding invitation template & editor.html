@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Kasavu — wedding invitation template & editor</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Spectral:ital,wght@0,400;0,600;1,400&family=Noto+Serif+Malayalam:wght@500&display=swap" rel="stylesheet">
+<style>
+:root{
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+  --c-bg:#EEF0EC; --c-surface:#FFFFFF; --c-text:#1D1F1E; --c-muted:#5D625E; --c-line:#D6D9D4; --c-focus:#2F6B4F; --c-soft:#F6F7F4;
+  /* invitation tokens (set per variant from JS) */
+  --bg:#F6F0E1; --paper:#FBF7EC; --zari:#B38A35; --accent:#2F5D3A; --ink:#2B2419; --muted:#6E6353; --dot:#B3261E;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){--c-bg:#141615;--c-surface:#1D201E;--c-text:#E7E9E5;--c-muted:#A2A8A3;--c-line:#343935;--c-focus:#7FC3A0;--c-soft:#232724;}
+}
+:root[data-theme="dark"]{--c-bg:#141615;--c-surface:#1D201E;--c-text:#E7E9E5;--c-muted:#A2A8A3;--c-line:#343935;--c-focus:#7FC3A0;--c-soft:#232724;}
+*,*::before,*::after{box-sizing:inherit}
+html{height:100%;scroll-padding-top:env(safe-area-inset-top,0px)}
+body{height:100%;margin:0;background:var(--c-bg);color:var(--c-text);font:15px/1.45 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+img{max-width:100%}
+:focus-visible{outline:2px solid var(--c-focus);outline-offset:2px}
+
+/* ---------- app shell ---------- */
+.app{height:100%;display:grid;grid-template-columns:minmax(340px,420px) 1fr;grid-template-rows:auto 1fr}
+.bar{grid-column:1/-1;display:flex;align-items:center;gap:12px;padding:10px 16px;background:var(--c-surface);border-bottom:1px solid var(--c-line)}
+.bar h1{font-size:15px;font-weight:600;margin:0;flex:1}
+.bar h1 small{font-weight:400;color:var(--c-muted);margin-left:6px}
+.btn{font:inherit;font-size:13px;padding:7px 12px;border-radius:6px;border:1px solid var(--c-line);background:var(--c-surface);color:var(--c-text);cursor:pointer}
+.btn:hover{background:var(--c-soft)}
+.btn.primary{background:var(--c-focus);border-color:var(--c-focus);color:#fff}
+.tabs{display:none;gap:4px}
+.tabs .btn[aria-pressed="true"]{background:var(--c-text);color:var(--c-surface);border-color:var(--c-text)}
+
+.editor{overflow:auto;background:var(--c-surface);border-right:1px solid var(--c-line);padding:8px 0 40px}
+.editor details{border-bottom:1px solid var(--c-line)}
+.editor summary{padding:12px 18px;font-weight:600;cursor:pointer;list-style:none;display:flex;justify-content:space-between}
+.editor summary::after{content:"+";color:var(--c-muted)}
+.editor details[open] summary::after{content:"–"}
+.group{padding:0 18px 16px;display:grid;gap:10px}
+.group label{display:grid;gap:4px;font-size:13px;color:var(--c-muted)}
+.group input[type=text],.group input[type=date],.group input[type=time],.group textarea,.group select{
+  font:inherit;font-size:14px;color:var(--c-text);background:var(--c-soft);border:1px solid var(--c-line);border-radius:6px;padding:8px 10px;width:100%}
+.group textarea{min-height:72px;resize:vertical}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.check{display:flex!important;align-items:center;gap:8px;color:var(--c-text)!important;font-size:14px!important}
+.swatches{display:flex;gap:8px;flex-wrap:wrap}
+.swatch{display:flex;align-items:center;gap:8px;padding:6px 10px 6px 6px;border:1px solid var(--c-line);border-radius:999px;cursor:pointer;font-size:13px;background:var(--c-surface);color:var(--c-text)}
+.swatch[aria-pressed="true"]{border-color:var(--c-focus);box-shadow:0 0 0 1px var(--c-focus)}
+.swatch i{width:20px;height:20px;border-radius:50%;display:block;border:3px solid}
+.tl-row{display:grid;grid-template-columns:96px 1fr 32px;gap:6px}
+.tl-row button{font:inherit;border:1px solid var(--c-line);background:var(--c-surface);color:var(--c-muted);border-radius:6px;cursor:pointer}
+.thumbs{display:flex;flex-wrap:wrap;gap:6px}
+.thumbs figure{margin:0;position:relative}
+.thumbs img{width:64px;height:64px;object-fit:cover;border-radius:4px;display:block}
+.thumbs button{position:absolute;top:-6px;right:-6px;width:20px;height:20px;border-radius:50%;border:0;background:var(--c-text);color:var(--c-surface);font-size:12px;cursor:pointer;line-height:20px;padding:0}
+.hint{font-size:12px;color:var(--c-muted);margin:0}
+.link{font-size:12px;word-break:break-all;background:var(--c-soft);border:1px dashed var(--c-line);padding:8px;border-radius:6px}
+pre.json{margin:0;max-height:320px;overflow:auto;font:12px/1.5 ui-monospace,Menlo,Consolas,monospace;background:var(--c-soft);border:1px solid var(--c-line);border-radius:6px;padding:10px}
+.resp{display:grid;gap:6px;font-size:13px}
+.resp div{padding:8px;background:var(--c-soft);border-radius:6px}
+
+.stage{overflow:auto;display:flex;justify-content:center;padding:28px 16px}
+.phone{width:100%;max-width:410px;height:max-content;border-radius:28px;padding:10px;background:#1a1a1a;box-shadow:0 20px 50px rgba(0,0,0,.25)}
+.screen{border-radius:20px;overflow:hidden;background:var(--bg)}
+
+@media (max-width:900px){
+  .app{grid-template-columns:1fr}
+  .tabs{display:flex}
+  .app[data-view="preview"] .editor{display:none}
+  .app[data-view="edit"] .stage{display:none}
+  .editor{border-right:0}
+  .stage{padding:12px 0}
+  .phone{padding:0;border-radius:0;background:none;box-shadow:none;max-width:480px}
+  .screen{border-radius:0}
+}
+
+/* ---------- invitation ---------- */
+.inv{color:var(--ink);font-family:Spectral,Georgia,"Times New Roman",serif;font-size:16px;line-height:1.6;background:var(--bg)}
+.inv h2,.inv .display{font-family:Marcellus,"Trajan Pro",Georgia,serif;font-weight:400;letter-spacing:.02em}
+.zari{position:relative;height:30px;
+  background:linear-gradient(var(--zari),var(--zari)) top/100% 3px no-repeat,
+             linear-gradient(var(--zari),var(--zari)) bottom/100% 7px no-repeat}
+.zari::after{content:"";position:absolute;left:0;right:0;top:8px;height:13px;background:var(--zari);
+  -webkit-mask:var(--zari-mask) repeat-x left center/26px 13px;mask:var(--zari-mask) repeat-x left center/26px 13px}
+.zari.flip{transform:scaleY(-1)}
+.zari.draw{animation:draw 1.4s cubic-bezier(.2,.7,.2,1) both}
+.zari.flip.draw{animation-name:drawflip}
+@keyframes draw{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+@keyframes drawflip{from{transform:scaleY(-1) scaleX(0)}to{transform:scaleY(-1) scaleX(1)}}
+
+.hero{background:var(--paper);text-align:center;padding:26px 24px 34px}
+.lamp{width:46px;height:auto;display:block;margin:0 auto 10px;fill:var(--zari)}
+.lamp .flame{fill:#E39B2E;transform-origin:30px 24px;animation:flicker 2.8s ease-in-out infinite}
+@keyframes flicker{0%,100%{transform:scale(1,1)}40%{transform:scale(.94,1.06)}70%{transform:scale(1.03,.97)}}
+.ml{font-family:"Noto Serif Malayalam",serif;color:var(--accent);font-size:18px;margin:0 0 4px}
+.dear{font-style:italic;color:var(--muted);margin:0 0 6px}
+.greeting{color:var(--muted);margin:0 0 18px;font-size:15px}
+.names{font-size:44px;line-height:1.05;margin:0;color:var(--ink)}
+.names .amp{display:block;font-family:Spectral,serif;font-style:italic;font-size:22px;color:var(--zari);margin:6px 0}
+.when{margin:18px 0 0;font-size:15px;letter-spacing:.04em;color:var(--accent)}
+.arch{margin:22px auto 0;width:78%;aspect-ratio:3/4;border-radius:999px 999px 6px 6px;overflow:hidden;border:4px double var(--zari);padding:5px;background:var(--bg)}
+.arch img{width:100%;height:100%;object-fit:cover;border-radius:999px 999px 3px 3px;display:block}
+
+.sec{padding:34px 24px;text-align:center}
+.sec + .sec{padding-top:6px}
+.orn{display:flex;align-items:center;justify-content:center;gap:10px;margin:0 0 12px;color:var(--zari)}
+.orn span{height:1px;width:48px;background:currentColor}
+.orn svg{width:14px;height:14px;fill:currentColor}
+.sec h2{font-size:26px;margin:0 0 14px;color:var(--ink)}
+.msg{margin:0 auto;max-width:32ch;white-space:pre-line}
+.fam{display:grid;grid-template-columns:1fr 1fr;gap:16px;text-align:center}
+.fam h3{font-family:Marcellus,Georgia,serif;font-weight:400;font-size:20px;margin:0 0 4px}
+.fam p{margin:0;font-size:14px;color:var(--muted);line-height:1.5}
+
+.muhurtham{background:var(--accent);color:#FBF7EC;margin:8px 16px;padding:28px 20px;border-radius:4px;border:1px solid var(--zari);outline:1px solid var(--zari);outline-offset:-7px;text-align:center}
+.muhurtham h2{color:#FBF7EC;font-size:24px;margin:0 0 4px}
+.muhurtham .big{font-family:Marcellus,Georgia,serif;font-size:22px;margin:0}
+.muhurtham .sub{margin:2px 0 16px;opacity:.85;font-size:15px}
+.cal{display:grid;grid-template-columns:repeat(7,1fr);gap:2px;max-width:280px;margin:0 auto;font-size:13px}
+.cal b{font-weight:600;opacity:.7;font-size:11px;padding-bottom:4px}
+.cal span{aspect-ratio:1;display:grid;place-items:center;position:relative}
+.cal span.on{color:#fff;font-weight:600}
+.cal span.on::before{content:"";position:absolute;inset:14%;border-radius:50%;background:var(--dot);border:1.5px solid var(--zari);z-index:0}
+.cal span.on em{position:relative;font-style:normal}
+.cal-head{font-family:Marcellus,Georgia,serif;font-size:17px;margin:0 0 8px;color:var(--zari)}
+.cd{display:flex;justify-content:center;gap:18px;margin-top:18px}
+.cd div{min-width:48px}
+.cd strong{display:block;font-family:Marcellus,Georgia,serif;font-size:26px;font-weight:400;line-height:1.1}
+.cd small{font-size:12px;opacity:.8}
+
+.venue{background:var(--paper);border-top:1px solid var(--zari);border-bottom:1px solid var(--zari);padding:18px;margin:0 0 14px}
+.venue h3{font-family:Marcellus,Georgia,serif;font-weight:400;font-size:19px;margin:0}
+.venue .t{color:var(--accent);margin:2px 0 6px;font-size:15px}
+.venue p{margin:0;color:var(--muted);font-size:14px}
+.venue a{display:inline-block;margin-top:10px;color:var(--accent);font-size:14px;text-underline-offset:3px}
+
+.tl{list-style:none;margin:0 auto;padding:0;max-width:300px;text-align:left;position:relative}
+.tl::before{content:"";position:absolute;left:62px;top:8px;bottom:8px;width:1px;background:var(--zari)}
+.tl li{display:grid;grid-template-columns:54px 1fr;gap:20px;padding:8px 0;position:relative}
+.tl li::before{content:"";position:absolute;left:58px;top:16px;width:9px;height:9px;transform:rotate(45deg);background:var(--paper);border:1.5px solid var(--zari)}
+.tl time{font-size:14px;color:var(--accent);text-align:right}
+
+.gal{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.gal img{width:100%;aspect-ratio:1;object-fit:cover;display:block}
+.gal img:first-child:nth-last-child(odd){grid-column:1/-1;aspect-ratio:4/3}
+
+.fbox{display:grid;gap:10px;text-align:left;max-width:320px;margin:0 auto}
+.fbox label{display:grid;gap:4px;font-size:14px;color:var(--muted)}
+.fbox input,.fbox textarea,.fbox select{font:inherit;font-size:15px;color:var(--ink);background:var(--paper);border:1px solid color-mix(in srgb,var(--zari) 55%,transparent);border-radius:3px;padding:9px 10px}
+.fbox textarea{min-height:70px;resize:vertical}
+.choice{display:flex;gap:8px}
+.choice button{flex:1;font:inherit;font-size:15px;padding:9px;border:1px solid var(--zari);background:var(--paper);color:var(--ink);border-radius:3px;cursor:pointer}
+.choice button[aria-pressed="true"]{background:var(--accent);color:#FBF7EC;border-color:var(--accent)}
+.send{font:inherit;font-size:16px;padding:11px;border:0;border-radius:3px;background:var(--zari);color:#fff;cursor:pointer}
+.thanks{font-style:italic;color:var(--accent);margin:12px 0 0}
+.wishes{display:grid;gap:10px;margin:18px auto 0;max-width:320px;text-align:left}
+.wishes blockquote{margin:0;padding:10px 12px;background:var(--paper);border-left:2px solid var(--zari);font-size:15px}
+.wishes cite{display:block;font-size:13px;color:var(--muted);font-style:normal;margin-top:4px}
+.foot{text-align:center;padding:26px 24px 30px;background:var(--paper)}
+.foot p{margin:0}
+.foot .display{font-size:24px}
+@media (prefers-reduced-motion:reduce){.zari.draw,.lamp .flame{animation:none}}
+</style>
+</head>
+<body>
+<div class="app" data-view="edit" id="app">
+  <header class="bar">
+    <h1>Kasavu<small>template editor</small></h1>
+    <div class="tabs" role="group" aria-label="View">
+      <button class="btn" data-view="edit" aria-pressed="true">Edit</button>
+      <button class="btn" data-view="preview" aria-pressed="false">Preview</button>
+    </div>
+    <button class="btn" id="reset">Reset sample</button>
+  </header>
+
+  <aside class="editor" id="editor">
+    <details open>
+      <summary>Colour variant</summary>
+      <div class="group"><div class="swatches" id="swatches"></div>
+      <p class="hint">Same layout, different theme tokens. This is how one template family becomes several templates.</p></div>
+    </details>
+    <details open>
+      <summary>Couple</summary>
+      <div class="group">
+        <div class="row">
+          <label>Bride<input type="text" data-path="couple.bride"></label>
+          <label>Groom<input type="text" data-path="couple.groom"></label>
+        </div>
+        <label>Bride's family<textarea data-path="couple.brideFamily"></textarea></label>
+        <label>Groom's family<textarea data-path="couple.groomFamily"></textarea></label>
+        <label class="check"><input type="checkbox" data-path="sections.family"> Show family section</label>
+      </div>
+    </details>
+    <details>
+      <summary>Wording</summary>
+      <div class="group">
+        <label>Opening line<input type="text" data-path="greeting"></label>
+        <label>Invitation message<textarea data-path="message" rows="5"></textarea></label>
+      </div>
+    </details>
+    <details open>
+      <summary>Date & muhurtham</summary>
+      <div class="group">
+        <label>Wedding date<input type="date" data-path="date"></label>
+        <div class="row">
+          <label>Muhurtham from<input type="time" data-path="muhurtham.start"></label>
+          <label>to<input type="time" data-path="muhurtham.end"></label>
+        </div>
+        <label class="check"><input type="checkbox" data-path="sections.countdown"> Show calendar and countdown</label>
+      </div>
+    </details>
+    <details>
+      <summary>Venues</summary>
+      <div class="group">
+        <label>Ceremony venue<input type="text" data-path="ceremony.venue"></label>
+        <label>Ceremony address<input type="text" data-path="ceremony.address"></label>
+        <label class="check"><input type="checkbox" data-path="reception.enabled"> Add a reception</label>
+        <div class="row">
+          <label>Reception date<input type="date" data-path="reception.date"></label>
+          <label>Time<input type="time" data-path="reception.time"></label>
+        </div>
+        <label>Reception venue<input type="text" data-path="reception.venue"></label>
+        <label>Reception address<input type="text" data-path="reception.address"></label>
+      </div>
+    </details>
+    <details>
+      <summary>Dress code</summary>
+      <div class="group">
+        <label class="check"><input type="checkbox" data-path="dress.enabled"> Show dress code</label>
+        <label>Note for guests<textarea data-path="dress.text"></textarea></label>
+      </div>
+    </details>
+    <details>
+      <summary>Programme</summary>
+      <div class="group">
+        <div id="tl-editor" style="display:grid;gap:6px"></div>
+        <button class="btn" id="tl-add" type="button">Add item</button>
+        <label class="check"><input type="checkbox" data-path="sections.timeline"> Show programme</label>
+      </div>
+    </details>
+    <details>
+      <summary>Photos</summary>
+      <div class="group">
+        <label>Main photo<input type="file" accept="image/*" id="hero-file"></label>
+        <div class="thumbs" id="hero-thumb"></div>
+        <label>Album photos<input type="file" accept="image/*" multiple id="gal-file"></label>
+        <div class="thumbs" id="gal-thumbs"></div>
+        <label class="check"><input type="checkbox" data-path="sections.gallery"> Show album</label>
+        <p class="hint">Photos stay in this browser tab. A real build uploads them to storage and saves the URL.</p>
+      </div>
+    </details>
+    <details>
+      <summary>RSVP & wishes</summary>
+      <div class="group">
+        <label class="check"><input type="checkbox" data-path="sections.rsvp"> Collect RSVPs</label>
+        <label>Reply by<input type="date" data-path="rsvpBy"></label>
+        <label class="check"><input type="checkbox" data-path="sections.guestbook"> Show wishes wall</label>
+        <div class="resp" id="responses"></div>
+      </div>
+    </details>
+    <details>
+      <summary>Guest link</summary>
+      <div class="group">
+        <label>Preview as guest<input type="text" id="guest" placeholder="e.g. Joseph Uncle & family"></label>
+        <div class="link" id="guest-link"></div>
+        <p class="hint">Each guest gets their own link. The page reads the name from the link and greets them personally.</p>
+      </div>
+    </details>
+    <details>
+      <summary>Invitation data</summary>
+      <div class="group">
+        <p class="hint">Everything the editor changes lives in this one object. Every template renders the same object, which is why switching templates keeps the content.</p>
+        <pre class="json" id="json"></pre>
+      </div>
+    </details>
+  </aside>
+
+  <main class="stage" id="stage">
+    <div class="phone"><div class="screen"><div class="inv" id="inv"></div></div></div>
+  </main>
+</div>
+
+<script>
+(function(){
+  "use strict";
+  const VARIANTS = {
+    gold:    {label:"Kasavu gold",    bg:"#F6F0E1", paper:"#FBF7EC", zari:"#B38A35", accent:"#2F5D3A", ink:"#2B2419", muted:"#6E6353", dot:"#B3261E"},
+    maroon:  {label:"Temple maroon",  bg:"#F5EEE4", paper:"#FBF6EE", zari:"#B08A3E", accent:"#7A1F2B", ink:"#2A1D1A", muted:"#6F5E57", dot:"#9C2230"},
+    peacock: {label:"Peacock blue",   bg:"#F2F0E6", paper:"#FAF8F0", zari:"#A98838", accent:"#1E5361", ink:"#1E2426", muted:"#5E6663", dot:"#B3261E"}
+  };
+  const SAMPLE = {
+    template:"kasavu", variant:"gold",
+    couple:{bride:"Anjali", groom:"Rahul",
+      brideFamily:"Daughter of\nSuresh Menon & Lakshmi Menon\nThrissur",
+      groomFamily:"Son of\nVijayan Nair & Sreedevi Nair\nKochi"},
+    greeting:"With the blessings of our elders",
+    message:"We joyfully invite you and your family to celebrate the wedding of our children, and to share the blessings of the day with us.",
+    date:"2026-12-10",
+    muhurtham:{start:"10:30", end:"11:15"},
+    ceremony:{venue:"Sree Krishna Temple Auditorium", address:"East Nada, Guruvayur, Thrissur"},
+    reception:{enabled:true, date:"2026-12-10", time:"18:30", venue:"Le Méridien Kochi", address:"Maradu, Kochi"},
+    dress:{enabled:true, text:"Kasavu, set-mundu and silks welcome. Family in cream and gold."},
+    timeline:[
+      {time:"09:30", title:"Arrival of the groom's party"},
+      {time:"10:30", title:"Thaali ceremony"},
+      {time:"11:30", title:"Sadya lunch"},
+      {time:"18:30", title:"Reception and dinner"}
+    ],
+    heroPhoto:null, photos:[],
+    rsvpBy:"2026-11-25",
+    sections:{family:true, countdown:true, timeline:true, gallery:true, rsvp:true, guestbook:true}
+  };
+  const KEY="kasavu-draft", RKEY="kasavu-rsvps", WKEY="kasavu-wishes";
+  const clone=o=>JSON.parse(JSON.stringify(o));
+  function load(k,f){try{const v=localStorage.getItem(k);return v?JSON.parse(v):f}catch(e){return f}}
+  function store(k,v){try{localStorage.setItem(k,JSON.stringify(v));return true}catch(e){return false}}
+
+  let state = Object.assign(clone(SAMPLE), load(KEY,{}));
+  let rsvps = load(RKEY,[]), wishes = load(WKEY,[]);
+  let guest = new URLSearchParams(location.search).get("g") || "";
+  let firstRender = true, rsvpDraft = {attending:"yes"}, rsvpSent=false;
+
+  const $=s=>document.querySelector(s);
+  const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+  const get=(o,p)=>p.split(".").reduce((a,k)=>a?.[k],o);
+  function set(o,p,v){const k=p.split(".");let t=o;for(let i=0;i<k.length-1;i++)t=t[k[i]];t[k[k.length-1]]=v}
+  function fmtDate(iso){if(!iso)return"";const d=new Date(iso+"T00:00:00");return d.toLocaleDateString("en-IN",{weekday:"long",day:"numeric",month:"long",year:"numeric"})}
+  function fmtTime(t){if(!t)return"";const [h,m]=t.split(":").map(Number);const d=new Date(2000,0,1,h,m);return d.toLocaleTimeString("en-IN",{hour:"numeric",minute:"2-digit"}).toUpperCase()}
+  const mapUrl=(v,a)=>"https://www.google.com/maps/search/?api=1&query="+encodeURIComponent([v,a].filter(Boolean).join(", "));
+
+  // zari border motif: temple-spire kara pattern
+  const motif="<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 26 13'><path d='M13 0l5.5 9h-11z M3 10l2.5-4 2.5 4z M18 10l2.5-4 2.5 4z M0 11h26v2H0z'/></svg>";
+  document.documentElement.style.setProperty("--zari-mask",`url("data:image/svg+xml,${encodeURIComponent(motif)}")`);
+
+  const lamp=`<svg class="lamp" viewBox="0 0 60 116" aria-hidden="true"><path class="flame" d="M30 3c5 8 7.5 13 7.5 18a7.5 7.5 0 0 1-15 0C22.5 16 25 11 30 3z"/><path d="M10 32h40l-5 9H15z"/><rect x="27" y="41" width="6" height="46"/><ellipse cx="30" cy="54" rx="9" ry="3"/><ellipse cx="30" cy="72" rx="7" ry="2.5"/><path d="M17 87h26l7 14H10z"/><rect x="6" y="101" width="48" height="5" rx="2"/></svg>`;
+  const orn=`<div class="orn" aria-hidden="true"><span></span><svg viewBox="0 0 10 10"><path d="M5 0l5 5-5 5-5-5z"/></svg><span></span></div>`;
+
+  function applyVariant(){
+    const v=VARIANTS[state.variant]||VARIANTS.gold, r=document.documentElement.style;
+    ["bg","paper","zari","accent","ink","muted","dot"].forEach(k=>r.setProperty("--"+k,v[k]));
+  }
+
+  function calendar(iso){
+    if(!iso)return"";
+    const d=new Date(iso+"T00:00:00"), y=d.getFullYear(), m=d.getMonth();
+    const first=(new Date(y,m,1).getDay()+6)%7, days=new Date(y,m+1,0).getDate();
+    let h=`<p class="cal-head">${d.toLocaleDateString("en-IN",{month:"long",year:"numeric"})}</p><div class="cal">`;
+    ["M","T","W","T","F","S","S"].forEach(x=>h+=`<b>${x}</b>`);
+    for(let i=0;i<first;i++)h+="<span></span>";
+    for(let i=1;i<=days;i++)h+=i===d.getDate()?`<span class="on" aria-label="Wedding day"><em>${i}</em></span>`:`<span>${i}</span>`;
+    return h+"</div>";
+  }
+
+  function countdownParts(){
+    if(!state.date)return null;
+    const t=new Date(`${state.date}T${state.muhurtham.start||"00:00"}:00`)-new Date();
+    if(t<=0)return null;
+    return [Math.floor(t/864e5),Math.floor(t/36e5)%24,Math.floor(t/6e4)%60];
+  }
+  function countdownHTML(){
+    const p=countdownParts();
+    if(!p)return`<p class="sub" style="margin:16px 0 0">Today is the day.</p>`;
+    return`<div class="cd" id="cd"><div><strong>${p[0]}</strong><small>days</small></div><div><strong>${p[1]}</strong><small>hours</small></div><div><strong>${p[2]}</strong><small>minutes</small></div></div>`;
+  }
+
+  function render(){
+    applyVariant();
+    const s=state, c=s.couple, S=s.sections, draw=firstRender?" draw":"";
+    let h=`<div class="zari${draw}"></div>
+    <section class="hero">
+      ${lamp}
+      <p class="ml" lang="ml">ശുഭവിവാഹം</p>
+      ${guest?`<p class="dear">Dear ${esc(guest)},</p>`:""}
+      <p class="greeting">${esc(s.greeting)}</p>
+      <h1 class="display names">${esc(c.bride)}<span class="amp">and</span>${esc(c.groom)}</h1>
+      <p class="when">${esc(fmtDate(s.date))}</p>
+      ${s.heroPhoto?`<div class="arch"><img src="${s.heroPhoto}" alt="${esc(c.bride)} and ${esc(c.groom)}"></div>`:""}
+    </section>
+    <div class="zari flip${draw}"></div>
+    <section class="sec">${orn}<p class="msg">${esc(s.message)}</p></section>`;
+
+    if(S.family) h+=`<section class="sec"><div class="fam">
+      <div><h3>${esc(c.bride)}</h3><p>${esc(c.brideFamily).replace(/\n/g,"<br>")}</p></div>
+      <div><h3>${esc(c.groom)}</h3><p>${esc(c.groomFamily).replace(/\n/g,"<br>")}</p></div></div></section>`;
+
+    h+=`<section class="muhurtham"><h2>Muhurtham</h2>
+      <p class="big">${esc(fmtTime(s.muhurtham.start))}${s.muhurtham.end?" – "+esc(fmtTime(s.muhurtham.end)):""}</p>
+      <p class="sub">${esc(fmtDate(s.date))}</p>
+      ${S.countdown?calendar(s.date)+countdownHTML():""}</section>`;
+
+    h+=`<section class="sec">${orn}<h2>Where</h2>
+      <div class="venue"><h3>${esc(s.ceremony.venue)}</h3><p class="t">Wedding · ${esc(fmtTime(s.muhurtham.start))}</p><p>${esc(s.ceremony.address)}</p>
+      <a href="${mapUrl(s.ceremony.venue,s.ceremony.address)}" target="_blank" rel="noopener">Open in Google Maps</a></div>
+      ${s.reception.enabled?`<div class="venue"><h3>${esc(s.reception.venue)}</h3><p class="t">Reception · ${esc(fmtTime(s.reception.time))}${s.reception.date&&s.reception.date!==s.date?", "+esc(fmtDate(s.reception.date)):""}</p><p>${esc(s.reception.address)}</p>
+      <a href="${mapUrl(s.reception.venue,s.reception.address)}" target="_blank" rel="noopener">Open in Google Maps</a></div>`:""}
+      ${s.dress.enabled&&s.dress.text?`<p class="msg" style="margin-top:8px"><em>${esc(s.dress.text)}</em></p>`:""}
+    </section>`;
+
+    if(S.timeline&&s.timeline.length) h+=`<section class="sec">${orn}<h2>The day</h2><ol class="tl">
+      ${s.timeline.map(t=>`<li><time>${esc(fmtTime(t.time))}</time><span>${esc(t.title)}</span></li>`).join("")}</ol></section>`;
+
+    if(S.gallery&&s.photos.length) h+=`<section class="sec">${orn}<h2>Moments</h2><div class="gal">
+      ${s.photos.map((p,i)=>`<img src="${p}" alt="Photo ${i+1} of the couple">`).join("")}</div></section>`;
+
+    if(S.rsvp) h+=`<section class="sec">${orn}<h2>Will you join us?</h2>
+      ${s.rsvpBy?`<p class="msg" style="margin-bottom:16px">Kindly reply by ${esc(fmtDate(s.rsvpBy))}</p>`:""}
+      ${rsvpSent?`<p class="thanks">Thank you. Your reply has been sent to the family.</p>`:`<div class="fbox">
+        <label>Your name<input id="r-name" value="${esc(rsvpDraft.name??guest)}" autocomplete="name"></label>
+        <div class="choice" role="group" aria-label="Attending">
+          <button type="button" data-att="yes" aria-pressed="${rsvpDraft.attending==="yes"}">Joyfully attending</button>
+          <button type="button" data-att="no" aria-pressed="${rsvpDraft.attending==="no"}">Unable to come</button></div>
+        ${rsvpDraft.attending==="yes"?`<label>Number of guests<select id="r-count">${[1,2,3,4,5,6].map(n=>`<option ${Number(rsvpDraft.count||2)===n?"selected":""}>${n}</option>`).join("")}</select></label>`:""}
+        <button class="send" type="button" id="r-send">Send reply</button></div>`}
+    </section>`;
+
+    if(S.guestbook) h+=`<section class="sec">${orn}<h2>Blessings</h2>
+      <div class="fbox"><label>Your wish for the couple<textarea id="w-text"></textarea></label>
+      <label>From<input id="w-name" value="${esc(guest)}"></label>
+      <button class="send" type="button" id="w-send">Post wish</button></div>
+      <div class="wishes">${wishes.slice().reverse().map(w=>`<blockquote>${esc(w.text)}<cite>${esc(w.name||"A well-wisher")}</cite></blockquote>`).join("")}</div>
+    </section>`;
+
+    h+=`<div class="zari"></div><footer class="foot"><p class="display">${esc(c.bride)} & ${esc(c.groom)}</p><p style="color:var(--muted);font-size:14px">With love and gratitude</p></footer><div class="zari flip"></div>`;
+
+    $("#inv").innerHTML=h;
+    firstRender=false;
+    renderSide();
+  }
+
+  function renderSide(){
+    // json
+    const view=clone(state);
+    if(view.heroPhoto)view.heroPhoto="[uploaded image]";
+    view.photos=view.photos.map(()=>"[uploaded image]");
+    $("#json").textContent=JSON.stringify(view,null,2);
+    // guest link
+    const slug=(state.couple.bride+"-"+state.couple.groom).toLowerCase().replace(/[^a-z0-9]+/g,"-");
+    $("#guest-link").textContent=`https://yourdomain.in/i/${slug}${guest?"?g="+encodeURIComponent(guest):""}`;
+    // responses
+    const yes=rsvps.filter(r=>r.attending==="yes");
+    $("#responses").innerHTML=`<p class="hint">${rsvps.length?`${rsvps.length} replies · ${yes.reduce((a,r)=>a+Number(r.count||1),0)} guests attending`:"No replies yet. Send one from the preview to test."}</p>`+
+      rsvps.slice().reverse().map(r=>`<div><strong>${esc(r.name||"Guest")}</strong> — ${r.attending==="yes"?`attending, ${r.count}`:"not attending"}</div>`).join("");
+    // thumbs
+    $("#hero-thumb").innerHTML=state.heroPhoto?`<figure><img src="${state.heroPhoto}" alt="Main photo"><button type="button" data-rm="hero" aria-label="Remove main photo">×</button></figure>`:"";
+    $("#gal-thumbs").innerHTML=state.photos.map((p,i)=>`<figure><img src="${p}" alt="Album photo ${i+1}"><button type="button" data-rm="${i}" aria-label="Remove photo ${i+1}">×</button></figure>`).join("");
+  }
+
+  function renderTimelineEditor(){
+    $("#tl-editor").innerHTML=state.timeline.map((t,i)=>`<div class="tl-row">
+      <input type="time" data-tl="${i}" data-f="time" value="${esc(t.time)}" aria-label="Time">
+      <input type="text" data-tl="${i}" data-f="title" value="${esc(t.title)}" aria-label="What happens">
+      <button type="button" data-tl-rm="${i}" aria-label="Remove item">×</button></div>`).join("");
+  }
+
+  function renderSwatches(){
+    $("#swatches").innerHTML=Object.entries(VARIANTS).map(([k,v])=>`<button type="button" class="swatch" data-variant="${k}" aria-pressed="${state.variant===k}"><i style="background:${v.accent};border-color:${v.zari}"></i>${v.label}</button>`).join("");
+  }
+
+  function fillInputs(){
+    document.querySelectorAll("[data-path]").forEach(el=>{
+      const v=get(state,el.dataset.path);
+      if(el.type==="checkbox")el.checked=!!v; else el.value=v??"";
+    });
+    $("#guest").value=guest;
+    renderSwatches(); renderTimelineEditor();
+  }
+
+  function save(){
+    if(!store(KEY,state)){ // photos too big for storage: keep text only
+      const lite=clone(state); lite.heroPhoto=null; lite.photos=[]; store(KEY,lite);
+    }
+  }
+  let t; const saveSoon=()=>{clearTimeout(t);t=setTimeout(save,400)};
+
+  // ---- editor events ----
+  const ed=$("#editor");
+  ed.addEventListener("input",e=>{
+    const el=e.target;
+    if(el.dataset.path){set(state,el.dataset.path,el.type==="checkbox"?el.checked:el.value);render();saveSoon();}
+    else if(el.dataset.tl!==undefined){state.timeline[+el.dataset.tl][el.dataset.f]=el.value;render();saveSoon();}
+    else if(el.id==="guest"){guest=el.value;rsvpDraft.name=undefined;render();}
+  });
+  ed.addEventListener("change",e=>{
+    if(e.target.dataset.tl!==undefined){state.timeline.sort((a,b)=>a.time.localeCompare(b.time));renderTimelineEditor();render();}
+  });
+  ed.addEventListener("click",e=>{
+    const b=e.target.closest("button"); if(!b)return;
+    if(b.dataset.variant){state.variant=b.dataset.variant;renderSwatches();render();saveSoon();}
+    if(b.dataset.tlRm!==undefined){state.timeline.splice(+b.dataset.tlRm,1);renderTimelineEditor();render();saveSoon();}
+    if(b.id==="tl-add"){state.timeline.push({time:"12:00",title:"New item"});renderTimelineEditor();render();saveSoon();}
+    if(b.dataset.rm!==undefined){if(b.dataset.rm==="hero")state.heroPhoto=null;else state.photos.splice(+b.dataset.rm,1);render();saveSoon();}
+  });
+
+  function readImage(file){
+    return new Promise(res=>{
+      const r=new FileReader();
+      r.onload=()=>{const img=new Image();img.onload=()=>{
+        const max=1200,sc=Math.min(1,max/Math.max(img.width,img.height));
+        const cv=document.createElement("canvas");cv.width=Math.round(img.width*sc);cv.height=Math.round(img.height*sc);
+        cv.getContext("2d").drawImage(img,0,0,cv.width,cv.height);res(cv.toDataURL("image/jpeg",.82));
+      };img.onerror=()=>res(null);img.src=r.result;};
+      r.onerror=()=>res(null);r.readAsDataURL(file);
+    });
+  }
+  $("#hero-file").addEventListener("change",async e=>{const f=e.target.files[0];if(!f)return;state.heroPhoto=await readImage(f);e.target.value="";render();saveSoon();});
+  $("#gal-file").addEventListener("change",async e=>{for(const f of e.target.files){const d=await readImage(f);if(d)state.photos.push(d);}e.target.value="";render();saveSoon();});
+
+  // ---- invitation (guest-facing) events ----
+  $("#inv").addEventListener("click",e=>{
+    const b=e.target.closest("button"); if(!b)return;
+    if(b.dataset.att){rsvpDraft.name=$("#r-name").value;rsvpDraft.attending=b.dataset.att;render();}
+    if(b.id==="r-send"){
+      const name=$("#r-name").value.trim();
+      if(!name){$("#r-name").focus();$("#r-name").setAttribute("aria-invalid","true");return;}
+      rsvps.push({name,attending:rsvpDraft.attending,count:rsvpDraft.attending==="yes"?Number(($("#r-count")||{}).value||1):0,at:new Date().toISOString()});
+      store(RKEY,rsvps);rsvpSent=true;render();
+    }
+    if(b.id==="w-send"){
+      const text=$("#w-text").value.trim(); if(!text){$("#w-text").focus();return;}
+      wishes.push({text,name:$("#w-name").value.trim()});store(WKEY,wishes);render();
+    }
+  });
+  $("#inv").addEventListener("change",e=>{if(e.target.id==="r-count")rsvpDraft.count=e.target.value;});
+
+  // ---- shell ----
+  document.querySelectorAll(".tabs .btn").forEach(b=>b.addEventListener("click",()=>{
+    $("#app").dataset.view=b.dataset.view;
+    document.querySelectorAll(".tabs .btn").forEach(x=>x.setAttribute("aria-pressed",x===b));
+  }));
+  $("#reset").addEventListener("click",()=>{
+    state=clone(SAMPLE);rsvps=[];wishes=[];rsvpSent=false;rsvpDraft={attending:"yes"};
+    try{localStorage.removeItem(KEY);localStorage.removeItem(RKEY);localStorage.removeItem(WKEY);}catch(e){}
+    firstRender=true;fillInputs();render();
+  });
+
+  setInterval(()=>{const el=$("#cd"),p=countdownParts();if(el&&p)el.querySelectorAll("strong").forEach((s,i)=>s.textContent=p[i]);},30000);
+
+  fillInputs(); render();
+})();
+</script>
+</body>
+</html>

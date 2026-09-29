@@ -1,50 +1,83 @@
-export interface InvitationData {
-  title: string;
-  hostName: string;
-  date: string;
+export interface TimelineItem {
   time: string;
-  venue: string;
-  message: string;
+  title: string;
 }
 
-export type TemplateId =
-  | 'classic-gold' | 'modern-minimal'
-  | 'executive-summit' | 'product-launch' | 'annual-gala' | 'startup-mixer' | 'corporate-retreat' | 'investor-pitch'
-  | 'rustic-romance' | 'ocean-breeze' | 'vintage-glamour' | 'fairytale-garden' | 'minimalist-love' | 'boho-chic'
-  | 'neon-nights' | 'summer-bbq' | 'masquerade-ball' | 'vip-afterparty' | 'retro-80s' | 'sunset-soiree'
-  | 'baby-shower' | 'golden-anniversary' | 'graduation-party' | 'sweet-sixteen' | 'housewarming';
+export interface InvitationData {
+  variant: 'gold' | 'maroon' | 'peacock';
+  couple: {
+    bride: string;
+    groom: string;
+    brideFamily: string;
+    groomFamily: string;
+  };
+  greeting: string;
+  message: string;
+  date: string;
+  muhurtham: {
+    start: string;
+    end: string;
+  };
+  ceremony: {
+    venue: string;
+    address: string;
+  };
+  reception: {
+    enabled: boolean;
+    date: string;
+    time: string;
+    venue: string;
+    address: string;
+  };
+  dress: {
+    enabled: boolean;
+    text: string;
+  };
+  timeline: TimelineItem[];
+  heroPhoto: string | null;
+  photos: string[];
+  rsvpBy: string;
+  sections: {
+    family: boolean;
+    countdown: boolean;
+    timeline: boolean;
+    gallery: boolean;
+    rsvp: boolean;
+    guestbook: boolean;
+  };
+}
+
+export type TemplateId = 'kasavu';
 
 export const defaultInvitationData: InvitationData = {
-  title: "You're Invited",
-  hostName: 'The MBH Events Team',
-  date: 'December 31, 2026',
-  time: '8:00 PM',
-  venue: 'The Grand Ballroom, MBH Tower, Dubai',
-  message: 'Join us for an unforgettable evening of celebration, dining, and entertainment as we welcome the new year in style.',
+  variant: "gold",
+  couple: {
+    bride: "Anjali", groom: "Rahul",
+    brideFamily: "Daughter of\nSuresh Menon & Lakshmi Menon\nThrissur",
+    groomFamily: "Son of\nVijayan Nair & Sreedevi Nair\nKochi"
+  },
+  greeting: "With the blessings of our elders",
+  message: "We joyfully invite you and your family to celebrate the wedding of our children, and to share the blessings of the day with us.",
+  date: "2026-12-10",
+  muhurtham: { start: "10:30", end: "11:15" },
+  ceremony: { venue: "Sree Krishna Temple Auditorium", address: "East Nada, Guruvayur, Thrissur" },
+  reception: { enabled: true, date: "2026-12-10", time: "18:30", venue: "Le Méridien Kochi", address: "Maradu, Kochi" },
+  dress: { enabled: true, text: "Kasavu, set-mundu and silks welcome. Family in cream and gold." },
+  timeline: [
+    { time: "09:30", title: "Arrival of the groom's party" },
+    { time: "10:30", title: "Thaali ceremony" },
+    { time: "11:30", title: "Sadya lunch" },
+    { time: "18:30", title: "Reception and dinner" }
+  ],
+  heroPhoto: null, photos: [],
+  rsvpBy: "2026-11-25",
+  sections: { family: true, countdown: true, timeline: true, gallery: true, rsvp: true, guestbook: true }
 };
 
-/**
- * Encodes the invitation data into a URL-safe Base64 string.
- */
 export function encodeInvitationData(data: InvitationData): string {
-  try {
-    const jsonStr = JSON.stringify(data);
-    return btoa(encodeURIComponent(jsonStr));
-  } catch (error) {
-    console.error('Failed to encode invitation data:', error);
-    return '';
-  }
+  try { return btoa(encodeURIComponent(JSON.stringify(data))); } catch (error) { return ''; }
 }
 
-/**
- * Decodes a URL-safe Base64 string back into InvitationData.
- */
 export function decodeInvitationData(encoded: string): InvitationData | null {
-  try {
-    const jsonStr = decodeURIComponent(atob(encoded));
-    return JSON.parse(jsonStr) as InvitationData;
-  } catch (error) {
-    console.error('Failed to decode invitation data:', error);
-    return null;
-  }
+  try { return JSON.parse(decodeURIComponent(atob(encoded))) as InvitationData; } catch (error) { return null; }
 }

@@ -22,6 +22,7 @@ export interface HeroProps {
   videoEmbed?: React.ReactNode;
   size?: 'full' | 'large' | 'medium';
   align?: 'center' | 'left';
+  hideTaglineBox?: boolean;
 }
 
 const frameCount = 76;
@@ -40,6 +41,7 @@ export default function Hero({
   videoEmbed,
   size = 'full',
   align = 'center',
+  hideTaglineBox = false,
 }: HeroProps) {
   const containerRef = useRef<HTMLElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -179,8 +181,11 @@ export default function Hero({
           <div className="relative z-10 container-mbh w-full h-full py-32 lg:py-40 flex items-center justify-center">
             <div className={`flex flex-col ${alignClasses[align]} max-w-4xl px-4 w-full ${align === 'center' ? 'mx-auto' : ''}`}>
               {tagline && (
-                <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-mbh-gold/30 bg-mbh-gold/10 text-mbh-gold-300 text-xs sm:text-sm font-medium tracking-wider uppercase mb-6 shadow-[0_0_15px_rgba(168,85,247,0.2)] backdrop-blur-sm">
-                  <span className="w-1.5 h-1.5 rounded-full bg-mbh-gold animate-[glow-pulse_3s_ease-in-out_infinite]" />
+                <span className={hideTaglineBox 
+                  ? "inline-flex items-center gap-2 text-mbh-gold text-xs sm:text-sm font-bold tracking-wider uppercase mb-6"
+                  : "inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-mbh-gold/30 bg-mbh-gold/10 text-mbh-gold-300 text-xs sm:text-sm font-medium tracking-wider uppercase mb-6 shadow-[0_0_15px_rgba(168,85,247,0.2)] backdrop-blur-sm"
+                }>
+                  {!hideTaglineBox && <span className="w-1.5 h-1.5 rounded-full bg-mbh-gold animate-[glow-pulse_3s_ease-in-out_infinite]" />}
                   {tagline}
                 </span>
               )}
@@ -199,7 +204,10 @@ export default function Hero({
                 {ctaText && (
                   <Link
                     href={ctaHref!}
-                    className="btn-glow px-8 py-4 rounded-xl text-base font-semibold text-white inline-flex items-center gap-2 group animate-[glow-pulse_3s_ease-in-out_infinite] shadow-[0_0_20px_rgba(168,85,247,0.4)]"
+                    className={hideTaglineBox
+                      ? "px-8 py-4 rounded-xl text-base font-semibold text-white inline-flex items-center gap-2 group border border-mbh-gold/30 bg-mbh-gold/10 backdrop-blur-md hover:bg-mbh-gold/20 hover:border-mbh-gold/50 transition-all duration-300 shadow-[0_0_15px_rgba(212,175,55,0.15)]"
+                      : "btn-glow px-8 py-4 rounded-xl text-base font-semibold text-white inline-flex items-center gap-2 group animate-[glow-pulse_3s_ease-in-out_infinite] shadow-[0_0_20px_rgba(168,85,247,0.4)]"
+                    }
                   >
                     {ctaText}
                     <ArrowRight
@@ -257,8 +265,11 @@ export default function Hero({
           className="relative z-20 container-mbh w-full h-full flex flex-col items-center justify-center text-center px-4"
         >
           {tagline && (
-            <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-mbh-gold/30 bg-mbh-gold/10 text-mbh-gold-300 text-xs sm:text-sm font-medium tracking-wider uppercase mb-6 shadow-[0_0_15px_rgba(168,85,247,0.2)] backdrop-blur-sm">
-              <span className="w-1.5 h-1.5 rounded-full bg-mbh-gold animate-[glow-pulse_3s_ease-in-out_infinite]" />
+            <span className={hideTaglineBox
+              ? "inline-flex items-center gap-2 text-mbh-gold text-xs sm:text-sm font-bold tracking-wider uppercase mb-6"
+              : "inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-mbh-gold/30 bg-mbh-gold/10 text-mbh-gold-300 text-xs sm:text-sm font-medium tracking-wider uppercase mb-6 shadow-[0_0_15px_rgba(168,85,247,0.2)] backdrop-blur-sm"
+            }>
+              {!hideTaglineBox && <span className="w-1.5 h-1.5 rounded-full bg-mbh-gold animate-[glow-pulse_3s_ease-in-out_infinite]" />}
               {tagline}
             </span>
           )}
@@ -277,7 +288,10 @@ export default function Hero({
             {ctaText && (
               <Link
                 href={ctaHref!}
-                className="btn-glow px-8 py-4 rounded-xl text-base font-semibold text-white inline-flex items-center gap-2 group animate-[glow-pulse_3s_ease-in-out_infinite] shadow-[0_0_20px_rgba(168,85,247,0.4)]"
+                className={hideTaglineBox
+                  ? "px-8 py-4 rounded-xl text-base font-semibold text-white inline-flex items-center gap-2 group border border-mbh-gold/30 bg-mbh-gold/10 backdrop-blur-md hover:bg-mbh-gold/20 hover:border-mbh-gold/50 transition-all duration-300 shadow-[0_0_15px_rgba(212,175,55,0.15)]"
+                  : "btn-glow px-8 py-4 rounded-xl text-base font-semibold text-white inline-flex items-center gap-2 group animate-[glow-pulse_3s_ease-in-out_infinite] shadow-[0_0_20px_rgba(168,85,247,0.4)]"
+                }
               >
                 {ctaText}
                 <ArrowRight

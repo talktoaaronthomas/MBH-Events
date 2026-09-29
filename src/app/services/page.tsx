@@ -59,6 +59,7 @@ export default function ServicesPage() {
         subtitle="Tell us about your event and we'll recommend the perfect solution. No commitment, just expert guidance."
         ctaText="Let's Talk"
         ctaHref="/contact"
+        variant="dark"
       />
     </>
   );
