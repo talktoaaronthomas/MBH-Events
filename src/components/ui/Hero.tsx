@@ -205,7 +205,7 @@ export default function Hero({
                   <Link
                     href={ctaHref!}
                     className={hideTaglineBox
-                      ? "px-8 py-4 rounded-xl text-base font-semibold text-white inline-flex items-center gap-2 group border border-mbh-gold/60 bg-mbh-gold/40 backdrop-blur-md hover:bg-mbh-gold/60 hover:border-mbh-gold transition-all duration-300 shadow-[0_0_20px_rgba(212,175,55,0.4)]"
+                      ? "px-8 py-4 rounded-xl text-base font-semibold text-white inline-flex items-center gap-2 group border border-red-500/60 bg-red-500/40 backdrop-blur-md hover:bg-red-500/60 hover:border-red-500 transition-all duration-300 shadow-[0_0_20px_rgba(239,68,68,0.4)]"
                       : "btn-glow px-8 py-4 rounded-xl text-base font-semibold text-white inline-flex items-center gap-2 group animate-[glow-pulse_3s_ease-in-out_infinite] shadow-[0_0_20px_rgba(168,85,247,0.4)]"
                     }
                   >
@@ -289,7 +289,7 @@ export default function Hero({
               <Link
                 href={ctaHref!}
                 className={hideTaglineBox
-                  ? "px-8 py-4 rounded-xl text-base font-semibold text-white inline-flex items-center gap-2 group border border-mbh-gold/60 bg-mbh-gold/40 backdrop-blur-md hover:bg-mbh-gold/60 hover:border-mbh-gold transition-all duration-300 shadow-[0_0_20px_rgba(212,175,55,0.4)]"
+                  ? "px-8 py-4 rounded-xl text-base font-semibold text-white inline-flex items-center gap-2 group border border-red-500/60 bg-red-500/40 backdrop-blur-md hover:bg-red-500/60 hover:border-red-500 transition-all duration-300 shadow-[0_0_20px_rgba(239,68,68,0.4)]"
                   : "btn-glow px-8 py-4 rounded-xl text-base font-semibold text-white inline-flex items-center gap-2 group animate-[glow-pulse_3s_ease-in-out_infinite] shadow-[0_0_20px_rgba(168,85,247,0.4)]"
                 }
               >
