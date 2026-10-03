@@ -781,7 +781,7 @@ export default async function ServicePage({ params }: ServicePageProps) {
         <>
           <style dangerouslySetInnerHTML={{ __html: `
             body {
-              background-color: #FFFDD0 !important;
+              background-color: #FBE9C7 !important;
             }
           
           /* Apply variables only within content-wrapper so Hero and Navbar stay white */
@@ -792,10 +792,10 @@ export default async function ServicePage({ params }: ServicePageProps) {
             --color-mbh-gold-600: #2E2618 !important;
             --color-mbh-white: #2E2618 !important;
             --color-mbh-white-dim: rgba(46, 38, 24, 0.8) !important;
-            --color-mbh-black-card: #FFFDD0 !important;
-            --color-mbh-black: #FFFDD0 !important;
-            --color-mbh-black-light: #FFFDD0 !important;
-            --color-mbh-gold-950: #FFFDD0 !important;
+            --color-mbh-black-card: #FBE9C7 !important;
+            --color-mbh-black: #FBE9C7 !important;
+            --color-mbh-black-light: #FBE9C7 !important;
+            --color-mbh-gold-950: #FBE9C7 !important;
             --color-white: #2E2618 !important;
           }
 
@@ -858,7 +858,7 @@ export default async function ServicePage({ params }: ServicePageProps) {
           
           /* Ensure gradient sections have the correct background */
           .content-wrapper .gradient-section {
-            background: #FFFDD0 !important;
+            background: #FBE9C7 !important;
           }
           
           /* Override borders */
