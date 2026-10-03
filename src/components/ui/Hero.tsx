@@ -190,7 +190,7 @@ export default function Hero({
                 </span>
               )}
               
-              <h1 className="font-heading text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-[1.1] tracking-tight text-mbh-white mb-6 drop-shadow-lg">
+              <h1 className="font-body text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-[1.1] tracking-tight text-mbh-white mb-6 drop-shadow-lg">
                 {title}
               </h1>
               
@@ -274,7 +274,7 @@ export default function Hero({
             </span>
           )}
           
-          <h1 className="font-heading text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-[1.1] tracking-tight text-mbh-white mb-6 drop-shadow-lg max-w-5xl">
+          <h1 className="font-body text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-[1.1] tracking-tight text-mbh-white mb-6 drop-shadow-lg max-w-5xl">
             {title}
           </h1>
           
