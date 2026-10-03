@@ -848,6 +848,11 @@ export default async function ServicePage({ params }: ServicePageProps) {
           .content-wrapper form select,
           .content-wrapper form textarea {
             border-color: rgba(139, 109, 56, 0.4) !important;
+            color: #2E2618 !important;
+          }
+          .content-wrapper form select option {
+            background-color: #FBE9C7 !important;
+            color: #2E2618 !important;
           }
           .content-wrapper form input:focus,
           .content-wrapper form select:focus,
