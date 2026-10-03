@@ -182,8 +182,8 @@ export default function Hero({
             <div className={`flex flex-col ${alignClasses[align]} max-w-4xl px-4 w-full ${align === 'center' ? 'mx-auto' : ''}`}>
               {tagline && (
                 <span className={hideTaglineBox 
-                  ? "inline-flex items-center gap-2 text-mbh-gold text-xs sm:text-sm font-bold tracking-wider uppercase mb-6"
-                  : "inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-mbh-gold/30 bg-mbh-gold/10 text-mbh-gold-300 text-xs sm:text-sm font-medium tracking-wider uppercase mb-6 shadow-[0_0_15px_rgba(168,85,247,0.2)] backdrop-blur-sm"
+                  ? "inline-flex items-center gap-2 text-mbh-gold text-base sm:text-lg font-heading font-extrabold tracking-widest uppercase mb-6 drop-shadow-md"
+                  : "inline-flex items-center gap-2 px-5 py-2 rounded-full border border-mbh-gold/30 bg-mbh-gold/10 text-mbh-gold-300 text-base sm:text-lg font-heading font-bold tracking-widest uppercase mb-6 shadow-[0_0_15px_rgba(168,85,247,0.2)] backdrop-blur-sm"
                 }>
                   {!hideTaglineBox && <span className="w-1.5 h-1.5 rounded-full bg-mbh-gold animate-[glow-pulse_3s_ease-in-out_infinite]" />}
                   {tagline}
@@ -266,8 +266,8 @@ export default function Hero({
         >
           {tagline && (
             <span className={hideTaglineBox
-              ? "inline-flex items-center gap-2 text-mbh-gold text-xs sm:text-sm font-bold tracking-wider uppercase mb-6"
-              : "inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-mbh-gold/30 bg-mbh-gold/10 text-mbh-gold-300 text-xs sm:text-sm font-medium tracking-wider uppercase mb-6 shadow-[0_0_15px_rgba(168,85,247,0.2)] backdrop-blur-sm"
+              ? "inline-flex items-center gap-2 text-mbh-gold text-base sm:text-lg font-heading font-extrabold tracking-widest uppercase mb-6 drop-shadow-md"
+              : "inline-flex items-center gap-2 px-5 py-2 rounded-full border border-mbh-gold/30 bg-mbh-gold/10 text-mbh-gold-300 text-base sm:text-lg font-heading font-bold tracking-widest uppercase mb-6 shadow-[0_0_15px_rgba(168,85,247,0.2)] backdrop-blur-sm"
             }>
               {!hideTaglineBox && <span className="w-1.5 h-1.5 rounded-full bg-mbh-gold animate-[glow-pulse_3s_ease-in-out_infinite]" />}
               {tagline}
