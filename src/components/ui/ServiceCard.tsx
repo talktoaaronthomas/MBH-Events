@@ -47,12 +47,12 @@ export default function ServiceCard({
         href={`/services/${slug}`}
         className={`group relative flex flex-col justify-end ${compact ? 'h-[160px] md:h-[200px]' : 'h-[180px] md:h-[220px]'} overflow-hidden rounded-2xl border transition-all duration-500
           ${tier === 'flagship'
-            ? 'border-mbh-gold/30 shadow-[0_0_30px_rgba(212,175,55,0.1)]'
+            ? 'border-mbh-gold/30 shadow-[0_0_30px_rgba(239,68,68,0.1)]'
             : tier === 'premium'
             ? 'border-mbh-gold-400/20'
             : 'border-white/5'
           }
-          hover:border-mbh-gold/40 hover:shadow-[0_20px_50px_rgba(0,0,0,0.4),0_0_30px_rgba(212,175,55,0.15)]
+          hover:border-mbh-gold/40 hover:shadow-[0_20px_50px_rgba(0,0,0,0.4),0_0_30px_rgba(239,68,68,0.15)]
           hover:-translate-y-2
         `}
       >

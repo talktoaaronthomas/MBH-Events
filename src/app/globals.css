@@ -56,10 +56,10 @@
   --radius-2xl: 2rem;
 
   /* Purple glow shadows */
-  --shadow-glow-sm: 0 0 15px rgba(212, 175, 55, 0.3);
-  --shadow-glow: 0 0 30px rgba(212, 175, 55, 0.4);
-  --shadow-glow-lg: 0 0 60px rgba(212, 175, 55, 0.5);
-  --shadow-glow-xl: 0 0 80px rgba(212, 175, 55, 0.3), 0 0 120px rgba(212, 175, 55, 0.15);
+  --shadow-glow-sm: 0 0 15px rgba(239, 68, 68, 0.3);
+  --shadow-glow: 0 0 30px rgba(239, 68, 68, 0.4);
+  --shadow-glow-lg: 0 0 60px rgba(239, 68, 68, 0.5);
+  --shadow-glow-xl: 0 0 80px rgba(239, 68, 68, 0.3), 0 0 120px rgba(239, 68, 68, 0.15);
 
   /* Z-index */
   --z-nav: 50;
@@ -86,10 +86,10 @@
 
   @keyframes glow-pulse {
     0%, 100% {
-      box-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
+      box-shadow: 0 0 20px rgba(239, 68, 68, 0.4);
     }
     50% {
-      box-shadow: 0 0 40px rgba(212, 175, 55, 0.7), 0 0 60px rgba(212, 175, 55, 0.3);
+      box-shadow: 0 0 40px rgba(239, 68, 68, 0.7), 0 0 60px rgba(239, 68, 68, 0.3);
     }
   }
 
@@ -173,7 +173,7 @@ body {
 
 /* Selection */
 ::selection {
-  background-color: rgba(212, 175, 55, 0.4);
+  background-color: rgba(239, 68, 68, 0.4);
   color: #fff;
 }
 
@@ -210,7 +210,7 @@ body {
   background: rgba(10, 10, 10, 0.7);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(212, 175, 55, 0.15);
+  border: 1px solid rgba(239, 68, 68, 0.15);
 }
 
 .glass-subtle {
@@ -260,11 +260,11 @@ body {
   position: relative;
   background: linear-gradient(135deg, var(--color-mbh-gold), var(--color-mbh-gold-600));
   transition: all 0.3s var(--ease-out-expo);
-  box-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
+  box-shadow: 0 0 20px rgba(239, 68, 68, 0.3);
 }
 
 .btn-glow:hover {
-  box-shadow: 0 0 40px rgba(212, 175, 55, 0.6), 0 0 80px rgba(212, 175, 55, 0.2);
+  box-shadow: 0 0 40px rgba(239, 68, 68, 0.6), 0 0 80px rgba(239, 68, 68, 0.2);
   transform: translateY(-2px);
 }
 
@@ -290,8 +290,8 @@ body {
 
 .card-hover:hover {
   transform: translateY(-6px);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3), 0 0 30px rgba(212, 175, 55, 0.15);
-  border-color: rgba(212, 175, 55, 0.3);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3), 0 0 30px rgba(239, 68, 68, 0.15);
+  border-color: rgba(239, 68, 68, 0.3);
 }
 
 /* Animated underline for links */
