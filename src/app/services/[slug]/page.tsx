@@ -894,6 +894,7 @@ export default async function ServicePage({ params }: ServicePageProps) {
               loop 
               playsInline
               preload="auto"
+              poster={service.heroImage}
               className="absolute inset-0 w-full h-full object-cover z-0"
             >
               <source src={`/videos/${service.slug}.mp4`} type="video/mp4" />
