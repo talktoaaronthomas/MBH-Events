@@ -993,7 +993,7 @@ export default async function ServicePage({ params }: ServicePageProps) {
               <ScrollReveal key={step.step} variant="fadeUp" delay={index * 0.1}>
                 <div className="flex gap-6 mb-8 last:mb-0">
                   <div className="flex flex-col items-center">
-                    <div className="w-12 h-12 rounded-full bg-mbh-gold/10 border border-mbh-gold/30 flex items-center justify-center text-mbh-gold-300 font-heading font-bold text-lg flex-shrink-0">
+                    <div className={`w-12 h-12 rounded-full bg-mbh-gold/10 border border-mbh-gold/30 flex items-center justify-center font-heading font-bold text-lg flex-shrink-0 ${service.slug === 'luxury-weddings' ? 'text-black' : 'text-mbh-gold-300'}`}>
                       {index + 1}
                     </div>
                     {index < service.process.length - 1 && (
